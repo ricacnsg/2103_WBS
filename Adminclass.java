@@ -2,36 +2,55 @@ public class Admin {
     private String Name, username, password;
     private int AdminID, ContactInfo;
 
-    public void setUsername(){
+    //constructors
+    public Admin(String Name, String username, String password, int AdminID, int ContactInfo){
+        this.username = username;
+        this.password = password;
+        this.AdminID = AdminID;
+    }
+
+    public void setUsername(String username){
+        this.username = username;
 
     }
 
-    public void getUsername(){
+    public String getUsername(){
+        // Blocks of code on how to get the username of the admin
+        return username;
+    }
+
+    public void setPassword(String password){
+        this.password = password;
 
     }
 
-    public void setPassword(){
+    public String getPassword(){
+        // Blocks of code on how to get the password of the admin
 
+        return password;
     }
 
-    public void getPassword(){
-
-    }
-
-    public void setAdminID(){
+    public void setAdminID(int AdminID){
+        this.AdminID = AdminID;
 
     }
     
-    public void getAdminID(){
+    public int getAdminID(){
+        // Blocks of code on how to get the ID of the admin
 
+        return AdminID;
     }
 
-    public void Login(){
+    public boolean Login(String username, String password){
+        // Jason: changed the return type to boolean
+        // blocks of code to login
 
+        return this.username.equals(username) && this.password.equals(password);
     }
+    // mga boss need help
+    public boolean isAdminValid(){
 
-    public void isAdminValid(){
-
+        return adminID > 0 && username != null && !username.isEmpty();
     }
 
     public void retrieveHistoryData(){
