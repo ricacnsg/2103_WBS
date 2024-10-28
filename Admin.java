@@ -52,7 +52,7 @@ public class Admin {
     // mga boss di pa ako sure dito
     public boolean isAdminValid(){
 
-        return adminID > 0 && username != null && !username.isEmpty();
+        return AdminID > 0 && username != null && !username.isEmpty();
     }
 
     public void retrieveHistoryData(){
