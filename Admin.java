@@ -7,9 +7,9 @@ public class Admin {
     // Constructors
     public Admin(String Name, String username, String password, int AdminID, int ContactInfo) {
         this.Name = Name;
-        setUsername(username);
-        setPassword(password);
-        setAdminID(AdminID);
+        this.username = username;
+        this.password = password;
+        this.AdminID = AdminID;
         this.ContactInfo = ContactInfo;
     }
 
