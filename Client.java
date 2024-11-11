@@ -1,3 +1,5 @@
+package wbs_2103;
+
 import java.util.Scanner;
 import java.util.Random;
 
@@ -41,7 +43,7 @@ public class Client {
         this.contactNumber = contactNumber;
     }
 
-    public int getcontactNumber(){
+    public long getcontactNumber(){
         //block of code on how to get contact number of client
 
         return contactNumber;
@@ -110,14 +112,14 @@ public class Client {
         }
 
         System.out.println(" Enter new House Number: ");
-        String newhouseN = scan.nextLine();
-        if(!newhouseN.isEmpty()){
+        int newhouseN = scan.nextInt();
+        if(newhouseN > 0){
             this.houseNumber = newhouseN;
         }
 
         System.out.println("Enter new Contact Number: ");
-        String newcontact = scan.nextLine();
-        if(!newcontact.isEmpty()){
+        long newcontact = scan.nextInt();
+        if(newcontact > 0){
             this.contactNumber = newcontact;
         }
 
