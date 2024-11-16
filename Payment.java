@@ -1,3 +1,4 @@
+package wbs_2103;
 public class Payment {
 
     private String PaymentMethod, Pin;
