@@ -4,11 +4,11 @@ import java.awt.Component;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
-import java.util.Scanner;
 import java.util.Random;
 import javax.swing.JOptionPane;
 import wbs_2103.Control_Connector.DBConnect;
 import java.sql.ResultSet;
+import java.util.Scanner;
 
 public class Client {
     private int houseNumber, meterID;
@@ -163,20 +163,14 @@ public class Client {
 
     public boolean login(String cUsername, String randPass){
         //make a query for getting values from the database para macheck if tama ang username and password
-         String query = "SELECT * FROM client WHERE ClientUsername = ? AND RandPass = ?";
+        String query = "SELECT * FROM client WHERE ClientUsername = ? AND RandPass = ?";
         try (PreparedStatement pstmt = connect.prepareStatement(query)) {
-            // Set the username and password in the prepared statement to avoid SQL injection
             pstmt.setString(1, cUsername);
             pstmt.setString(2, randPass);
 
             ResultSet rs = pstmt.executeQuery();
 
-            // Check if there is at least one row that matches the query
-            if (rs.next()) {
-                return true; // Login successful
-            } else {
-                return false; // Login failed
-            }
+             return rs.next();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Error: " + e.getMessage());
         }
