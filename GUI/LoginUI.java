@@ -10,7 +10,6 @@ import wbs_2103.Client;
  * @author Rica Mae
  */
 public class LoginUI extends javax.swing.JFrame {
-    private String password;
     Client client = new Client();
     /**
      * Creates new form LoginUI
@@ -57,9 +56,11 @@ public class LoginUI extends javax.swing.JFrame {
         });
 
         jLabel2.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Username");
 
         jLabel3.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Password");
 
         passwordField.addActionListener(new java.awt.event.ActionListener() {
@@ -162,7 +163,7 @@ public class LoginUI extends javax.swing.JFrame {
 
     private void usernameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameFieldActionPerformed
         // TODO add your handling code here:
-        client.setcUsername(usernameField.getText());
+        
     }//GEN-LAST:event_usernameFieldActionPerformed
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
@@ -174,20 +175,22 @@ public class LoginUI extends javax.swing.JFrame {
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         // TODO add your handling code here:
+        client.setcUsername(usernameField.getText());
+        String password = new String(passwordField.getPassword());
         
-        password = new String(passwordField.getPassword());
-        //boolean loginSuccessful = client.login(client.getcUsername(), password);
+        boolean loginsuccess = client.login(client.getcUsername(), password);
         
-        if (!client.login(client.getcUsername(), password)) {
-            JOptionPane.showMessageDialog(this, "Invalid username or password or ID.");
-        } else {
-            JOptionPane.showMessageDialog(this, "Login successful!");
+        if(loginsuccess){
+            JOptionPane.showMessageDialog(null,"ACCOUNT LOGIN SUCCESSFULLY");
+        }
+        else{
+            JOptionPane.showMessageDialog(null,"ACCOUNT LOGIN UNSUCCESSFUL");
         }
     }//GEN-LAST:event_loginButtonActionPerformed
 
     private void passwordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordFieldActionPerformed
         // TODO add your handling code here:
-        password = new String(passwordField.getPassword());
+        
     }//GEN-LAST:event_passwordFieldActionPerformed
 
     /**

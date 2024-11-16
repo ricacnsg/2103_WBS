@@ -128,7 +128,7 @@ public class ClientUI extends javax.swing.JFrame {
 
     private void CreateAccButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateAccButtonActionPerformed
         // TODO add your handling code here:
-        CreateAccUI createaccUI = new CreateAccUI();
+        CreateAcc createaccUI = new CreateAcc();
             createaccUI.setVisible(true);
             dispose();
     }//GEN-LAST:event_CreateAccButtonActionPerformed

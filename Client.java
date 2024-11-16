@@ -1,21 +1,26 @@
 package wbs_2103;
 
+import java.awt.Component;
+import java.sql.Connection;
+import java.sql.Statement;
+import java.sql.PreparedStatement;
 import java.util.Scanner;
 import java.util.Random;
+import javax.swing.JOptionPane;
+import wbs_2103.Control_Connector.DBConnect;
+import java.sql.ResultSet;
 
 public class Client {
     private int houseNumber, meterID;
     private long contactNumber;
     private String location, clientStatus, cUsername, randPass;
+    private Connection connect;
+    private Component rootPane;
 
     //constructor
-    public Client(int houseNumber, long contactNumber, String location, String cUsername, String randPass, int meterID){
-        this.houseNumber = houseNumber;
-        this.contactNumber = contactNumber;
-        this.location = location;
-        this.cUsername = cUsername;
-        this.randPass = randPass;
-        this.meterID = meterID;
+    public Client(){
+        DBConnect dbconnect = new DBConnect();
+        this.connect = dbconnect.getConnection();
     }
 
     public void setHouseNumber(int houseNumber){
@@ -68,7 +73,7 @@ public class Client {
 
         return cUsername;
     }
-
+    
     public void setmeterID(int meterID){
         this.meterID = meterID;
     }
@@ -82,7 +87,7 @@ public class Client {
 
     }
 
-    public String getrandPass(){
+    public String generaterandPass(){
         //blocks of code to give the client random password when they created their account
 
         String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -97,7 +102,7 @@ public class Client {
         this.randPass = pass.toString();
         return randPass;
     }
-
+    
     public void updateInfo(){
         //user will update their personal info
 
@@ -128,9 +133,6 @@ public class Client {
         if(newLoc.isEmpty()){
             this.location = newLoc;
         }
-
-
-
     }
 
     public void comptoAdmin(){
@@ -138,49 +140,47 @@ public class Client {
 
     }
 
-    public void createAcc(String cUsername){
+    public void createAcc(String Location, long ContactNumber, String ClientStatus, String ClientUsername, String RandPass){
         //blocks of code to create an account
 
-        Scanner scan = new Scanner(System.in);
+        try {
+            Statement stmt = connect.createStatement();
+            //String query = "INSERT INTO client (Location, ContactNumber, ClientStatus, ClientUsername, RandPass) VALUES ("+client.getlocation()+", "+client.getcontactNumber()+", "+client.getclientStatus()+", "+client.getcUsername()+", "+client.getrandPass()+")";
+            String query = "INSERT INTO client (Location, ContactNumber, ClientStatus, ClientUsername, RandPass) VALUES ('"
+               + getlocation() + "', '"
+               + getcontactNumber() + "', '"
+               + getclientStatus() + "', '"
+               + getcUsername() + "', '"
+               + generaterandPass() + "')";
 
-        System.out.println("Enter your desired Username: ");
-        String usern = scan.nextLine();
-        this.cUsername = usern;
-
-        System.out.println("Enter House Number: ");
-        int houseN = scan.nextInt();
-        this.houseNumber = houseN;
-
-        System.out.println("Enter your Contact Number: ");
-        Long contactN = scan.nextLong();
-        this.contactNumber = contactN;
-        scan.nextLine();
-
-        System.out.println("Enter your Location: ");
-        String loc = scan.nextLine();
-        this.location = loc;
-
-        System.out.println("Enter how many meters do you have?: ");
-        int meters = scan.nextInt();
-        scan.nextLine();
-
-        //to generate and display the meterID 
-        for(int i = 1; i <= meters; i++){
-            int meterID = getmeterID();
-            System.out.println("MeterID for " + i + ":" + meterID);
-            this.meterID = meterID;
+            stmt.execute(query);
+            JOptionPane.showMessageDialog(null,"ACCOUNT SUCCESSFULLY CREATED!");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e);
         }
-
-        //to generate and display random password
-        this.randPass = getrandPass();
-        System.out.println("Account Created Successfully! ");
-        System.out.println("Username: " + cUsername);
-        System.out.println("Your Password is: " + this.randPass);
 
     }
 
     public boolean login(String cUsername, String randPass){
-        return this.cUsername.equals(cUsername) && this.randPass.equals(randPass);
+        //make a query for getting values from the database para macheck if tama ang username and password
+         String query = "SELECT * FROM client WHERE ClientUsername = ? AND RandPass = ?";
+        try (PreparedStatement pstmt = connect.prepareStatement(query)) {
+            // Set the username and password in the prepared statement to avoid SQL injection
+            pstmt.setString(1, cUsername);
+            pstmt.setString(2, randPass);
+
+            ResultSet rs = pstmt.executeQuery();
+
+            // Check if there is at least one row that matches the query
+            if (rs.next()) {
+                return true; // Login successful
+            } else {
+                return false; // Login failed
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Error: " + e.getMessage());
+        }
+        return false;     
     }
 
     public void loginAcc(){
