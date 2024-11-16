@@ -1,16 +1,24 @@
 package wbs_2103;
 
+import java.awt.Component;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import javax.swing.JOptionPane;
+import wbs_2103.Control_Connector.DBConnect;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+
 public class Admin {
     private String Name, username, password;
     private int AdminID, ContactInfo;
+    private Connection connect;
+    private Component rootPane;
+    Client client = new Client();
 
     // Constructors
-    public Admin(String Name, String username, String password, int AdminID, int ContactInfo) {
-        this.Name = Name;
-        this.username = username;
-        this.password = password;
-        this.AdminID = AdminID;
-        this.ContactInfo = ContactInfo;
+    public Admin() {
+        DBConnect dbconnect = new DBConnect();
+        this.connect = dbconnect.getConnection();
     }
 
     public void setUsername(String username) {
@@ -56,6 +64,32 @@ public class Admin {
 
     public void retrieveHistoryData() {
         // Implementation for retrieving history data
+        
     }
+ //DIPA NAGANA   
+    public ArrayList<String> retrieveClientIDs(){
+        ArrayList<String> clientIDs = new ArrayList<>();
+        String query = "SELECT HouseNumber FROM client";
+        try (PreparedStatement pstmt = connect.prepareStatement(query)) {
+            ResultSet rs = pstmt.executeQuery();
+
+            while(rs.next()){
+                clientIDs.add(rs.getString("HouseNumber"));
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Error: " + e.getMessage());
+        }
+        return clientIDs; 
+    }
+    
+    
+    
+    
+    
+    
+    /*WHAT IF NEW METHOD: need ng permission ng admin na gawing inactive 
+    ang meter ng client tapos bago ma-confirm pupuntahan ng admin ang meter tapos puputulin muna.
+    and ang updateinfo na function ng client ay magiging request na masesend sa admin tapos dapat ico-confirm muna sha ng admin
+    */
 }
 
