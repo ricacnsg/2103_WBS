@@ -1,6 +1,6 @@
 public class Payment {
 
-    private String PaymentMethod;
+    private String PaymentMethod, Pin;
     private int HouseNumber, PaymentDate, BalancethisMonth, InputPayment, CurrentBalance;
     
     //constructor
@@ -11,9 +11,22 @@ public class Payment {
         this.BalancethisMonth = BalancethisMonth;
         this.InputPayment = InputPayment;
         this.CurrentBalance = CurrentBalance;
+        this.Pin = Pin;
         
     }
-
+    
+    public void setPin(String Pin){
+        if (Pin == null || Pin.length() != 4 || !Pin.matches("\\d+")){
+            throw new IllegalArgumentException("Invalid PIN. PIN must be a 4-digit number.");
+        }
+        
+        this.Pin = Pin;
+    }
+    
+    public String getPin(){
+        return "****";
+    }
+    
     public void payOnline(){
         switch (PaymentMethod.toLowerCase()){
             case "gcash":
