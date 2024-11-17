@@ -181,7 +181,9 @@ public class LoginUI extends javax.swing.JFrame {
         boolean loginsuccess = client.login(client.getcUsername(), password);
         
         if(loginsuccess){
-            JOptionPane.showMessageDialog(null,"ACCOUNT LOGIN SUCCESSFULLY");
+            ClientMenuPage clientmenu = new ClientMenuPage();
+                clientmenu.setVisible(true);
+                dispose();
         }
         else{
             JOptionPane.showMessageDialog(null,"ACCOUNT LOGIN UNSUCCESSFUL");

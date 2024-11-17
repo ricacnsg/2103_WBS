@@ -32,6 +32,7 @@ public class ClientUI extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         gotoAdminLoginButton = new javax.swing.JToggleButton();
+        jSeparator1 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -69,6 +70,7 @@ public class ClientUI extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(51, 51, 51));
         jLabel4.setText("LOGIN OR CREATE NEW ACCOUNT?");
 
+        gotoAdminLoginButton.setBackground(new java.awt.Color(153, 153, 153));
         gotoAdminLoginButton.setFont(new java.awt.Font("Arial Black", 1, 10)); // NOI18N
         gotoAdminLoginButton.setText("I AM ADMIN");
         gotoAdminLoginButton.addActionListener(new java.awt.event.ActionListener() {
@@ -100,6 +102,7 @@ public class ClientUI extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(gotoAdminLoginButton)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jSeparator1)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -108,7 +111,9 @@ public class ClientUI extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(LoginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -149,11 +154,9 @@ public class ClientUI extends javax.swing.JFrame {
 
     private void gotoAdminLoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gotoAdminLoginButtonActionPerformed
         // TODO add your handling code here:
-        /* WALA PA
         AdminLogin adminlogin = new AdminLogin();
             adminlogin.setVisible(true);
             dispose();
-        */
     }//GEN-LAST:event_gotoAdminLoginButtonActionPerformed
 
     /**
@@ -199,5 +202,6 @@ public class ClientUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 }
