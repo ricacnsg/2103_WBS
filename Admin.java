@@ -55,7 +55,7 @@ public class Admin {
     }
 
     public boolean Login(String username, String password) {
-                String query = "SELECT * FROM admin WHERE username = ? AND password = ?";
+        String query = "SELECT * FROM admin WHERE username = ? AND password = ?";
         try (PreparedStatement pstmt = connect.prepareStatement(query)) {
             pstmt.setString(1, username);
             pstmt.setString(2, password);
