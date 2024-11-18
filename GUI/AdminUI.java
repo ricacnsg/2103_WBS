@@ -264,12 +264,11 @@ public class AdminUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
-        // TODO add your handling code here:
-        /* WALA PA
+        // TODO add your handling code here:    
         AdminLogin adminlogin = new AdminLogin();
             adminlogin.setVisible(true);
             dispose();
-        */
+
     }//GEN-LAST:event_logoutButtonActionPerformed
 
     private void clientreqButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clientreqButtonActionPerformed
