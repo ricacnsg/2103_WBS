@@ -84,7 +84,7 @@ public class AdminUI extends javax.swing.JFrame {
         jLabel2.setText("AQUABILL");
 
         logoutButton.setBackground(new java.awt.Color(102, 102, 102));
-        logoutButton.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+        logoutButton.setFont(new java.awt.Font("Arial Black", 1, 10)); // NOI18N
         logoutButton.setForeground(new java.awt.Color(204, 255, 255));
         logoutButton.setText("LOGOUT");
         logoutButton.addActionListener(new java.awt.event.ActionListener() {
@@ -106,7 +106,7 @@ public class AdminUI extends javax.swing.JFrame {
         jLabel5.setText("METER IDs");
 
         clientreqButton.setBackground(new java.awt.Color(102, 102, 102));
-        clientreqButton.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+        clientreqButton.setFont(new java.awt.Font("Arial Black", 1, 10)); // NOI18N
         clientreqButton.setForeground(new java.awt.Color(204, 255, 255));
         clientreqButton.setText("VIEW CLIENT REQUEST");
         clientreqButton.addActionListener(new java.awt.event.ActionListener() {
@@ -175,9 +175,9 @@ public class AdminUI extends javax.swing.JFrame {
             .addGroup(panel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
                     .addComponent(jScrollPane2)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
                     .addComponent(jScrollPane3)
                     .addComponent(jScrollPane6))
                 .addContainerGap())
