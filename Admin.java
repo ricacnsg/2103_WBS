@@ -55,7 +55,18 @@ public class Admin {
     }
 
     public boolean Login(String username, String password) {
-        return this.username.equals(username) && this.password.equals(password);
+        String query = "SELECT * FROM admin WHERE username = ? AND password = ?";
+        try (PreparedStatement pstmt = connect.prepareStatement(query)) {
+            pstmt.setString(1, username);
+            pstmt.setString(2, password);
+
+            ResultSet rs = pstmt.executeQuery();
+
+             return rs.next();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Error: " + e.getMessage());
+        }
+        return false;  
     }
 
     public boolean isAdminValid() {
