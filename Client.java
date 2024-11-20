@@ -4,6 +4,7 @@ import java.awt.Component;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Random;
 import javax.swing.JOptionPane;
 import wbs_2103.Control_Connector.DBConnect;
@@ -13,7 +14,7 @@ import java.util.Scanner;
 public class Client {
     private int houseNumber, meterID;
     private long contactNumber;
-    private String location, clientStatus, cUsername, randPass;
+    private String location, clientStatus, cUsername, randPass, complaint;
     private Connection connect;
     private Component rootPane;
 
@@ -69,23 +70,37 @@ public class Client {
     }
 
     public String getcUsername(){
-        //blocks of code on how to get client username
-
         return cUsername;
     }
     
     public void setmeterID(int meterID){
+        //tatanggalin 'tong setter na 'to
         this.meterID = meterID;
     }
-
+    
     public int getmeterID(){
+        //tatanggalin 'tong getter na 'to
         if(this.meterID == 0) {
             Random random = new Random();
             this.meterID = 1000 + random.nextInt(9000);
         }
         return meterID;
-
     }
+    
+    public void setComplaint(String complaint) {
+        this.complaint = complaint;
+    }
+    
+    public String getComplaint() {
+        try {
+            JOptionPane.showMessageDialog(null,"Complaint/Review is Succesfully Submitted!");    
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e);
+        }
+        return complaint;
+    }
+    
 
     public String generaterandPass(){
         //blocks of code to give the client random password when they created their account
@@ -129,31 +144,69 @@ public class Client {
        
     }
 
-    public void comptoAdmin(){
-        //send complaint to the admin
+    public void createAcc(String Location, long ContactNumber, String ClientStatus, String ClientUsername, String RandPass) {
+    String createAccQuery = "INSERT INTO client (Location, ContactNumber, ClientStatus, ClientUsername, RandPass) VALUES (?, ?, ?, ?, ?)";
+    String createMeterUsageQuery = "INSERT INTO meterusage (clientID, MeterUsage, balance) VALUES (?, 0, 0)"; // Example structure
 
-    }
+    try {
+        // Use a transaction
+        connect.setAutoCommit(false);
 
-    public void createAcc(String Location, long ContactNumber, String ClientStatus, String ClientUsername, String RandPass){
-        //blocks of code to create an account
+        // Insert into the client table
+        try (PreparedStatement pstmt = connect.prepareStatement(createAccQuery, Statement.RETURN_GENERATED_KEYS)) {
+            pstmt.setString(1, Location);
+            pstmt.setLong(2, ContactNumber);
+            pstmt.setString(3, ClientStatus);
+            pstmt.setString(4, ClientUsername);
+            pstmt.setString(5, RandPass);
 
-        try {
-            Statement stmt = connect.createStatement();
-            //String query = "INSERT INTO client (Location, ContactNumber, ClientStatus, ClientUsername, RandPass) VALUES ("+client.getlocation()+", "+client.getcontactNumber()+", "+client.getclientStatus()+", "+client.getcUsername()+", "+client.getrandPass()+")";
-            String query = "INSERT INTO client (Location, ContactNumber, ClientStatus, ClientUsername, RandPass) VALUES ('"
-               + getlocation() + "', '"
-               + getcontactNumber() + "', '"
-               + getclientStatus() + "', '"
-               + getcUsername() + "', '"
-               + generaterandPass() + "')";
+            int affectedRows = pstmt.executeUpdate();
 
-            stmt.execute(query);
-            JOptionPane.showMessageDialog(null,"ACCOUNT SUCCESSFULLY CREATED!");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, e);
+            if (affectedRows == 0) {
+                throw new SQLException("Creating client failed, no rows affected.");
+            }
+
+            // Get the generated clientID
+            try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    int clientID = generatedKeys.getInt(1);
+
+                    // Insert into the meterusage table
+                    try (PreparedStatement meterStmt = connect.prepareStatement(createMeterUsageQuery)) {
+                        meterStmt.setInt(1, clientID);
+                        meterStmt.executeUpdate();
+                    }
+                } else {
+                    throw new SQLException("Creating client failed, no ID obtained.");
+                }
+            }
         }
 
+        // Commit transaction
+        connect.commit();
+
+        JOptionPane.showMessageDialog(
+            null,
+            "Your generated password is: " + RandPass + "\nNote: Please save your password",
+            "ACCOUNT SUCCESSFULLY CREATED!",
+            JOptionPane.INFORMATION_MESSAGE
+        );
+
+    } catch (Exception e) {
+        try {
+            connect.rollback(); // Rollback transaction if any exception occurs
+        } catch (SQLException rollbackEx) {
+            JOptionPane.showMessageDialog(null, "Error during rollback: " + rollbackEx.getMessage());
+        }
+        JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+    } finally {
+        try {
+            connect.setAutoCommit(true); // Restore default behavior
+        } catch (SQLException autoCommitEx) {
+            JOptionPane.showMessageDialog(null, "Error setting auto-commit: " + autoCommitEx.getMessage());
+        }
     }
+}
 
     public boolean login(String cUsername, String randPass){
         //make a query for getting values from the database para macheck if tama ang username and password
@@ -170,7 +223,7 @@ public class Client {
         }
         return false;     
     }
-
+// tatanggalin ang method na 'to
     public void loginAcc(){
         Scanner scan  = new Scanner(System.in);
 
