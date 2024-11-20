@@ -103,36 +103,30 @@ public class Client {
         return randPass;
     }
     
-    public void updateInfo(){
+    public void updateInfo(String cUsername, int houseNumber, long contactNumber, String location){
         //user will update their personal info
-
-        Scanner scan = new Scanner(System.in);
-
-        System.out.println("Update Client Information");
-
-        System.out.println("Enter new Username: ");
-        String newuserN = scan.nextLine();
-        if(!newuserN.isEmpty()){
-            this.cUsername = newuserN;
+        String query = "UPDATE client" + "SET cUsername + ?, location + ?, contactNumber = ? " + 
+                       "WHERE ClientID = ?";
+        
+        try (PreparedStatement preparedStatement = connect.prepareStatement(query)) {
+            preparedStatement.setString(1, getcUsername());
+            preparedStatement.setString(2, getlocation());
+            preparedStatement.setInt(3, getHouseNumber());
+            preparedStatement.setLong(4, getcontactNumber());
+            
+            int rowsUpdated = preparedStatement.executeUpdate();
+            if (rowsUpdated > 0){
+                System.out.println("Client information updated successfully.");
+            } else {
+                System.out.println("No client found with the given ID.");
+            }
+            
+            
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        System.out.println(" Enter new House Number: ");
-        int newhouseN = scan.nextInt();
-        if(newhouseN > 0){
-            this.houseNumber = newhouseN;
-        }
-
-        System.out.println("Enter new Contact Number: ");
-        long newcontact = scan.nextInt();
-        if(newcontact > 0){
-            this.contactNumber = newcontact;
-        }
-
-        System.out.println("Enter new Location: ");
-        String newLoc = scan.nextLine();
-        if(newLoc.isEmpty()){
-            this.location = newLoc;
-        }
+       
     }
 
     public void comptoAdmin(){
