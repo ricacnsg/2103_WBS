@@ -12,8 +12,8 @@ import java.sql.ResultSet;
 import java.util.Scanner;
 
 public class Client {
-    private int houseNumber, meterID;
-    private long contactNumber;
+    private int clientID, meterID;
+    private String contactNumber;
     private String location, clientStatus, cUsername, randPass, complaint;
     private Connection connect;
     private Component rootPane;
@@ -24,14 +24,12 @@ public class Client {
         this.connect = dbconnect.getConnection();
     }
 
-    public void setHouseNumber(int houseNumber){
-        this.houseNumber = houseNumber;
+    public void setclientID(int clientID){
+        this.clientID = clientID;
     }
 
-    public int getHouseNumber(){
-        //blocks of code on how to get house number
-
-        return houseNumber;
+    public int getclientID(){
+        return clientID;
     }
 
     public void setclientStatus(String clientStatus){
@@ -45,11 +43,11 @@ public class Client {
     }
 
     //Rica: added setters and getters for contact number and location
-    public void setcontactNumber(long contactNumber){
+    public void setcontactNumber(String contactNumber){
         this.contactNumber = contactNumber;
     }
 
-    public long getcontactNumber(){
+    public String getcontactNumber(){
         //block of code on how to get contact number of client
 
         return contactNumber;
@@ -93,6 +91,15 @@ public class Client {
     
     public String getComplaint() {
         try {
+            String complaint1 = "Walang tubig samin.";
+            String complaint2 = "Nasira ang metro namin, paki-ayos po.";
+            String complaint3 = "Mahina ang tubig samin.";
+            String complaint4 = "Malabo/hindi clear ang tubig samin.";
+            String complaint5 = "May tagas po ang tubo dito samin, paki-ayos po.";
+            
+            
+            
+            
             JOptionPane.showMessageDialog(null,"Complaint/Review is Succesfully Submitted!");    
             
         } catch (Exception e) {
@@ -118,25 +125,56 @@ public class Client {
         return randPass;
     }
     
-    public void updateInfo(String cUsername, int houseNumber, long contactNumber, String location){
-        //user will update their personal info
-        String query = "UPDATE client" + "SET cUsername + ?, location + ?, contactNumber = ? " + 
-                       "WHERE ClientID = ?";
+    public void updateInfo(String cUsername, String contactNumber, String location, String clientStatus, int clientID){
+        int parameterIndex = 1;
+
+        StringBuilder queryBuilder = new StringBuilder("UPDATE client SET ");
+        boolean willUpdate = false;
+
+        if (cUsername != null && !cUsername.isEmpty()) {
+            queryBuilder.append("ClientUsername = ?, ");
+            willUpdate = true;
+        }
+        if (contactNumber != null && !contactNumber.isEmpty()) {
+            queryBuilder.append("ContactNumber = ?, ");
+            willUpdate = true;
+        }
+        if (location != null && !location.isEmpty()) {
+            queryBuilder.append("Location = ?, ");
+            willUpdate = true;
+        }
+        if (clientStatus != null && !clientStatus.isEmpty()) {
+            queryBuilder.append("ClientStatus = ?, ");
+            willUpdate = true;
+        }
         
+        queryBuilder.setLength(queryBuilder.length() - 2);
+
+        queryBuilder.append(" WHERE clientID = ?");
+        String query = queryBuilder.toString();
+
         try (PreparedStatement preparedStatement = connect.prepareStatement(query)) {
-            preparedStatement.setString(1, getcUsername());
-            preparedStatement.setString(2, getlocation());
-            preparedStatement.setInt(3, getHouseNumber());
-            preparedStatement.setLong(4, getcontactNumber());
-            
-            int rowsUpdated = preparedStatement.executeUpdate();
-            if (rowsUpdated > 0){
-                System.out.println("Client information updated successfully.");
-            } else {
-                System.out.println("No client found with the given ID.");
+            if (clientID == 0) {
+                throw new Exception("ClientID is required to fill.");
             }
             
+            if (cUsername != null && !cUsername.isEmpty()) {
+                preparedStatement.setString(parameterIndex++, cUsername);
+            }
+            if (contactNumber != null && !contactNumber.isEmpty()) {
+                preparedStatement.setLong(parameterIndex++, Long.parseLong(contactNumber));
+            }
+            if (location != null && !location.isEmpty()) {
+                preparedStatement.setString(parameterIndex++, location);
+            }
+            if (clientStatus != null && !clientStatus.isEmpty()) {
+                preparedStatement.setString(parameterIndex++, clientStatus);
+            }
+            preparedStatement.setInt(parameterIndex, clientID);
+
+            preparedStatement.executeUpdate();
             
+            JOptionPane.showMessageDialog(null, "Changes are updated");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -144,18 +182,16 @@ public class Client {
        
     }
 
-    public void createAcc(String Location, long ContactNumber, String ClientStatus, String ClientUsername, String RandPass) {
+    public void createAcc(String Location, String ContactNumber, String ClientStatus, String ClientUsername, String RandPass) {
     String createAccQuery = "INSERT INTO client (Location, ContactNumber, ClientStatus, ClientUsername, RandPass) VALUES (?, ?, ?, ?, ?)";
-    String createMeterUsageQuery = "INSERT INTO meterusage (clientID, MeterUsage, balance) VALUES (?, 0, 0)"; // Example structure
+    String createMeterUsageQuery = "INSERT INTO meterusage (clientID, MeterUsage, balance) VALUES (?, 0, 0)";
 
     try {
-        // Use a transaction
         connect.setAutoCommit(false);
 
-        // Insert into the client table
         try (PreparedStatement pstmt = connect.prepareStatement(createAccQuery, Statement.RETURN_GENERATED_KEYS)) {
             pstmt.setString(1, Location);
-            pstmt.setLong(2, ContactNumber);
+            pstmt.setLong(2, Long.parseLong(ContactNumber));
             pstmt.setString(3, ClientStatus);
             pstmt.setString(4, ClientUsername);
             pstmt.setString(5, RandPass);
@@ -182,7 +218,6 @@ public class Client {
             }
         }
 
-        // Commit transaction
         connect.commit();
 
         JOptionPane.showMessageDialog(
@@ -247,7 +282,7 @@ public class Client {
         
         System.out.println("\n Client Information ");
         System.out.println("Username:" + this.cUsername);
-        System.out.println("Houser Number: " + this.houseNumber);
+        //System.out.println("Houser Number: " + this.houseNumber);
         System.out.println("Contact Number: " + this.contactNumber);
         System.out.println("Location: " + this.location);
     }

@@ -189,7 +189,7 @@ public class CreateAcc extends javax.swing.JFrame {
         // TODO add your handling code here:
         client.setcUsername(usernameField.getText());
         client.setlocation(locationField.getText());
-        client.setcontactNumber(Long.parseLong(contactnoField.getText()));
+        client.setcontactNumber(contactnoField.getText());
         client.setclientStatus("ACTIVE");
         
         client.createAcc(client.getlocation(), client.getcontactNumber(), client.getclientStatus(), client.getcUsername(), client.generaterandPass());
