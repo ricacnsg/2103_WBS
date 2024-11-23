@@ -3,18 +3,27 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package wbs_2103.GUI;
+import wbs_2103.Client;
 
 /**
  *
  * @author Rica Mae
  */
 public class AdminViewClientReq extends javax.swing.JFrame {
-
+    private static Client client = new Client();
+    private static String username, location, contactNumber, status;
+    private static int clientID;
     /**
      * Creates new form AdminViewClientReq
      */
-    public AdminViewClientReq() {
+    public AdminViewClientReq(Client client) {
         initComponents();
+        this.clientID = clientID;
+        this.username = username;
+        this.location = location;
+        this.contactNumber = contactNumber;
+        this.status = status;
+        this.client = client;
     }
 
     /**
@@ -138,6 +147,13 @@ public class AdminViewClientReq extends javax.swing.JFrame {
 
     private void confirmRequestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmRequestButtonActionPerformed
         // TODO add your handling code here:
+        
+        client.updateInfo(
+                client.getcUsername(), 
+                client.getcontactNumber(), 
+                client.getlocation(), 
+                client.getclientStatus(), 
+                client.getclientID());
     }//GEN-LAST:event_confirmRequestButtonActionPerformed
 
     private void backtoLoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backtoLoginButtonActionPerformed
@@ -181,7 +197,7 @@ public class AdminViewClientReq extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AdminViewClientReq().setVisible(true);
+                new AdminViewClientReq(client).setVisible(true);
             }
         });
     }
@@ -195,6 +211,6 @@ public class AdminViewClientReq extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea requestTextArea;
+    public javax.swing.JTextArea requestTextArea;
     // End of variables declaration//GEN-END:variables
 }

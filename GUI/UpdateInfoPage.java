@@ -10,6 +10,7 @@ import wbs_2103.Client;
  */
 public class UpdateInfoPage extends javax.swing.JFrame {
     Client client = new Client();
+    String selectedVal;
     /**
      * Creates new form UpdateInfoPage
      */
@@ -187,12 +188,24 @@ public class UpdateInfoPage extends javax.swing.JFrame {
 
     private void SubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitActionPerformed
         // TODO add your handling code here:
+        Client client = new Client();
+        AdminViewClientReq clientreq = new AdminViewClientReq(client);
         client.setcUsername(newUsernameField.getText());
         client.setlocation(newLocField.getText());
         client.setcontactNumber(newConNumField.getText());
+        client.setclientStatus(selectedVal);
         client.setclientID(Integer.parseInt(clientID.getText()));
         
-        client.updateInfo(client.getcUsername(), client.getcontactNumber(), client.getlocation(), client.getclientStatus(), client.getclientID());    
+        clientreq.requestTextArea.append(
+                "ClientID: " + client.getclientID() + "\n" +
+                "Username: " + client.getcUsername() + "\n" +
+                "Location: " + client.getlocation() + "\n" +
+                "Contact Number: " + client.getcontactNumber() + "\n" +
+                "Status: " + client.getclientStatus()
+        );  
+           
+        clientreq.setVisible(true);
+        
     }//GEN-LAST:event_SubmitActionPerformed
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
@@ -204,8 +217,8 @@ public class UpdateInfoPage extends javax.swing.JFrame {
 
     private void newStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newStatusActionPerformed
         // TODO add your handling code here:
-        String selectedVal = newStatus.getSelectedItem().toString();
-        client.setclientStatus(selectedVal);
+        selectedVal = newStatus.getSelectedItem().toString();
+        
         
     }//GEN-LAST:event_newStatusActionPerformed
 
