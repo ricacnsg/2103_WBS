@@ -202,12 +202,10 @@ public class Client {
                 throw new SQLException("Creating client failed, no rows affected.");
             }
 
-            // Get the generated clientID
             try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
                     int clientID = generatedKeys.getInt(1);
 
-                    // Insert into the meterusage table
                     try (PreparedStatement meterStmt = connect.prepareStatement(createMeterUsageQuery)) {
                         meterStmt.setInt(1, clientID);
                         meterStmt.executeUpdate();
@@ -229,14 +227,14 @@ public class Client {
 
     } catch (Exception e) {
         try {
-            connect.rollback(); // Rollback transaction if any exception occurs
+            connect.rollback();
         } catch (SQLException rollbackEx) {
             JOptionPane.showMessageDialog(null, "Error during rollback: " + rollbackEx.getMessage());
         }
         JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
     } finally {
         try {
-            connect.setAutoCommit(true); // Restore default behavior
+            connect.setAutoCommit(true);
         } catch (SQLException autoCommitEx) {
             JOptionPane.showMessageDialog(null, "Error setting auto-commit: " + autoCommitEx.getMessage());
         }
@@ -276,7 +274,7 @@ public class Client {
             System.out.println("Login Failed! ");
         }
     }
-
+//tatanggalin din itu
     public void clientInfo(){
         //blocks of code that will display the date when client had water meter and all of his/her transaction
         
