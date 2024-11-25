@@ -92,21 +92,6 @@ public class Client {
     }
     
     public String getComplaint() {
-        try {
-            String complaint1 = "Walang tubig samin.";
-            String complaint2 = "Nasira ang metro namin, paki-ayos po.";
-            String complaint3 = "Mahina ang tubig samin.";
-            String complaint4 = "Malabo/hindi clear ang tubig samin.";
-            String complaint5 = "May tagas po ang tubo dito samin, paki-ayos po.";
-            
-            
-            
-            
-            JOptionPane.showMessageDialog(null,"Complaint/Review is Succesfully Submitted!");    
-            
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, e);
-        }
         return complaint;
     }
     
@@ -204,7 +189,7 @@ public class Client {
 
     public void createAcc(String Location, String ContactNumber, String ClientStatus, String ClientUsername, String RandPass) {
     String createAccQuery = "INSERT INTO client (Location, ContactNumber, ClientStatus, ClientUsername, RandPass) VALUES (?, ?, ?, ?, ?)";
-    String createMeterUsageQuery = "INSERT INTO meterusage (clientID, MeterUsage, balance, ClientStatus) VALUES (?, 0, 0, ?)";
+    String createMeterUsageQuery = "INSERT INTO meterusage (clientID, MeterUsage, balance, ClientStatus, Date) VALUES (?, 0, 0, ?, NOW())";
 
     try {
         connect.setAutoCommit(false);
