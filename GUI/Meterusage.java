@@ -13,13 +13,13 @@ import wbs_2103.Client;
  *
  * @author Nhel Hernadez
  */
-public class MeterUsage extends javax.swing.JFrame {
-    Meterusage meterusage = new Meterusage();
+public class Meterusage extends javax.swing.JFrame {
+    MeterUsage meterusage = new MeterUsage();
     Client client = new Client();
     /**
      * Creates new form MeterUsage
      */
-    public MeterUsage() {
+    public Meterusage() {
         initComponents();
     }
 
