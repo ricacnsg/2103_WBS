@@ -189,7 +189,7 @@ public class Client {
 
     public void createAcc(String Location, String ContactNumber, String ClientStatus, String ClientUsername, String RandPass) {
     String createAccQuery = "INSERT INTO client (Location, ContactNumber, ClientStatus, ClientUsername, RandPass) VALUES (?, ?, ?, ?, ?)";
-    String createMeterUsageQuery = "INSERT INTO meterusage (clientID, MeterUsage, balance, ClientStatus) VALUES (?, 0, 0, ?)";
+    String createMeterUsageQuery = "INSERT INTO meterusage (clientID, MeterUsage, balance, ClientStatus, Date) VALUES (?, 0, 0, ?, NOW())";
 
     try {
         connect.setAutoCommit(false);
