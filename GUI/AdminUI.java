@@ -117,13 +117,13 @@ public class AdminUI extends javax.swing.JFrame {
         });
         getContentPane().add(logoutButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 420, -1, -1));
 
-        jLabel1.setFont(new java.awt.Font("Arial Black", 1, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setFont(new java.awt.Font("Serif", 1, 48)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(51, 0, 153));
         jLabel1.setText("ADMIN");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 10, 140, 50));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 10, 200, 50));
 
-        jLabel2.setFont(new java.awt.Font("Serif", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setFont(new java.awt.Font("Stencil", 1, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 51, 102));
         jLabel2.setText("AQUABILL");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, -1, 27));
 
