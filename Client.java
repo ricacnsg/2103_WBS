@@ -336,4 +336,22 @@ public class Client {
         System.out.println("Location: " + this.location);
     }
     
-}
+    public void saveComplaint(int clientID, String complainMsg){
+            String query = "INSERT INTO Complaint (ClientID, ComplainMsg) VALUES (?, ?)";
+            try (PreparedStatement pstmt = connect.prepareStatement(query)) {
+                pstmt.setInt(1, clientID);
+                pstmt.setString(2, complainMsg);
+                
+                               
+                pstmt.executeUpdate();
+                
+            
+                }catch (Exception e) {
+                    System.out.println("Error: " + e.getMessage());
+                    JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }
+        }
+    
+    }
+    
+
