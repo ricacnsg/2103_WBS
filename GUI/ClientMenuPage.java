@@ -27,42 +27,49 @@ public class ClientMenuPage extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        logoutButton = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jSeparator1 = new javax.swing.JSeparator();
-        paybillButton = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         viewmeterusageButton = new javax.swing.JButton();
+        paybillButton = new javax.swing.JButton();
+        sendcompButton = new javax.swing.JButton();
         updateinfoButton = new javax.swing.JButton();
         viewtransacButton = new javax.swing.JButton();
-        sendcompButton = new javax.swing.JButton();
-        logoutButton = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         jLabel1.setText("jLabel1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(0, 153, 153));
-
-        jLabel2.setFont(new java.awt.Font("Arial Black", 1, 36)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("MENU");
-
-        jLabel3.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("AQUABILL");
-
-        paybillButton.setBackground(new java.awt.Color(153, 153, 153));
-        paybillButton.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
-        paybillButton.setText("PAY WATER BILL");
-        paybillButton.addActionListener(new java.awt.event.ActionListener() {
+        logoutButton.setBackground(new java.awt.Color(204, 255, 255));
+        logoutButton.setFont(new java.awt.Font("Arial Black", 1, 10)); // NOI18N
+        logoutButton.setText("LOG OUT");
+        logoutButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                paybillButtonActionPerformed(evt);
+                logoutButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(logoutButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 330, -1, -1));
 
-        viewmeterusageButton.setBackground(new java.awt.Color(153, 153, 153));
+        jLabel3.setFont(new java.awt.Font("Stencil", 1, 60)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 51, 102));
+        jLabel3.setText("AQUABILL");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, -1, 60));
+
+        jLabel2.setFont(new java.awt.Font("Serif", 1, 48)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(51, 0, 153));
+        jLabel2.setText("MENU");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 20, 155, 40));
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        viewmeterusageButton.setBackground(new java.awt.Color(102, 204, 255));
         viewmeterusageButton.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
+        viewmeterusageButton.setForeground(new java.awt.Color(255, 255, 255));
         viewmeterusageButton.setText("VIEW METER USAGE");
         viewmeterusageButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -70,26 +77,19 @@ public class ClientMenuPage extends javax.swing.JFrame {
             }
         });
 
-        updateinfoButton.setBackground(new java.awt.Color(153, 153, 153));
-        updateinfoButton.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
-        updateinfoButton.setText("UPDATE INFORMATION");
-        updateinfoButton.addActionListener(new java.awt.event.ActionListener() {
+        paybillButton.setBackground(new java.awt.Color(102, 204, 255));
+        paybillButton.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
+        paybillButton.setForeground(new java.awt.Color(255, 255, 255));
+        paybillButton.setText("PAY WATER BILL");
+        paybillButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                updateinfoButtonActionPerformed(evt);
+                paybillButtonActionPerformed(evt);
             }
         });
 
-        viewtransacButton.setBackground(new java.awt.Color(153, 153, 153));
-        viewtransacButton.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
-        viewtransacButton.setText("VIEW TRANSACTION HISTORY");
-        viewtransacButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                viewtransacButtonActionPerformed(evt);
-            }
-        });
-
-        sendcompButton.setBackground(new java.awt.Color(153, 153, 153));
+        sendcompButton.setBackground(new java.awt.Color(102, 204, 255));
         sendcompButton.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
+        sendcompButton.setForeground(new java.awt.Color(255, 255, 255));
         sendcompButton.setText("SEND COMPLAINT");
         sendcompButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -97,12 +97,23 @@ public class ClientMenuPage extends javax.swing.JFrame {
             }
         });
 
-        logoutButton.setBackground(new java.awt.Color(153, 153, 153));
-        logoutButton.setFont(new java.awt.Font("Arial Black", 1, 10)); // NOI18N
-        logoutButton.setText("LOG OUT");
-        logoutButton.addActionListener(new java.awt.event.ActionListener() {
+        updateinfoButton.setBackground(new java.awt.Color(102, 204, 255));
+        updateinfoButton.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
+        updateinfoButton.setForeground(new java.awt.Color(255, 255, 255));
+        updateinfoButton.setText("UPDATE INFORMATION");
+        updateinfoButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                logoutButtonActionPerformed(evt);
+                updateinfoButtonActionPerformed(evt);
+            }
+        });
+
+        viewtransacButton.setBackground(new java.awt.Color(102, 204, 255));
+        viewtransacButton.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
+        viewtransacButton.setForeground(new java.awt.Color(255, 255, 255));
+        viewtransacButton.setText("VIEW TRANSACTION HISTORY");
+        viewtransacButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewtransacButtonActionPerformed(evt);
             }
         });
 
@@ -111,69 +122,46 @@ public class ClientMenuPage extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(14, 14, 14)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jSeparator1)
+                        .addComponent(viewmeterusageButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                        .addComponent(updateinfoButton)
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(paybillButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel3)
-                        .addGap(15, 15, 15))))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(viewmeterusageButton)
-                            .addComponent(viewtransacButton)
-                            .addComponent(updateinfoButton)
-                            .addComponent(paybillButton))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(sendcompButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 231, Short.MAX_VALUE)
-                        .addComponent(logoutButton)
                         .addGap(16, 16, 16))))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(89, 89, 89)
+                .addComponent(viewtransacButton)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(14, 14, 14)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(paybillButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(viewmeterusageButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(paybillButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(sendcompButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(viewmeterusageButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(updateinfoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(45, 45, 45)
                 .addComponent(viewtransacButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(updateinfoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(sendcompButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addComponent(logoutButton)))
-                .addGap(319, 319, 319))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 70, 440, 230));
+
+        jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\Nhel Hernadez\\Documents\\wbs_2103\\src\\wbs_2103\\GUI\\icons\\water-tap (2).png")); // NOI18N
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 260, 270));
+
+        jLabel4.setIcon(new javax.swing.ImageIcon("C:\\Users\\Nhel Hernadez\\Documents\\wbs_2103\\src\\wbs_2103\\GUI\\icons\\website design (1).png")); // NOI18N
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 450));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -187,7 +175,7 @@ public class ClientMenuPage extends javax.swing.JFrame {
 
     private void viewmeterusageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewmeterusageButtonActionPerformed
         // TODO add your handling code here:
-        MeterUsage meterusage = new MeterUsage();
+        Usage meterusage = new Usage();
             meterusage.setVisible(true);
             dispose();
     }//GEN-LAST:event_viewmeterusageButtonActionPerformed
@@ -259,8 +247,9 @@ public class ClientMenuPage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JButton logoutButton;
     private javax.swing.JButton paybillButton;
     private javax.swing.JButton sendcompButton;
