@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 import wbs_2103.Control_Connector.DBConnect;
 import java.sql.ResultSet;
 
-public class Meterusage{
+public class MeterUsage{
     //Client client = new Client();
     private int currentBalance, previousReading, currentReading;
     private LocalDate lastReadingDate;
@@ -27,7 +27,7 @@ public class Meterusage{
     private Component rootPane;
     
     //constructor
-    public Meterusage(){
+    public MeterUsage(){
         DBConnect dbconnect = new DBConnect();
         this.connect = dbconnect.getConnection();
             
