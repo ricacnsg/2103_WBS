@@ -58,7 +58,7 @@ public class MeterUsage extends javax.swing.JFrame {
                 backButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(backButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, -1, -1));
+        jPanel1.add(backButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 360, -1, -1));
 
         meterUsageArea.setColumns(20);
         meterUsageArea.setRows(5);
