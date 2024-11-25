@@ -92,21 +92,6 @@ public class Client {
     }
     
     public String getComplaint() {
-        try {
-            String complaint1 = "Walang tubig samin.";
-            String complaint2 = "Nasira ang metro namin, paki-ayos po.";
-            String complaint3 = "Mahina ang tubig samin.";
-            String complaint4 = "Malabo/hindi clear ang tubig samin.";
-            String complaint5 = "May tagas po ang tubo dito samin, paki-ayos po.";
-            
-            
-            
-            
-            JOptionPane.showMessageDialog(null,"Complaint/Review is Succesfully Submitted!");    
-            
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, e);
-        }
         return complaint;
     }
     
