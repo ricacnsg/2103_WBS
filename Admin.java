@@ -72,35 +72,30 @@ public class Admin {
     public boolean isAdminValid() {
         return AdminID > 0 && username != null && !username.isEmpty();
     }
+       
+    public ArrayList<String> retrieveClientInfo(){
+        ArrayList<String> clientInfo = new ArrayList<>();
+        String query = "SELECT c.clientID, m.meterUsageID, c.ClientUsername,  m.MeterUsage, c.ClientStatus" +
+                        " FROM client c, meterusage m " +
+                        "WHERE c.clientID = m.clientID";
 
-    public void retrieveHistoryData() {
-        // Implementation for retrieving history data
-        
-    }
- //DIPA NAGANA   
-    public ArrayList<String> retrieveClientIDs(){
-        ArrayList<String> clientIDs = new ArrayList<>();
-        String query = "SELECT HouseNumber FROM client";
         try (PreparedStatement pstmt = connect.prepareStatement(query)) {
             ResultSet rs = pstmt.executeQuery();
 
-            while(rs.next()){
-                clientIDs.add(rs.getString("HouseNumber"));
+            int columnCount = rs.getMetaData().getColumnCount();
+
+            while (rs.next()) {
+                String[] row = new String[columnCount];
+                for (int i = 0; i < columnCount; i++) {
+                    row[i] = rs.getString(i + 1);
+                }
+                
+                clientInfo.add(String.join(", ", row));
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Error: " + e.getMessage());
         }
-        return clientIDs; 
+        return clientInfo; 
     }
-    
-    
-    
-    
-    
-    
-    /*WHAT IF NEW METHOD: need ng permission ng admin na gawing inactive 
-    ang meter ng client tapos bago ma-confirm pupuntahan ng admin ang meter tapos puputulin muna.
-    and ang updateinfo na function ng client ay magiging request na masesend sa admin tapos dapat ico-confirm muna sha ng admin
-    */
 }
 

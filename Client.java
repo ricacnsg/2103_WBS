@@ -9,10 +9,12 @@ import java.util.Random;
 import javax.swing.JOptionPane;
 import wbs_2103.Control_Connector.DBConnect;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Client {
-    private int clientID, meterID;
+    Meterusage meterusage = new Meterusage();
+    protected int clientID, meterID;
     private String contactNumber;
     private String location, clientStatus, cUsername, randPass, complaint;
     private Connection connect;
@@ -125,9 +127,10 @@ public class Client {
         return randPass;
     }
     
-    public void updateInfo(String cUsername, String contactNumber, String location, String clientStatus, int clientID){
-        int parameterIndex = 1;
+    public void updateInfo(String cUsername, String contactNumber, String location, String clientStatus, int clientID) {
+    int parameterIndex = 1;
 
+        // Build query for updating the client table
         StringBuilder queryBuilder = new StringBuilder("UPDATE client SET ");
         boolean willUpdate = false;
 
@@ -147,44 +150,61 @@ public class Client {
             queryBuilder.append("ClientStatus = ?, ");
             willUpdate = true;
         }
-        
+
+        // Remove the trailing comma and space
         queryBuilder.setLength(queryBuilder.length() - 2);
-
         queryBuilder.append(" WHERE clientID = ?");
-        String query = queryBuilder.toString();
 
-        try (PreparedStatement preparedStatement = connect.prepareStatement(query)) {
+        String clientQuery = queryBuilder.toString();
+
+        // Query for updating the meterUsage table
+        String meterUsageQuery = "UPDATE meterusage SET ClientStatus = ? WHERE clientID = ?";
+
+        try {
             if (clientID == 0) {
                 throw new Exception("ClientID is required to fill.");
             }
-            
-            if (cUsername != null && !cUsername.isEmpty()) {
-                preparedStatement.setString(parameterIndex++, cUsername);
-            }
-            if (contactNumber != null && !contactNumber.isEmpty()) {
-                preparedStatement.setLong(parameterIndex++, Long.parseLong(contactNumber));
-            }
-            if (location != null && !location.isEmpty()) {
-                preparedStatement.setString(parameterIndex++, location);
-            }
-            if (clientStatus != null && !clientStatus.isEmpty()) {
-                preparedStatement.setString(parameterIndex++, clientStatus);
-            }
-            preparedStatement.setInt(parameterIndex, clientID);
 
-            preparedStatement.executeUpdate();
-            
-            JOptionPane.showMessageDialog(null, "Changes are updated");
+            // Update the client table
+            try (PreparedStatement clientPreparedStatement = connect.prepareStatement(clientQuery)) {
+                if (cUsername != null && !cUsername.isEmpty()) {
+                    clientPreparedStatement.setString(parameterIndex++, cUsername);
+                }
+                if (contactNumber != null && !contactNumber.isEmpty()) {
+                    clientPreparedStatement.setLong(parameterIndex++, Long.parseLong(contactNumber));
+                }
+                if (location != null && !location.isEmpty()) {
+                    clientPreparedStatement.setString(parameterIndex++, location);
+                }
+                if (clientStatus != null && !clientStatus.isEmpty()) {
+                    clientPreparedStatement.setString(parameterIndex++, clientStatus);
+                }
+                clientPreparedStatement.setInt(parameterIndex, clientID);
+
+                clientPreparedStatement.executeUpdate();
+            }
+
+            // Update the meterUsage table (only if clientStatus is provided)
+            if (clientStatus != null && !clientStatus.isEmpty()) {
+                try (PreparedStatement meterUsagePreparedStatement = connect.prepareStatement(meterUsageQuery)) {
+                    meterUsagePreparedStatement.setString(1, clientStatus);
+                    meterUsagePreparedStatement.setInt(2, clientID);
+
+                    meterUsagePreparedStatement.executeUpdate();
+                }
+            }
+
+            JOptionPane.showMessageDialog(null, "Changes have been updated successfully.");
         } catch (Exception e) {
             e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
         }
+}
 
-       
-    }
 
     public void createAcc(String Location, String ContactNumber, String ClientStatus, String ClientUsername, String RandPass) {
     String createAccQuery = "INSERT INTO client (Location, ContactNumber, ClientStatus, ClientUsername, RandPass) VALUES (?, ?, ?, ?, ?)";
-    String createMeterUsageQuery = "INSERT INTO meterusage (clientID, MeterUsage, balance) VALUES (?, 0, 0)";
+    String createMeterUsageQuery = "INSERT INTO meterusage (clientID, MeterUsage, balance, ClientStatus) VALUES (?, 0, 0, ?)";
 
     try {
         connect.setAutoCommit(false);
@@ -208,6 +228,7 @@ public class Client {
 
                     try (PreparedStatement meterStmt = connect.prepareStatement(createMeterUsageQuery)) {
                         meterStmt.setInt(1, clientID);
+                        meterStmt.setString(2, ClientStatus);
                         meterStmt.executeUpdate();
                     }
                 } else {
@@ -256,6 +277,36 @@ public class Client {
         }
         return false;     
     }
+    
+    public String getFormattedMeterUsageByClientID(int clientID) throws SQLException {
+        meterusage.getRandomReading(clientID);
+        
+        StringBuilder meterUsageDetails = new StringBuilder();
+        clientID = getclientID();
+        String query = "SELECT meterUsageID, MeterUsage, clientStatus, balance " +
+                       "FROM meterusage WHERE clientID = ?";
+        try (PreparedStatement statement = connect.prepareStatement(query)) {
+            statement.setInt(1, clientID);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                meterUsageDetails.append("Meter ID: ").append(resultSet.getInt("meterUsageID")).append("\n")
+                                 .append("Current Reading: ").append((int) resultSet.getDouble("MeterUsage")).append("\n")
+                                 .append("Client Status: ").append(resultSet.getString("clientStatus")).append("\n")
+                                 .append("Balance: ").append((int) resultSet.getDouble("balance")).append("\n")
+                                 .append("-------------------------\n");
+            }
+        }
+
+        return meterUsageDetails.toString();
+    }
+    
+    
+
+        
+        
+        
+        
 // tatanggalin ang method na 'to
     public void loginAcc(){
         Scanner scan  = new Scanner(System.in);
