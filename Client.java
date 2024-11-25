@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Client {
-    Meterusage meterusage = new Meterusage();
+    MeterUsage meterusage = new MeterUsage();
     protected int clientID, meterID;
     private String contactNumber;
     private String location, clientStatus, cUsername, randPass, complaint;
