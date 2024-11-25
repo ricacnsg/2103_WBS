@@ -5,15 +5,14 @@
 package wbs_2103.GUI;
 import wbs_2103.Client;
 import java.util.ArrayList;
-import javax.swing.DefaultListModel;
 import wbs_2103.Admin;
-import javax.swing.ListModel;
+import javax.swing.table.DefaultTableModel;
 public class AdminUI extends javax.swing.JFrame {
     private static Client client = new Client();
     Admin admin = new Admin();
     public AdminUI() {
         initComponents();
-        admin.retrieveClientIDs();
+        admin.retrieveClientInfo();
     }
 
     /**
@@ -38,6 +37,7 @@ public class AdminUI extends javax.swing.JFrame {
         panel2 = new java.awt.Panel();
         jScrollPane1 = new javax.swing.JScrollPane();
         monitorTable = new javax.swing.JTable();
+        monitorButton = new javax.swing.JButton();
 
         jCheckBoxMenuItem1.setSelected(true);
         jCheckBoxMenuItem1.setText("jCheckBoxMenuItem1");
@@ -94,20 +94,12 @@ public class AdminUI extends javax.swing.JFrame {
 
         panel2.setBackground(new java.awt.Color(0, 255, 255));
 
-        monitorTable.setBackground(new java.awt.Color(204, 204, 204));
-        monitorTable.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        monitorTable.setBackground(new java.awt.Color(153, 153, 153));
+        monitorTable.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        monitorTable.setForeground(new java.awt.Color(102, 102, 102));
         monitorTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Client ID", "Meter ID", "Username", "Current Reading", "Status"
@@ -140,6 +132,16 @@ public class AdminUI extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        monitorButton.setBackground(new java.awt.Color(153, 153, 153));
+        monitorButton.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
+        monitorButton.setForeground(new java.awt.Color(204, 255, 255));
+        monitorButton.setText("MONITOR");
+        monitorButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                monitorButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -154,6 +156,8 @@ public class AdminUI extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(monitorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(clientreqButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -171,7 +175,8 @@ public class AdminUI extends javax.swing.JFrame {
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(logoutButton)
-                    .addComponent(clientreqButton))
+                    .addComponent(clientreqButton)
+                    .addComponent(monitorButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -210,40 +215,21 @@ public class AdminUI extends javax.swing.JFrame {
                 
     }//GEN-LAST:event_clientreqButtonActionPerformed
 
+    private void monitorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_monitorButtonActionPerformed
+        // TODO add your handling code here:
+        ArrayList<String> clientInfo = admin.retrieveClientInfo();
+        
+        DefaultTableModel tableModel = (DefaultTableModel) monitorTable.getModel();
+        for (String row : clientInfo) {
+            String[] rowInfo = row.split(", ");
+            tableModel.addRow(rowInfo);
+        }        
+    }//GEN-LAST:event_monitorButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    //DIPA NAGANA
-    /*
-    public void displayClientIDList(){
-        ArrayList<String> clientIDs = admin.retrieveClientIDs();
-        
-        if (clientIDs != null && !clientIDs.isEmpty()){
-            for (String id : clientIDs){
-            clientIDTextArea.append(id + "\n");
-            }
-        }
-        else{
-           clientIDTextArea.append("No HouseNumbers found.\n");
-        }
-    }
-    */
     
-    public void displayMeterIDList(){
-        
-    }
-    
-    public void displayUsernameList(){
-        
-    }
-    
-    public void displayCurrentReadingList(){
-        
-    }
-    
-    public void displayStatusList(){
-        
-    }
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -288,6 +274,7 @@ public class AdminUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JToggleButton logoutButton;
+    private javax.swing.JButton monitorButton;
     private javax.swing.JTable monitorTable;
     private java.awt.Panel panel1;
     private java.awt.Panel panel2;
