@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package wbs_2103.GUI;
+import javax.swing.JOptionPane;
 import wbs_2103.Client;
 
 /**
@@ -134,6 +135,23 @@ public class AdminViewClientReq extends javax.swing.JFrame {
 
     private void acceptCompButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptCompButtonActionPerformed
         // TODO add your handling code here:
+        try {
+            
+            if (client == null){
+                JOptionPane.showMessageDialog(this, "No client object passed.");
+                return;
+                
+            }
+            
+            client.saveComplaint(client.getclientID(), client.getComplaint());
+            complaintTextArea.setText("");
+            JOptionPane.showMessageDialog(this, "Your complaint has been submitted successfully!");
+            
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_acceptCompButtonActionPerformed
 
     /**
@@ -174,7 +192,7 @@ public class AdminViewClientReq extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton acceptCompButton;
     private javax.swing.JToggleButton backtoLoginButton;
-    private javax.swing.JTextArea complaintTextArea;
+    protected javax.swing.JTextArea complaintTextArea;
     private javax.swing.JToggleButton confirmRequestButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

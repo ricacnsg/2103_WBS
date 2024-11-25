@@ -129,9 +129,7 @@ public class Usage extends javax.swing.JFrame {
     private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
         // TODO add your handling code here:
         try {
-        
         client.setclientID(Integer.parseInt(clientIDField.getText()));
-        //meterusage.getRandomReading(client.getclientID());
         String meterUsageDetails = client.getFormattedMeterUsageByClientID(client.getclientID()); // Get as String
         meterusageArea.append(meterUsageDetails); // Directly set text in JTextArea
     } catch (SQLException e) {

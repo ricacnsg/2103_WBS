@@ -122,33 +122,18 @@ public class ComplainPage extends javax.swing.JFrame {
 
     private void SubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitActionPerformed
         // TODO add your handling code here:
-        try {
-            System.out.println("Submit button clicked.");
-            
-            if (client == null){
-                JOptionPane.showMessageDialog(this, "No client object passed.");
-                return;
-                
-            }
-            
-            client.setclientID(Integer.parseInt(clientID.getText()));
-            String complainMsg = complaintTextArea.getText();
-            System.out.println("Complaint Text: " + complainMsg);
-            
-            if (complainMsg.trim().isEmpty()){
-                JOptionPane.showMessageDialog(this, "Please enter your complain.");
-                return;
-            }
-            
-            client.saveComplaint(client.getclientID(), complainMsg);
-            complaintTextArea.setText("");
-            JOptionPane.showMessageDialog(this, "Your complaint has been submitted successfully!");
-            
-            
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
-            e.printStackTrace();
-        }
+        AdminViewClientReq clientreq = new AdminViewClientReq(client);
+        client.setclientID(Integer.parseInt(clientID.getText()));
+        client.setComplaint(complaintTextArea.getText());
+        
+        clientreq.complaintTextArea.append(
+                "ClientID: " + client.getclientID() + "\n" +
+                "Complaint: " + client.getComplaint()
+        );
+        
+        JOptionPane.showMessageDialog(this, "Your complaint is succesfully submitted to Admin");
+        
+        clientreq.setVisible(true);
         
        
     }//GEN-LAST:event_SubmitActionPerformed
