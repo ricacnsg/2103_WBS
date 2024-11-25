@@ -13,6 +13,7 @@ import wbs_2103.Control_Connector.DBConnect;
 import java.sql.ResultSet;
 
 public class Meterusage{
+
     //Client client = new Client();
     private int currentBalance, previousReading, currentReading;
     private LocalDate lastReadingDate;
@@ -28,6 +29,7 @@ public class Meterusage{
     
     //constructor
     public Meterusage(){
+
         DBConnect dbconnect = new DBConnect();
         this.connect = dbconnect.getConnection();
             
