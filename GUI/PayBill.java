@@ -3,9 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package wbs_2103.GUI;
-import java.time.LocalDate;
-import javax.swing.JOptionPane;
-import wbs_2103.MeterUsage;
 import wbs_2103.Payment;
 /**
  *
@@ -43,19 +40,15 @@ public class PayBill extends javax.swing.JFrame {
         chargesTextField = new javax.swing.JTextField();
         totalTextField = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        payButton = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         clientIDTextField = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         backButton = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         paymentTextField = new javax.swing.JTextField();
-        changeField = new javax.swing.JTextField();
+        jTextField8 = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         calculateButton = new javax.swing.JButton();
-        meterIDTextField = new javax.swing.JTextField();
-        paymentmethod = new javax.swing.JTextField();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
 
         jLabel3.setText("jLabel1");
 
@@ -98,18 +91,13 @@ public class PayBill extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
         jLabel8.setText("Total");
 
-        payButton.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
-        payButton.setText("PAY NOW");
-        payButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                payButtonActionPerformed(evt);
-            }
-        });
+        jButton1.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
+        jButton1.setText("PAY NOW");
 
         clientIDTextField.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
 
         jLabel9.setFont(new java.awt.Font("Arial Black", 0, 10)); // NOI18N
-        jLabel9.setText("Enter your Meter ID");
+        jLabel9.setText("Enter your Client ID");
 
         backButton.setFont(new java.awt.Font("Arial Black", 1, 10)); // NOI18N
         backButton.setText("BACK");
@@ -124,7 +112,7 @@ public class PayBill extends javax.swing.JFrame {
 
         paymentTextField.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
 
-        changeField.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
+        jTextField8.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
 
         jLabel11.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
         jLabel11.setText("Change");
@@ -137,26 +125,6 @@ public class PayBill extends javax.swing.JFrame {
             }
         });
 
-        meterIDTextField.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
-        meterIDTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                meterIDTextFieldActionPerformed(evt);
-            }
-        });
-
-        paymentmethod.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
-        paymentmethod.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                paymentmethodActionPerformed(evt);
-            }
-        });
-
-        jLabel12.setFont(new java.awt.Font("Arial Black", 0, 10)); // NOI18N
-        jLabel12.setText("Enter your Client ID");
-
-        jLabel13.setFont(new java.awt.Font("Arial Black", 0, 10)); // NOI18N
-        jLabel13.setText("payment method");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -165,14 +133,17 @@ public class PayBill extends javax.swing.JFrame {
                 .addGap(19, 19, 19)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(payButton, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(30, 30, 30))
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(107, 107, 107)
+                        .addComponent(calculateButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(54, 54, 54))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(38, 38, 38)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -190,29 +161,18 @@ public class PayBill extends javax.swing.JFrame {
                             .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(129, 129, 129)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(changeField, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(paymentTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(9, 9, 9)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGap(120, 120, 120)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(balanceThisMonthTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(clientIDTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(meterIDTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(paymentmethod, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(clientIDTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(84, 84, 84))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(174, 174, 174)
-                .addComponent(calculateButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -225,20 +185,10 @@ public class PayBill extends javax.swing.JFrame {
                         .addGap(25, 25, 25)
                         .addComponent(jLabel7)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(clientIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(meterIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(paymentmethod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
-                .addComponent(calculateButton)
-                .addGap(56, 56, 56)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(clientIDTextField)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(balanceThisMonthTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -257,12 +207,13 @@ public class PayBill extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel11)
-                    .addComponent(changeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(45, 45, 45)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(backButton)
-                    .addComponent(payButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(calculateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -292,66 +243,23 @@ public class PayBill extends javax.swing.JFrame {
 
     private void calculateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calculateButtonActionPerformed
         // TODO add your handling code here:
-        calculateBalance();
+    int clientID = Integer.parseInt(clientIDTextField.getText().trim());
+    
+    Payment payment = new Payment();
+    payment.updatePaymentFields(clientID);
+
+    // Set values in JTextFields
+    clientIDTextField.setText(String.valueOf(clientID));
+    balanceThisMonthTextField.setText(String.format("%.2f", payment.getBalancethisMonth()));
+    chargesTextField.setText(String.format("%.2f", payment.getCharges()));
+  // Assuming a static charge for overdue
+    totalTextField.setText(String.format("%.2f", payment.getCurrentBalance()));
+    paymentTextField.setText(""); 
     }//GEN-LAST:event_calculateButtonActionPerformed
-
-    private void payButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_payButtonActionPerformed
-        // TODO add your handling code here:
-        
-        processPayment();
-    }//GEN-LAST:event_payButtonActionPerformed
-
-    private void meterIDTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meterIDTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_meterIDTextFieldActionPerformed
-
-    private void paymentmethodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentmethodActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_paymentmethodActionPerformed
     
     /**
      * @param args the command line arguments
      */
-    
-    private void calculateBalance() {
-        try {
-            double paymentAmount = Double.parseDouble(paymentTextField.getText());
-            double balanceThisMonth = Double.parseDouble(balanceThisMonthTextField.getText());
-
-            payment.setInputPayment(paymentAmount);
-            payment.setBalancethisMonth(balanceThisMonth);
-
-            if (payment.isPaymentSufficient()) {
-                double change = payment.calculateChange();
-                changeField.setText(String.format("%.2f", change));
-            } else {
-                JOptionPane.showMessageDialog(this, "Insufficient payment. Please pay the full balance.");
-            }
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Please enter valid numbers for payment and balance.");
-        }
-    }
-
-    // Method to process the payment
-    private void processPayment() {
-        try {
-            int meterID = Integer.parseInt(meterIDTextField.getText());
-            double paymentAmount = Double.parseDouble(paymentTextField.getText());
-            String paymentMethod = paymentmethod.getText();
-
-            // Set the payment method
-            payment.setPaymentMethod(paymentMethod);
-            payment.setMeterID(meterID);
-            payment.setInputPayment(paymentAmount);
-            payment.setPaymentDate(LocalDate.now());
-
-            // Call the processPayment method from Payment class
-            String result = payment.processPayment(meterID, meterID, paymentAmount);
-            JOptionPane.showMessageDialog(this, result);
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Please enter valid numbers for Meter ID and Payment.");
-        }
-    }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -388,14 +296,12 @@ public class PayBill extends javax.swing.JFrame {
     private javax.swing.JButton backButton;
     private javax.swing.JTextField balanceThisMonthTextField;
     private javax.swing.JButton calculateButton;
-    private javax.swing.JTextField changeField;
     private javax.swing.JTextField chargesTextField;
     private javax.swing.JTextField clientIDTextField;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -407,10 +313,8 @@ public class PayBill extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField meterIDTextField;
-    private javax.swing.JButton payButton;
+    private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField paymentTextField;
-    private javax.swing.JTextField paymentmethod;
     private javax.swing.JTextField totalTextField;
     // End of variables declaration//GEN-END:variables
 }
