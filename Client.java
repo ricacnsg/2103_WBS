@@ -187,10 +187,11 @@ public class Client {
 }
 
 
-    public void createAcc(String Location, String ContactNumber, String ClientStatus, String ClientUsername, String RandPass) {
+   public int createAcc(String Location, String ContactNumber, String ClientStatus, String ClientUsername, String RandPass) {
     String createAccQuery = "INSERT INTO client (Location, ContactNumber, ClientStatus, ClientUsername, RandPass) VALUES (?, ?, ?, ?, ?)";
     String createMeterUsageQuery = "INSERT INTO meterusage (clientID, PrevReading, CurrentReading, balance, ClientStatus, Date) VALUES (?, 0, 0, 0, ?, NOW())";
 
+    int clientID = -1;  // Initialize to -1 if creation fails
     try {
         connect.setAutoCommit(false);
 
@@ -209,7 +210,7 @@ public class Client {
 
             try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
-                    int clientID = generatedKeys.getInt(1);
+                    clientID = generatedKeys.getInt(1);
 
                     try (PreparedStatement meterStmt = connect.prepareStatement(createMeterUsageQuery)) {
                         meterStmt.setInt(1, clientID);
@@ -223,14 +224,14 @@ public class Client {
         }
 
         connect.commit();
-
+/*
         JOptionPane.showMessageDialog(
             null,
             "Your generated password is: " + RandPass + "\nNote: Please save your password",
             "ACCOUNT SUCCESSFULLY CREATED!",
             JOptionPane.INFORMATION_MESSAGE
         );
-
+*/
     } catch (Exception e) {
         try {
             connect.rollback();
@@ -245,8 +246,10 @@ public class Client {
             JOptionPane.showMessageDialog(null, "Error setting auto-commit: " + autoCommitEx.getMessage());
         }
     }
-}
 
+    return clientID;  // Return the clientID after successful account creation
+}
+   
     public boolean login(String cUsername, String randPass){
         //make a query for getting values from the database para macheck if tama ang username and password
         String query = "SELECT * FROM client WHERE ClientUsername = ? AND RandPass = ?";
@@ -262,7 +265,7 @@ public class Client {
         }
         return false;     
     }
-    
+
     public String getFormattedMeterUsageByClientID(int clientID) throws SQLException {
         meterusage.getRandomReading(clientID); 
 
@@ -309,41 +312,30 @@ public class Client {
         }
     }
     
-    
+    public ArrayList<String> filterPaymentByClientID(int clientID) {
+    ArrayList<String> filteredPayments = new ArrayList<>();
+    String query = "SELECT clientID, balanacethismonth, total, payment_date FROM tpayment WHERE clientID = ?";
 
-        
-        
-        
-        
-// tatanggalin ang method na 'to
-    public void loginAcc(){
-        Scanner scan  = new Scanner(System.in);
+    try (PreparedStatement pstmt = connect.prepareStatement(query)) {
+        pstmt.setInt(1, clientID);
+        ResultSet rs = pstmt.executeQuery();
 
-        System.out.println("Enter Username: ");
-        String usern = scan.nextLine();
+        while (rs.next()) {
+String row = rs.getInt("clientID") + ", " 
+           + rs.getBigDecimal("balanacethismonth") + ", " 
+           + rs.getBigDecimal("total") + ", " 
+           + rs.getDate("payment_date");
 
-        System.out.println("Enter Password: ");
-        String pass = scan.nextLine();
-
-        boolean LoginSuccess = login(usern, pass);
-
-        if(LoginSuccess){
-            System.out.println("Login Successful! Welcome " + usern);
-        } else {
-            System.out.println("Login Failed! ");
+            filteredPayments.add(row);
         }
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
     }
-//tatanggalin din itu
-    public void clientInfo(){
-        //blocks of code that will display the date when client had water meter and all of his/her transaction
+    return filteredPayments;
+}
+ 
+
         
-        System.out.println("\n Client Information ");
-        System.out.println("Username:" + this.cUsername);
-        //System.out.println("Houser Number: " + this.houseNumber);
-        System.out.println("Contact Number: " + this.contactNumber);
-        System.out.println("Location: " + this.location);
-    }
-    
-    }
-    
+        
+}
 

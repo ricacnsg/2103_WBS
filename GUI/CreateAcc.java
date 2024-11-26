@@ -173,12 +173,29 @@ public class CreateAcc extends javax.swing.JFrame {
 
     private void signupButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signupButtonActionPerformed
         // TODO add your handling code here:
-        client.setcUsername(usernameField.getText());
-        client.setlocation(locationField.getText());
-        client.setcontactNumber(contactnoField.getText());
-        client.setclientStatus("ACTIVE");
-        
-        client.createAcc(client.getlocation(), client.getcontactNumber(), client.getclientStatus(), client.getcUsername(), client.generaterandPass());
+        // TODO add your handling code here:
+    client.setcUsername(usernameField.getText());
+    client.setlocation(locationField.getText());
+    client.setcontactNumber(contactnoField.getText());
+    client.setclientStatus("ACTIVE");
+    
+    // Generate the random password
+    String randPass = client.generaterandPass();
+    
+    // Call createAcc method and get the clientID
+    int clientID = client.createAcc(client.getlocation(), client.getcontactNumber(), client.getclientStatus(), client.getcUsername(), randPass);
+
+    // Handle the result
+    if (clientID != -1) {
+        // Account successfully created, show success message with the generated password
+        JOptionPane.showMessageDialog(null, 
+            "Account successfully created! Your client ID is: " + clientID + "\nYour generated password is: " + randPass, 
+            "Success", 
+            JOptionPane.INFORMATION_MESSAGE);
+    } else {
+        // Handle failure
+        JOptionPane.showMessageDialog(null, "Error: Account creation failed.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_signupButtonActionPerformed
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed

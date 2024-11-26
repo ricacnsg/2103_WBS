@@ -18,6 +18,7 @@ public class Payment {
     private String PaymentMethod, Pin;
     private double ratePerUnit = 15.0;
     private double charges = 20.0;
+    private int usage;
 
 
     private int clientID, PaymentDate;
@@ -50,6 +51,14 @@ public class Payment {
         }
         this.Pin = Pin;
     }
+    
+    public int getusage(){
+        return usage;
+    }
+    
+   public void setusage(int usage){
+       this.usage = usage;
+   }
 
     public int getClientID() {
         return clientID;
@@ -150,7 +159,7 @@ public class Payment {
 MeterUsage meterUsage = new MeterUsage();
     meterUsage.updateReadings(clientID); // Fetch readings (current & previous)
 
-    int usage = meterUsage.getCurrentReading() - meterUsage.getPrevReading();
+    setusage(meterUsage.getCurrentReading() - meterUsage.getPrevReading());
     double balanceThisMonth = usage * ratePerUnit;
     setBalancethisMonth(balanceThisMonth);
 
@@ -223,6 +232,34 @@ MeterUsage meterUsage = new MeterUsage();
     // Paypal payment
     private void processPaypalPayment() {
         JOptionPane.showMessageDialog(null, "Processing payment via Paypal...");
+    }
+    
+     public void insertPaymentData(int clientID, int meterUsageID, double paymentAmount, double total, double charges, double change, int paid_meter) {
+        // SQL query to insert payment details
+        String query = "INSERT INTO tpayment (clientID, input_payment, current_balance, balanacethismonth, charges, total, sukli, paid_meter) "
+                     + "VALUES (?, ?, ?, ?, ?, ?, ?,?)";
+        
+        try (PreparedStatement ps = connect.prepareStatement(query)) {
+            // Set parameters
+            ps.setInt(1, clientID);               // clientID
+            //ps.setInt(2, meterUsageID);           // meterUsageID
+            ps.setDouble(2, paymentAmount);       // input_payment
+            ps.setDouble(3, total);               // current_balance
+            ps.setDouble(4, BalancethisMonth);    // balance_this_month
+            ps.setDouble(5, charges);             // charges
+            ps.setDouble(6, total);               // total
+            ps.setDouble(7, change);              // change
+            ps.setInt(8, getusage());
+
+            // Execute the query
+            ps.executeUpdate();
+            
+            // Optionally show a message or log the success
+            JOptionPane.showMessageDialog(null, "Payment successfully recorded.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error recording payment: " + e.getMessage());
+        }
     }
 
     // Method to generate the receipt
