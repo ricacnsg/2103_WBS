@@ -189,7 +189,7 @@ public class Client {
 
     public void createAcc(String Location, String ContactNumber, String ClientStatus, String ClientUsername, String RandPass) {
     String createAccQuery = "INSERT INTO client (Location, ContactNumber, ClientStatus, ClientUsername, RandPass) VALUES (?, ?, ?, ?, ?)";
-    String createMeterUsageQuery = "INSERT INTO meterusage (clientID, MeterUsage, balance, ClientStatus, Date) VALUES (?, 0, 0, ?, NOW())";
+    String createMeterUsageQuery = "INSERT INTO meterusage (clientID, PrevReading, CurrentReading, balance, ClientStatus, Date) VALUES (?, 0, 0, 0, ?, NOW())";
 
     try {
         connect.setAutoCommit(false);
@@ -264,26 +264,49 @@ public class Client {
     }
     
     public String getFormattedMeterUsageByClientID(int clientID) throws SQLException {
-        meterusage.getRandomReading(clientID);
-        
+        meterusage.getRandomReading(clientID); 
+
         StringBuilder meterUsageDetails = new StringBuilder();
-        clientID = getclientID();
-        String query = "SELECT meterUsageID, MeterUsage, clientStatus, balance " +
+        String query = "SELECT meterUsageID, PrevReading, CurrentReading, clientStatus, balance " +
                        "FROM meterusage WHERE clientID = ?";
         try (PreparedStatement statement = connect.prepareStatement(query)) {
             statement.setInt(1, clientID);
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                meterUsageDetails.append("Meter ID: ").append(resultSet.getInt("meterUsageID")).append("\n")
-                                 .append("Current Reading: ").append((int) resultSet.getDouble("MeterUsage")).append("\n")
-                                 .append("Client Status: ").append(resultSet.getString("clientStatus")).append("\n")
-                                 .append("Balance: ").append((int) resultSet.getDouble("balance")).append("\n")
+                int meterUsageID = resultSet.getInt("meterUsageID");
+                int prevReading = resultSet.getInt("PrevReading");
+                int currentReading = resultSet.getInt("CurrentReading");
+                String clientStatus = resultSet.getString("clientStatus");
+                double balance = resultSet.getDouble("balance");
+
+                meterUsageDetails.append("Meter ID: ").append(meterUsageID).append("\n")
+                                 .append("Prev Reading: ").append(prevReading).append("\n")
+                                 .append("Current Reading: ").append(currentReading).append("\n")
+                                 .append("Client Status: ").append(clientStatus).append("\n")
+                                 .append("Balance: ").append(balance).append("\n")
                                  .append("-------------------------\n");
             }
         }
 
         return meterUsageDetails.toString();
+    }
+
+    
+    public void saveComplaint(int clientID, String complainMsg){
+            String query = "INSERT INTO Complaint (ClientID, ComplainMsg) VALUES (?, ?)";
+            try (PreparedStatement pstmt = connect.prepareStatement(query)) {
+                pstmt.setInt(1, clientID);
+                pstmt.setString(2, complainMsg);
+                
+                               
+                pstmt.executeUpdate();
+                
+            
+                }catch (Exception e) {
+                    System.out.println("Error: " + e.getMessage());
+                    JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }
     }
     
     
@@ -320,22 +343,6 @@ public class Client {
         System.out.println("Contact Number: " + this.contactNumber);
         System.out.println("Location: " + this.location);
     }
-    
-    public void saveComplaint(int clientID, String complainMsg){
-            String query = "INSERT INTO Complaint (ClientID, ComplainMsg) VALUES (?, ?)";
-            try (PreparedStatement pstmt = connect.prepareStatement(query)) {
-                pstmt.setInt(1, clientID);
-                pstmt.setString(2, complainMsg);
-                
-                               
-                pstmt.executeUpdate();
-                
-            
-                }catch (Exception e) {
-                    System.out.println("Error: " + e.getMessage());
-                    JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
-        }
-        }
     
     }
     
