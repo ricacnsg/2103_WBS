@@ -15,6 +15,8 @@ import java.sql.ResultSet;
 public class MeterUsage{
     private int currentBalance, previousReading, currentReading;
     private LocalDate lastReadingDate;
+
+
     protected int meterID;
 
     protected String clientStatus;
@@ -72,75 +74,148 @@ public class MeterUsage{
     public void setClientStatus(String clientStatus) {
         this.clientStatus = clientStatus;
     }
+    
+    public LocalDate getLastReadingDate() {
+        return lastReadingDate;
+    }
 
+    public void setLastReadingDate(LocalDate lastReadingDate) {
+        this.lastReadingDate = lastReadingDate;
+    }
+
+    
+    
+public void updateReadings(int clientID) {
+    try {
+        String fetchQuery = "SELECT clientStatus, PrevReading, CurrentReading, Date FROM meterusage WHERE clientID = ? ORDER BY Date DESC LIMIT 1";
+        try (PreparedStatement fetchStmt = connect.prepareStatement(fetchQuery)) {
+            fetchStmt.setInt(1, clientID);
+            ResultSet rs = fetchStmt.executeQuery();
+
+            if (rs.next()) {
+                clientStatus = rs.getString("clientStatus");
+                previousReading = rs.getInt("PrevReading");
+                currentReading = rs.getInt("CurrentReading");
+                lastReadingDate = rs.getDate("Date").toLocalDate();
+            }
+        }
+
+        if ("ACTIVE".equalsIgnoreCase(clientStatus)) {
+            LocalDate currentDate = LocalDate.now();
+            
+            // Only update if it's been more than 1 day since the last update
+            if (lastReadingDate != null && lastReadingDate.isBefore(currentDate.minusDays(1))) {
+                int increment = lastReadingDate.plusMonths(1).isBefore(currentDate)
+                        ? (int) (Math.random() * (10 - 6 + 1)) + 6  // High usage if > 1 month overdue
+                        : (int) (Math.random() * (5 - 1 + 1)) + 1;  // Regular usage
+
+                int newReading = previousReading + increment;
+
+                // Update the readings only if overdue
+                String updateQuery = "UPDATE meterusage SET PrevReading = ?, CurrentReading = ?, Date = ? WHERE clientID = ?";
+                try (PreparedStatement updateStmt = connect.prepareStatement(updateQuery)) {
+                    updateStmt.setInt(1, previousReading);
+                    updateStmt.setInt(2, newReading);
+                    updateStmt.setDate(3, java.sql.Date.valueOf(currentDate));
+                    updateStmt.setInt(4, clientID);
+                    updateStmt.executeUpdate();
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Client is INACTIVE.", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Error fetching/updating readings: " + e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
+
+    
+    
     public void getRandomReading(int clientID) {
-        String clientStatus = "";
+    String clientStatus = "";
+    try {
+        String fetchQuery = "SELECT clientStatus, PrevReading, CurrentReading, Date " +
+                            "FROM meterusage WHERE clientID = ? ORDER BY Date DESC LIMIT 1";
+        try (PreparedStatement fetchStmt = connect.prepareStatement(fetchQuery)) {
+            fetchStmt.setInt(1, clientID);
+            ResultSet rs = fetchStmt.executeQuery();
+
+            int previousReading = 0;
+            LocalDate lastReadingDate = null;
+            if (rs.next()) {
+                clientStatus = rs.getString("clientStatus");
+                previousReading = rs.getInt("PrevReading");
+                lastReadingDate = rs.getDate("Date").toLocalDate();
+            }
+
+            LocalDate currentDate = LocalDate.now();
+            if ("ACTIVE".equalsIgnoreCase(clientStatus)) {
+                if (lastReadingDate == null || lastReadingDate.isBefore(currentDate)) {
+                    int increment;
+                    if (lastReadingDate == null || lastReadingDate.plusDays(30).isBefore(currentDate)) {
+                        increment = (int) (Math.random() * (10 - 6 + 1)) + 6; 
+                    } else {
+                        increment = (int) (Math.random() * (5 - 1 + 1)) + 1; 
+                    }
+
+                    int newReading = previousReading + increment;
+
+                    // Instead of inserting a new row, update the existing one
+                    String updateQuery = "UPDATE meterusage SET PrevReading = ?, CurrentReading = ?, Date = ? WHERE clientID = ?";
+                    try (PreparedStatement updateStmt = connect.prepareStatement(updateQuery)) {
+                        updateStmt.setInt(1, previousReading);
+                        updateStmt.setInt(2, newReading);
+                        updateStmt.setDate(3, java.sql.Date.valueOf(currentDate));
+                        updateStmt.setInt(4, clientID);
+                        updateStmt.executeUpdate();
+                    }
+                }
+            } else if ("INACTIVE".equalsIgnoreCase(clientStatus)) {
+                JOptionPane.showMessageDialog(null, "Client status is INACTIVE.", "Status Info", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Error updating reading: " + e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
+/*
+
+    public void updatePrevReadingAfterPayment(int clientID) {
         try {
-            String fetchQuery = "SELECT clientStatus, MeterUsage, Date " +
-                                "FROM meterusage WHERE clientID = ? ORDER BY Date DESC LIMIT 1";
+            // Step 1: Fetch the latest readings (Prev and Current) from the database
+            String fetchQuery = "SELECT PrevReading, CurrentReading FROM meterusage WHERE clientID = ? ORDER BY Date DESC LIMIT 1";
             try (PreparedStatement fetchStmt = connect.prepareStatement(fetchQuery)) {
                 fetchStmt.setInt(1, clientID);
                 ResultSet rs = fetchStmt.executeQuery();
 
-                int previousReading = 0;
-                LocalDate lastReadingDate = null;
+                int prevReading = 0;
+                int currentReading = 0;
                 if (rs.next()) {
-                    clientStatus = rs.getString("clientStatus");
-                    previousReading = rs.getInt("MeterUsage");
-                    lastReadingDate = rs.getDate("Date").toLocalDate();
+                    prevReading = rs.getInt("PrevReading");
+                    currentReading = rs.getInt("CurrentReading");
                 }
 
-                LocalDate currentDate = LocalDate.now();
-                if ("ACTIVE".equalsIgnoreCase(clientStatus)) {
-                    if (lastReadingDate == null || lastReadingDate.isBefore(currentDate)) {
-                        int increment;
-                        if (lastReadingDate == null || lastReadingDate.plusDays(30).isBefore(currentDate)) {
-                            increment = (int) (Math.random() * (10 - 6 + 1)) + 6; 
-                        } else {
-                            increment = (int) (Math.random() * (5 - 1 + 1)) + 1; 
-                        }
-
-                        int newReading = previousReading + increment;
-
-                        // Insert a new meter usage record into the database
-                        String insertQuery = "INSERT INTO meterusage (clientID, MeterUsage, Date) VALUES (?, ?, ?)";
-                        try (PreparedStatement insertStmt = connect.prepareStatement(insertQuery)) {
-                            insertStmt.setInt(1, clientID);
-                            insertStmt.setInt(2, newReading);
-                            insertStmt.setDate(3, java.sql.Date.valueOf(currentDate));
-                            insertStmt.executeUpdate();
-                        }
-                    }
-                } else if ("INACTIVE".equalsIgnoreCase(clientStatus)) {
-                    JOptionPane.showMessageDialog(null, "Client status is INACTIVE.", "Status Info", JOptionPane.INFORMATION_MESSAGE);
+                // Step 2: Update the PrevReading for the next cycle (after payment or new reading)
+                String updatePrevReadingQuery = "UPDATE meterusage SET PrevReading = ? WHERE clientID = ? AND CurrentReading = ?";
+                try (PreparedStatement updatePrevStmt = connect.prepareStatement(updatePrevReadingQuery)) {
+                    updatePrevStmt.setInt(1, currentReading);  // Set PrevReading as the current one
+                    updatePrevStmt.setInt(2, clientID);
+                    updatePrevStmt.setInt(3, currentReading);
+                    updatePrevStmt.executeUpdate();
                 }
             }
+
+            // Step 3: Now, you can proceed with the balance calculation or new reading logic
+
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error updating reading: " + e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error updating PrevReading: " + e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-
+*/
     
 
 
 }
 
-/*
-    public void displayMeterUsage(){
-        changeDate(-30);
 
-        if("ACTIVE".equals(this.clientStatus)){
-            System.out.println("\nClient's Meter ID: " + meterID);
-            System.out.println("Client Meter Status: " + clientStatus);
-            System.out.println("Date Today: " + LocalDate.now());
-            System.out.println("Date of Last Reading: " + LocalDate.now().minusDays(30));
-            System.out.println("Previous Reading(last reading): " + getPrevReading());
-            System.out.println("Current Reading(as of today): " + getCurrentReading() + "\n");
-        }
-        else if("INACTIVE".equals(clientStatus)){
-            System.out.println("Client's Meter ID: " + meterID);
-            System.out.println("Balance to Pay: " + currentBalance);
-        }
-    }
-*/

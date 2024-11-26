@@ -1,3 +1,5 @@
+package wbs_2103;
+
 public class CalculationOfBill {
     private int HouseNumber, PrevReading, CurrentReading, BalancethisMonth, CurrentBalance;
     

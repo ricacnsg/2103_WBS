@@ -75,7 +75,7 @@ public class Admin {
        
     public ArrayList<String> retrieveClientInfo(){
         ArrayList<String> clientInfo = new ArrayList<>();
-        String query = "SELECT c.clientID, m.meterUsageID, c.ClientUsername,  m.MeterUsage, c.ClientStatus" +
+        String query = "SELECT c.clientID, m.meterUsageID, c.ClientUsername,  m.CurrentReading, c.ClientStatus" +
                         " FROM client c, meterusage m " +
                         "WHERE c.clientID = m.clientID";
 
