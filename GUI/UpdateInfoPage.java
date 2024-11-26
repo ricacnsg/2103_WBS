@@ -178,8 +178,6 @@ public class UpdateInfoPage extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 70, 420, 290));
-
-        jLabel8.setIcon(new javax.swing.ImageIcon("C:\\Users\\Nhel Hernadez\\Documents\\wbs_2103\\src\\wbs_2103\\GUI\\icons\\water-tap (2) (1).png")); // NOI18N
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 70, 70));
 
         jLabel9.setFont(new java.awt.Font("Stencil", 1, 18)); // NOI18N
@@ -187,7 +185,6 @@ public class UpdateInfoPage extends javax.swing.JFrame {
         jLabel9.setText("AQUABILL");
         getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 90, 40));
 
-        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\Nhel Hernadez\\Documents\\wbs_2103\\src\\wbs_2103\\GUI\\icons\\website design (1).png")); // NOI18N
         jLabel3.setText("jLabel3");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 450));
 
@@ -204,7 +201,7 @@ public class UpdateInfoPage extends javax.swing.JFrame {
         client.setclientStatus(selectedVal);
         client.setclientID(Integer.parseInt(clientID.getText()));
         
-        /*
+        
         clientreq.request.append(
                 "ClientID: " + client.getclientID() + "\n" +
                 "Username: " + client.getcUsername() + "\n" +
@@ -212,7 +209,7 @@ public class UpdateInfoPage extends javax.swing.JFrame {
                 "Contact Number: " + client.getcontactNumber() + "\n" +
                 "Status: " + client.getclientStatus()
         );  
-        */
+        
            
         clientreq.setVisible(true);
         

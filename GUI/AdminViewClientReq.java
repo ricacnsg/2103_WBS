@@ -43,7 +43,7 @@ public class AdminViewClientReq extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         request = new javax.swing.JTextArea();
         jScrollPane1 = new javax.swing.JScrollPane();
-        complaint = new javax.swing.JTextArea();
+        complaintArea = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -89,21 +89,17 @@ public class AdminViewClientReq extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 110, 240, 170));
 
-        complaint.setColumns(20);
-        complaint.setRows(5);
-        jScrollPane1.setViewportView(complaint);
+        complaintArea.setColumns(20);
+        complaintArea.setRows(5);
+        jScrollPane1.setViewportView(complaintArea);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, 240, 170));
-
-        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\Nhel Hernadez\\Documents\\wbs_2103\\src\\wbs_2103\\GUI\\icons\\water-tap (2) (1).png")); // NOI18N
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 110, 70));
 
         jLabel3.setFont(new java.awt.Font("Stencil", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 51, 102));
         jLabel3.setText("AQUABILL");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, -1, -1));
-
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Nhel Hernadez\\Documents\\wbs_2103\\src\\wbs_2103\\GUI\\icons\\website design (1).png")); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 440));
 
         pack();
@@ -120,7 +116,7 @@ public class AdminViewClientReq extends javax.swing.JFrame {
             }
             
             client.saveComplaint(client.getclientID(), client.getComplaint());
-            complaint.setText("");
+            complaintArea.setText("");
             JOptionPane.showMessageDialog(this, "Your complaint has been submitted successfully!");
             
             
@@ -185,13 +181,13 @@ public class AdminViewClientReq extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton acceptComp;
     private javax.swing.JButton backtoLogin;
-    private javax.swing.JTextArea complaint;
+    protected javax.swing.JTextArea complaintArea;
     private javax.swing.JButton confirmRequest;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea request;
+    protected javax.swing.JTextArea request;
     // End of variables declaration//GEN-END:variables
 }
