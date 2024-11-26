@@ -1,30 +1,30 @@
 package wbs_2103;
 
-import java.sql.*;
-import java.time.LocalDate;
-import javax.swing.JOptionPane;
+import java.awt.Component;
+import java.sql.Connection;
+import java.sql.Statement;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import wbs_2103.Control_Connector.DBConnect;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 public class Payment {
-    MeterUsage meterusage = new MeterUsage();
+
     private String PaymentMethod, Pin;
     private double ratePerUnit = 15.0;
     private double charges = 20.0;
 
-    private int meterID;
 
-    public int getMeterID() {
-        return meterID;
-    }
-
-    public void setMeterID(int meterID) {
-        this.meterID = meterusage.getMeterID();
-    }
-    private int clientID;
-    private LocalDate paymentDate; // Changed from int to LocalDate for better date handling
+    private int clientID, PaymentDate;
     private double BalancethisMonth, InputPayment, CurrentBalance, change;
     private Connection connect;
-
+    private Component rootPane;
+    
     // Constructor
     public Payment() {
         DBConnect dbconnect = new DBConnect();
@@ -55,16 +55,16 @@ public class Payment {
         return clientID;
     }
 
-    public void setClientID(int clientID) {
+    public void setHouseNumber(int clientID) {
         this.clientID = clientID;
     }
 
-    public LocalDate getPaymentDate() {
-        return paymentDate;
+    public int getPaymentDate() {
+        return PaymentDate;
     }
 
-    public void setPaymentDate(LocalDate paymentDate) {
-        this.paymentDate = paymentDate;
+    public void setPaymentDate(int PaymentDate) {
+        this.PaymentDate = PaymentDate;
     }
 
     public double getBalancethisMonth() {
@@ -79,7 +79,7 @@ public class Payment {
         return InputPayment;
     }
 
-    public void setInputPayment(double InputPayment) {
+    public void setInputPayment(int InputPayment) {
         this.InputPayment = InputPayment;
     }
 
@@ -90,7 +90,7 @@ public class Payment {
     public void setCurrentBalance(double CurrentBalance) {
         this.CurrentBalance = CurrentBalance;
     }
-
+    
     public double getRatePerUnit() {
         return ratePerUnit;
     }
@@ -98,13 +98,17 @@ public class Payment {
     public void setRatePerUnit(double ratePerUnit) {
         this.ratePerUnit = ratePerUnit;
     }
-
+    
     public double getCharges() {
         return charges;
     }
 
     public void setCharges(double charges) {
         this.charges = charges;
+    }
+    
+    public void setPaymentAmount(double InputPayment) {
+        this.InputPayment = InputPayment;
     }
 
     public double getChange() {
@@ -113,13 +117,13 @@ public class Payment {
 
     // Check if the payment is sufficient
     public boolean isPaymentSufficient() {
-        return InputPayment >= BalancethisMonth;
+        return InputPayment >= getBalancethisMonth();
     }
 
     // Calculate change
     public double calculateChange() {
         if (isPaymentSufficient()) {
-            change = InputPayment - BalancethisMonth;
+            change = InputPayment - getBalancethisMonth();
         } else {
             change = 0;
         }
@@ -128,62 +132,54 @@ public class Payment {
 
     // Get the remaining balance if payment is insufficient
     public double getRemainingBalance() {
-        return BalancethisMonth - InputPayment;
+        return getBalancethisMonth() - InputPayment;
     }
 
-    // Process payment
-    public String processPayment(int clientID, int meterID, double inputPayment) {
-        this.clientID = clientID;
-        this.meterID = meterID;
-        this.InputPayment = inputPayment;
-
-        // Check if payment is sufficient
-        if (inputPayment >= BalancethisMonth) {
-            double change = inputPayment - BalancethisMonth;
-            updatePaymentInDatabase(change); // Insert payment into the database
-            return "Payment successful! Change: " + String.format("%.2f", change);
+    // Process payment (you can connect this to a database or just simulate it)
+    public String processPayment() {
+        if (isPaymentSufficient()) {
+            return "Payment successful! Change: " + String.format("%.2f", calculateChange());
         } else {
-            double remainingBalance = BalancethisMonth - inputPayment;
-            updatePaymentInDatabase(0); // Insert payment into the database with no change
-            return "Payment failed! Insufficient amount. Remaining balance: " + String.format("%.2f", remainingBalance);
+            return "Payment failed! Insufficient amount. Remaining balance: " + String.format("%.2f", getRemainingBalance());
         }
     }
 
-    // Method to update payment details in the database
-    private void updatePaymentInDatabase(double change) {
-        try {
-            String insertPaymentQuery = "INSERT INTO payment_table (meterID, paymentdate, payment_method, balanacethismonth, input_payment, current_balance) VALUES (?, ?, ?, ?, ?, ?)";
 
-            LocalDate paymentDate = LocalDate.now(); // Get current date
-            double newBalance = BalancethisMonth - InputPayment; // Calculate remaining balance
+    // Method to calculate the bill and update balance
+ public void updatePaymentFields(int clientID) {
+MeterUsage meterUsage = new MeterUsage();
+    meterUsage.updateReadings(clientID); // Fetch readings (current & previous)
 
-            try (PreparedStatement pstmt = connect.prepareStatement(insertPaymentQuery)) {
-                pstmt.setInt(1, meterID); // meterID
-                pstmt.setDate(2, java.sql.Date.valueOf(paymentDate)); // paymentdate
-                pstmt.setString(3, PaymentMethod); // payment_method (change to dynamic input)
-                pstmt.setDouble(4, BalancethisMonth); // balanacethismonth
-                pstmt.setDouble(5, InputPayment); // input_payment
-                pstmt.setDouble(6, newBalance); // current_balance
-                pstmt.executeUpdate();
-                JOptionPane.showMessageDialog(null, "Payment processed successfully.");
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error processing payment: " + e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
-        }
+    int usage = meterUsage.getCurrentReading() - meterUsage.getPrevReading();
+    double balanceThisMonth = usage * ratePerUnit;
+    setBalancethisMonth(balanceThisMonth);
+
+    // Handle overdue charges (late fees)
+    LocalDate lastReadingDate = meterUsage.getLastReadingDate();
+    long monthsOverdue = 0;
+    if (lastReadingDate != null) {
+        monthsOverdue = ChronoUnit.MONTHS.between(lastReadingDate, LocalDate.now());
     }
 
-    // Method to set balance for the month
-    public void setBalanceThisMonth(double balance) {
-        this.BalancethisMonth = balance;
+    if (monthsOverdue > 0) {
+        charges = 10.0 * monthsOverdue;  // Example: $10 per month overdue
+        JOptionPane.showMessageDialog(null, "Charges applied: " + charges, "Overdue Charges", JOptionPane.INFORMATION_MESSAGE);
+    } else {
+        charges = 0.0;
+        JOptionPane.showMessageDialog(null, "No overdue charges.", "Overdue Charges", JOptionPane.INFORMATION_MESSAGE);
     }
 
-    // Method to get the balance for this month
-    public double getBalanceThisMonth() {
-        return this.BalancethisMonth;
-    }
+    // Update balance with charges
+    double currentBalance = balanceThisMonth + charges;
+    setCurrentBalance(currentBalance);
+}
+
+
 
     // Method to update the balance in the database
     private void updateBalanceInDatabase(int clientID, double newBalance) {
+        // Add logic to update the balance in the database here
+        // Example: Using a SQL query to update balance for the client
         try {
             String updateBalanceQuery = "UPDATE meterusage SET balance = ? WHERE clientID = ?";
             try (PreparedStatement updateStmt = connect.prepareStatement(updateBalanceQuery)) {
@@ -233,13 +229,12 @@ public class Payment {
     public void generateReceipt() {
         JOptionPane.showMessageDialog(null, "Receipt:\n" +
                 "clientID: " + clientID + "\n" +
-                "Payment Date: " + paymentDate + "\n" +
+                "Payment Date: " + PaymentDate + "\n" +
                 "Payment Method: " + PaymentMethod + "\n" +
                 "Amount Paid: " + InputPayment + "\n" +
                 "Remaining Balance: " + CurrentBalance);
     }
 }
-
 
     
 
