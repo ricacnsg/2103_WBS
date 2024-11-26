@@ -8,12 +8,13 @@ import wbs_2103.Client;
 
 /**
  *
- * @author Rica Mae
+ * @author Nhel Hernadez
  */
 public class AdminViewClientReq extends javax.swing.JFrame {
     private static Client client = new Client();
     private static String username, location, contactNumber, status;
     private static int clientID;
+
     /**
      * Creates new form AdminViewClientReq
      */
@@ -36,106 +37,81 @@ public class AdminViewClientReq extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        confirmRequestButton = new javax.swing.JToggleButton();
-        acceptCompButton = new javax.swing.JToggleButton();
-        backtoLoginButton = new javax.swing.JToggleButton();
+        backtoLogin = new javax.swing.JButton();
+        confirmRequest = new javax.swing.JButton();
+        acceptComp = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        requestTextArea = new javax.swing.JTextArea();
+        request = new javax.swing.JTextArea();
         jScrollPane1 = new javax.swing.JScrollPane();
-        complaintTextArea = new javax.swing.JTextArea();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        complaint = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        confirmRequestButton.setBackground(new java.awt.Color(102, 204, 255));
-        confirmRequestButton.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        confirmRequestButton.setForeground(new java.awt.Color(255, 255, 255));
-        confirmRequestButton.setText("CONFIRM REQUEST");
-        confirmRequestButton.addActionListener(new java.awt.event.ActionListener() {
+        backtoLogin.setBackground(new java.awt.Color(204, 255, 255));
+        backtoLogin.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
+        backtoLogin.setText("BACK");
+        backtoLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                confirmRequestButtonActionPerformed(evt);
+                backtoLoginActionPerformed(evt);
             }
         });
-        getContentPane().add(confirmRequestButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 310, -1, -1));
+        getContentPane().add(backtoLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(679, 393, 100, 40));
 
-        acceptCompButton.setBackground(new java.awt.Color(102, 204, 255));
-        acceptCompButton.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-        acceptCompButton.setForeground(new java.awt.Color(255, 255, 255));
-        acceptCompButton.setText("ACCEPT COMPLAINT");
-        acceptCompButton.addActionListener(new java.awt.event.ActionListener() {
+        confirmRequest.setBackground(new java.awt.Color(51, 204, 255));
+        confirmRequest.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        confirmRequest.setForeground(new java.awt.Color(255, 255, 255));
+        confirmRequest.setText("Confirm Request");
+        confirmRequest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                acceptCompButtonActionPerformed(evt);
+                confirmRequestActionPerformed(evt);
             }
         });
-        getContentPane().add(acceptCompButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 310, -1, -1));
+        getContentPane().add(confirmRequest, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 300, 149, 30));
 
-        backtoLoginButton.setBackground(new java.awt.Color(204, 255, 255));
-        backtoLoginButton.setFont(new java.awt.Font("Arial Black", 1, 10)); // NOI18N
-        backtoLoginButton.setText("BACK");
-        backtoLoginButton.addActionListener(new java.awt.event.ActionListener() {
+        acceptComp.setBackground(new java.awt.Color(51, 204, 255));
+        acceptComp.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        acceptComp.setForeground(new java.awt.Color(255, 255, 255));
+        acceptComp.setText("Accept Complaint");
+        acceptComp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                backtoLoginButtonActionPerformed(evt);
+                acceptCompActionPerformed(evt);
             }
         });
-        getContentPane().add(backtoLoginButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 410, -1, -1));
+        getContentPane().add(acceptComp, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 310, 164, 30));
 
-        requestTextArea.setColumns(20);
-        requestTextArea.setRows(5);
-        jScrollPane2.setViewportView(requestTextArea);
+        request.setColumns(20);
+        request.setRows(5);
+        jScrollPane2.setViewportView(request);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 80, 320, 210));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 110, 240, 170));
 
-        complaintTextArea.setColumns(20);
-        complaintTextArea.setRows(5);
-        jScrollPane1.setViewportView(complaintTextArea);
+        complaint.setColumns(20);
+        complaint.setRows(5);
+        jScrollPane1.setViewportView(complaint);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 340, 210));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, 240, 170));
 
-        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel1.setFont(new java.awt.Font("Serif", 1, 33)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(51, 0, 153));
-        jLabel1.setText("CLIENT REQUESTS/ COMPLAINTS");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 40, 610, 32));
+        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\Nhel Hernadez\\Documents\\wbs_2103\\src\\wbs_2103\\GUI\\icons\\water-tap (2) (1).png")); // NOI18N
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 110, 70));
 
-        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\Nhel Hernadez\\Documents\\wbs_2103\\src\\wbs_2103\\GUI\\icons\\water-tap (2) (1).png")); // NOI18N
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 120, 50));
+        jLabel3.setFont(new java.awt.Font("Stencil", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 51, 102));
+        jLabel3.setText("AQUABILL");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, -1, -1));
 
-        jLabel4.setFont(new java.awt.Font("Stencil", 1, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 51, 102));
-        jLabel4.setText("AQUABILL");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 110, 30));
-
-        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\Nhel Hernadez\\Documents\\wbs_2103\\src\\wbs_2103\\GUI\\icons\\website design (1).png")); // NOI18N
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, -1));
+        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Nhel Hernadez\\Documents\\wbs_2103\\src\\wbs_2103\\GUI\\icons\\website design (1).png")); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 440));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void confirmRequestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmRequestButtonActionPerformed
+    private void acceptCompActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptCompActionPerformed
         // TODO add your handling code here:
-        
-        client.updateInfo(
-                client.getcUsername(), 
-                client.getcontactNumber(), 
-                client.getlocation(), 
-                client.getclientStatus(), 
-                client.getclientID());
-    }//GEN-LAST:event_confirmRequestButtonActionPerformed
-
-    private void backtoLoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backtoLoginButtonActionPerformed
-        // TODO add your handling code here:
-        AdminUI adminui = new AdminUI();
-            adminui.setVisible(true);
-            dispose();
-    }//GEN-LAST:event_backtoLoginButtonActionPerformed
-
-    private void acceptCompButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptCompButtonActionPerformed
-        // TODO add your handling code here:
-        try {
+         try {
             
             if (client == null){
                 JOptionPane.showMessageDialog(this, "No client object passed.");
@@ -144,7 +120,7 @@ public class AdminViewClientReq extends javax.swing.JFrame {
             }
             
             client.saveComplaint(client.getclientID(), client.getComplaint());
-            complaintTextArea.setText("");
+            complaint.setText("");
             JOptionPane.showMessageDialog(this, "Your complaint has been submitted successfully!");
             
             
@@ -152,7 +128,24 @@ public class AdminViewClientReq extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
             e.printStackTrace();
         }
-    }//GEN-LAST:event_acceptCompButtonActionPerformed
+    }//GEN-LAST:event_acceptCompActionPerformed
+
+    private void confirmRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmRequestActionPerformed
+        // TODO add your handling code here:
+          client.updateInfo(
+                client.getcUsername(), 
+                client.getcontactNumber(), 
+                client.getlocation(), 
+                client.getclientStatus(), 
+                client.getclientID());
+    }//GEN-LAST:event_confirmRequestActionPerformed
+
+    private void backtoLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backtoLoginActionPerformed
+        // TODO add your handling code here:
+         AdminUI adminui = new AdminUI();
+            adminui.setVisible(true);
+            dispose();
+    }//GEN-LAST:event_backtoLoginActionPerformed
 
     /**
      * @param args the command line arguments
@@ -190,16 +183,15 @@ public class AdminViewClientReq extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JToggleButton acceptCompButton;
-    private javax.swing.JToggleButton backtoLoginButton;
-    protected javax.swing.JTextArea complaintTextArea;
-    private javax.swing.JToggleButton confirmRequestButton;
+    private javax.swing.JButton acceptComp;
+    private javax.swing.JButton backtoLogin;
+    private javax.swing.JTextArea complaint;
+    private javax.swing.JButton confirmRequest;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    public javax.swing.JTextArea requestTextArea;
+    private javax.swing.JTextArea request;
     // End of variables declaration//GEN-END:variables
 }
