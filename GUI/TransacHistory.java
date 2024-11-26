@@ -3,13 +3,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package wbs_2103.GUI;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import wbs_2103.Client;
 
 /**
  *
  * @author apple
  */
 public class TransacHistory extends javax.swing.JFrame {
-
+    Client client = new Client();
     /**
      * Creates new form TransacHistory
      */
@@ -29,14 +33,16 @@ public class TransacHistory extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jProgressBar1 = new javax.swing.JProgressBar();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        clientIDTextField = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        viewButton = new javax.swing.JButton();
         backButton = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        historyTable = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
 
         jLabel1.setText("jLabel1");
 
@@ -45,98 +51,65 @@ public class TransacHistory extends javax.swing.JFrame {
         jLabel5.setText("BILLING DATE");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(0, 153, 153));
-
-        jLabel2.setFont(new java.awt.Font("Arial Black", 1, 10)); // NOI18N
-        jLabel2.setText("Billing Date");
-
-        jLabel3.setFont(new java.awt.Font("Arial Black", 1, 48)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setFont(new java.awt.Font("Serif", 1, 36)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(51, 0, 153));
         jLabel3.setText("HISTORY");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 10, 180, 70));
+        getContentPane().add(clientIDTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 50, 90, -1));
 
-        jLabel4.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setFont(new java.awt.Font("Stencil", 1, 12)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 51, 102));
         jLabel4.setText("AQUABILL");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, -1, 20));
 
-        jLabel6.setFont(new java.awt.Font("Arial Black", 1, 10)); // NOI18N
-        jLabel6.setText("Due Date");
+        viewButton.setBackground(new java.awt.Color(204, 255, 255));
+        viewButton.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        viewButton.setText("View Bill");
+        viewButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(viewButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 390, 110, 30));
 
-        jLabel7.setFont(new java.awt.Font("Arial Black", 1, 10)); // NOI18N
-        jLabel7.setText("Bill Amount");
-
-        jButton1.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
-        jButton1.setText("View Bill");
-
-        backButton.setFont(new java.awt.Font("Arial Black", 1, 10)); // NOI18N
+        backButton.setBackground(new java.awt.Color(204, 255, 255));
+        backButton.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         backButton.setText("BACK");
         backButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(backButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 390, -1, 23));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(88, 88, 88)
-                        .addComponent(jLabel6)
-                        .addGap(86, 86, 86)
-                        .addComponent(jLabel7)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 148, Short.MAX_VALUE)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(61, 61, 61))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(51, 51, 51))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(backButton)
-                        .addContainerGap())))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(jLabel4))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7))))
-                .addGap(11, 11, 11)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 175, Short.MAX_VALUE)
-                .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14))
-        );
+        historyTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Client ID", "Balance This Month", "Paid Amount", "Date"
+            }
+        ));
+        jScrollPane1.setViewportView(historyTable);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, 690, 300));
+
+        jLabel2.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jLabel2.setText("Input ClientID");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 50, -1, -1));
+
+        jLabel6.setIcon(new javax.swing.ImageIcon("C:\\Users\\Nhel Hernadez\\Documents\\wbs_2103\\src\\wbs_2103\\GUI\\icons\\water-tap (2) (1).png")); // NOI18N
+        jLabel6.setText("jLabel6");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 60, 50));
+
+        jLabel8.setIcon(new javax.swing.ImageIcon("C:\\Users\\Nhel Hernadez\\Documents\\wbs_2103\\src\\wbs_2103\\GUI\\icons\\website design (1).png")); // NOI18N
+        jLabel8.setText("jLabel8");
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 780, 440));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -147,6 +120,30 @@ public class TransacHistory extends javax.swing.JFrame {
                 clientmenu.setVisible(true);
                 dispose();
     }//GEN-LAST:event_backButtonActionPerformed
+
+    private void viewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewButtonActionPerformed
+        // TODO add your handling code here:
+        int clientID;
+    try {
+        clientID = Integer.parseInt(clientIDTextField.getText()); // Assumes there's a JTextField for input
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Please enter a valid client ID.");
+        return;
+    }
+
+    // Retrieve filtered data
+    ArrayList<String> paymentInfo = client.filterPaymentByClientID(clientID);
+
+    // Clear the table first
+    DefaultTableModel tableModel = (DefaultTableModel) historyTable.getModel();
+    tableModel.setRowCount(0);
+
+    // Add the filtered data to the table
+    for (String row : paymentInfo) {
+        String[] rowInfo = row.split(", ");
+        tableModel.addRow(rowInfo);
+    }
+    }//GEN-LAST:event_viewButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -185,15 +182,17 @@ public class TransacHistory extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JTextField clientIDTextField;
+    private javax.swing.JTable historyTable;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JProgressBar jProgressBar1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton viewButton;
     // End of variables declaration//GEN-END:variables
 }

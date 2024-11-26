@@ -32,6 +32,7 @@ public class UpdateInfoPage extends javax.swing.JFrame {
         jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
         jPopupMenu1 = new javax.swing.JPopupMenu();
         jRadioButtonMenuItem1 = new javax.swing.JRadioButtonMenuItem();
+        jLabel8 = new javax.swing.JLabel();
         backButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -46,9 +47,9 @@ public class UpdateInfoPage extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         newStatus = new javax.swing.JComboBox<>();
         Submit = new javax.swing.JButton();
-        jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
 
         jCheckBoxMenuItem1.setSelected(true);
         jCheckBoxMenuItem1.setText("jCheckBoxMenuItem1");
@@ -178,15 +179,17 @@ public class UpdateInfoPage extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 70, 420, 290));
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 70, 70));
 
         jLabel9.setFont(new java.awt.Font("Stencil", 1, 18)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(0, 51, 102));
         jLabel9.setText("AQUABILL");
         getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 90, 40));
 
-        jLabel3.setText("jLabel3");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 450));
+        jLabel11.setIcon(new javax.swing.ImageIcon("C:\\Users\\Nhel Hernadez\\Documents\\wbs_2103\\src\\wbs_2103\\GUI\\icons\\water-tap (2) (1).png")); // NOI18N
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 130, 80));
+
+        jLabel10.setIcon(new javax.swing.ImageIcon("C:\\Users\\Nhel Hernadez\\Documents\\wbs_2103\\src\\wbs_2103\\GUI\\icons\\website design (1).png")); // NOI18N
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -276,8 +279,9 @@ public class UpdateInfoPage extends javax.swing.JFrame {
     private javax.swing.JTextField clientID;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;

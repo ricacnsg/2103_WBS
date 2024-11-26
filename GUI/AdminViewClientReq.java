@@ -44,9 +44,11 @@ public class AdminViewClientReq extends javax.swing.JFrame {
         request = new javax.swing.JTextArea();
         jScrollPane1 = new javax.swing.JScrollPane();
         complaintArea = new javax.swing.JTextArea();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -59,7 +61,7 @@ public class AdminViewClientReq extends javax.swing.JFrame {
                 backtoLoginActionPerformed(evt);
             }
         });
-        getContentPane().add(backtoLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(679, 393, 100, 40));
+        getContentPane().add(backtoLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 400, 100, 40));
 
         confirmRequest.setBackground(new java.awt.Color(51, 204, 255));
         confirmRequest.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
@@ -70,7 +72,7 @@ public class AdminViewClientReq extends javax.swing.JFrame {
                 confirmRequestActionPerformed(evt);
             }
         });
-        getContentPane().add(confirmRequest, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 300, 149, 30));
+        getContentPane().add(confirmRequest, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 300, 149, 30));
 
         acceptComp.setBackground(new java.awt.Color(51, 204, 255));
         acceptComp.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
@@ -81,26 +83,37 @@ public class AdminViewClientReq extends javax.swing.JFrame {
                 acceptCompActionPerformed(evt);
             }
         });
-        getContentPane().add(acceptComp, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 310, 164, 30));
+        getContentPane().add(acceptComp, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 300, 164, 30));
 
         request.setColumns(20);
         request.setRows(5);
         jScrollPane2.setViewportView(request);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 110, 240, 170));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 110, 240, 170));
 
         complaintArea.setColumns(20);
         complaintArea.setRows(5);
         jScrollPane1.setViewportView(complaintArea);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, 240, 170));
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 110, 70));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 110, 240, 170));
 
         jLabel3.setFont(new java.awt.Font("Stencil", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 51, 102));
         jLabel3.setText("AQUABILL");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, -1, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, -1, -1));
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 440));
+
+        jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\Nhel Hernadez\\Documents\\wbs_2103\\src\\wbs_2103\\GUI\\icons\\water-tap (2) (1).png")); // NOI18N
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 60, 80));
+
+        jLabel6.setFont(new java.awt.Font("Serif", 1, 36)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(51, 0, 153));
+        jLabel6.setText("VIEW CLIENT REQUEST");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, 500, 50));
+
+        jLabel4.setIcon(new javax.swing.ImageIcon("C:\\Users\\Nhel Hernadez\\Documents\\wbs_2103\\src\\wbs_2103\\GUI\\icons\\website design (1).png")); // NOI18N
+        jLabel4.setText("jLabel4");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 450));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -184,8 +197,10 @@ public class AdminViewClientReq extends javax.swing.JFrame {
     protected javax.swing.JTextArea complaintArea;
     private javax.swing.JButton confirmRequest;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     protected javax.swing.JTextArea request;

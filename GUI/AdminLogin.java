@@ -43,6 +43,7 @@ public class AdminLogin extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         backButton.setBackground(new java.awt.Color(204, 255, 255));
+        backButton.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         backButton.setText("BACK");
         backButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -58,8 +59,8 @@ public class AdminLogin extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Serif", 1, 50)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(51, 0, 153));
-        jLabel1.setText("LOGIN");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 10, -1, 54));
+        jLabel1.setText("LOGIN ADMIN");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 10, -1, 54));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
