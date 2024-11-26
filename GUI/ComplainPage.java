@@ -101,16 +101,12 @@ public class ComplainPage extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(51, 0, 153));
         jLabel1.setText("Complain to Admin");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 30, 480, 48));
-
-        jLabel4.setIcon(new javax.swing.ImageIcon("C:\\Users\\Nhel Hernadez\\Documents\\wbs_2103\\src\\wbs_2103\\GUI\\icons\\water-tap (2) (1).png")); // NOI18N
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 70, 70));
 
         jLabel5.setFont(new java.awt.Font("Stencil", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 51, 102));
         jLabel5.setText("AQUABILL");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 110, 40));
-
-        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\Nhel Hernadez\\Documents\\wbs_2103\\src\\wbs_2103\\GUI\\icons\\website design (1).png")); // NOI18N
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 450));
 
         pack();
@@ -126,7 +122,7 @@ public class ComplainPage extends javax.swing.JFrame {
         client.setclientID(Integer.parseInt(clientID.getText()));
         client.setComplaint(complaintTextArea.getText());
         
-        clientreq.complaintTextArea.append(
+        clientreq.complaintArea.append(
                 "ClientID: " + client.getclientID() + "\n" +
                 "Complaint: " + client.getComplaint()
         );
