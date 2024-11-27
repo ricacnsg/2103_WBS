@@ -3,18 +3,27 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package wbs_2103.GUI2;
+import wbs_2103.Client;
+import wbs_2103.Admin;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
+
 
 /**
  *
  * @author Rica Mae
  */
 public class AdminUI extends javax.swing.JFrame {
+    private static Client client = new Client();
+    Admin admin = new Admin();
 
     /**
      * Creates new form AdminUI
      */
     public AdminUI() {
         initComponents();
+        admin.retrieveClientInfo();
     }
 
     /**
@@ -52,6 +61,11 @@ public class AdminUI extends javax.swing.JFrame {
         jLabel1.setText("AQUABILL");
 
         logoutButton.setText("LOG OUT");
+        logoutButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutButtonActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/wbs_2103/GUI/icons/water-tap (2) (1).png"))); // NOI18N
@@ -98,7 +112,6 @@ public class AdminUI extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(0, 204, 204));
 
         complaintLabel.setBackground(new java.awt.Color(153, 153, 153));
-        complaintLabel.setForeground(new java.awt.Color(0, 0, 0));
         complaintLabel.setText("CLIENT COMPLAINT (DISPLAY) ");
 
         refreshButton.setText("REFRESH");
@@ -111,7 +124,6 @@ public class AdminUI extends javax.swing.JFrame {
         });
 
         jLabel11.setFont(new java.awt.Font("Serif", 1, 36)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
         jLabel11.setText("VIEW CLIENT COMPLAINT");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -152,22 +164,23 @@ public class AdminUI extends javax.swing.JFrame {
 
         monitorTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "CLIENT ID", "METER ID", "AMOUNT PAID", "DATE"
+                "CLIENT ID", "METER ID", "AMOUNT PAID", "DATE", "STATUS"
             }
         ));
         jScrollPane2.setViewportView(monitorTable);
 
         jLabel12.setFont(new java.awt.Font("Serif", 1, 36)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(0, 0, 0));
         jLabel12.setText("VIEW CLIENT METER USAGE");
 
         loadHistoryButton.setText("REFRESH");
+        loadHistoryButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loadHistoryButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -221,6 +234,25 @@ public class AdminUI extends javax.swing.JFrame {
     private void ackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ackButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ackButtonActionPerformed
+
+    private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
+        // TODO add your handling code here:
+        // hala ako gumawa ng exit button ha - nhel
+        UserUI user = new UserUI();
+            user.setVisible(true);
+            dispose();
+    }//GEN-LAST:event_logoutButtonActionPerformed
+
+    private void loadHistoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadHistoryButtonActionPerformed
+        // TODO add your handling code here:
+         ArrayList<String> clientInfo = admin.retrieveClientInfo();
+        
+        DefaultTableModel tableModel = (DefaultTableModel) monitorTable.getModel();
+        for (String row : clientInfo) {
+            String[] rowInfo = row.split(", ");
+            tableModel.addRow(rowInfo);
+        }  
+    }//GEN-LAST:event_loadHistoryButtonActionPerformed
 
     /**
      * @param args the command line arguments
