@@ -155,9 +155,10 @@ public class LoginUI extends javax.swing.JFrame {
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         // TODO add your handling code here:
         client.setcUsername(usernameField.getText());
-        String password = new String(passwordField.getPassword());
+        client.setpassword(passwordField.getText());
+        //String password = new String(passwordField.getpassword());
         
-        boolean loginsuccess = client.login(client.getcUsername(), password);
+        boolean loginsuccess = client.login(client.getcUsername(), client.getpassword());
         
         if(loginsuccess){
             ClientMenuPage clientmenu = new ClientMenuPage();
