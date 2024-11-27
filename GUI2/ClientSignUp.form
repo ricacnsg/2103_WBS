@@ -84,7 +84,7 @@
                       <Component id="meterField" min="-2" pref="211" max="-2" attributes="0"/>
                       <Component id="contactField" min="-2" pref="211" max="-2" attributes="0"/>
                       <Component id="usernameField" min="-2" pref="211" max="-2" attributes="0"/>
-                      <Component id="passwordButton" min="-2" pref="211" max="-2" attributes="0"/>
+                      <Component id="passwordField" min="-2" pref="211" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="88" max="-2" attributes="0"/>
               </Group>
@@ -137,7 +137,7 @@
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="locField" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="passwordButton" min="-2" max="-2" attributes="0"/>
+                          <Component id="passwordField" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace pref="25" max="32767" attributes="0"/>
@@ -237,8 +237,11 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="SIGN UP"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="signUpButtonActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="passwordButton">
+        <Component class="javax.swing.JTextField" name="passwordField">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel8">
           <Properties>

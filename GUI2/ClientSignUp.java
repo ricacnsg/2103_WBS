@@ -3,13 +3,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package wbs_2103.GUI2;
+import javax.swing.JOptionPane;
+import wbs_2103.Client;
 
 /**
  *
  * @author Rica Mae
  */
 public class ClientSignUp extends javax.swing.JFrame {
-
+    Client client = new Client();
     /**
      * Creates new form UserUI
      */
@@ -41,7 +43,7 @@ public class ClientSignUp extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         signUpButton = new javax.swing.JButton();
-        passwordButton = new javax.swing.JTextField();
+        passwordField = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         exitButton = new javax.swing.JButton();
 
@@ -80,6 +82,11 @@ public class ClientSignUp extends javax.swing.JFrame {
         jLabel7.setText("ALREADY HAVE AN ACCOUNT?");
 
         signUpButton.setText("SIGN UP");
+        signUpButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                signUpButtonActionPerformed(evt);
+            }
+        });
 
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("PASSWORD");
@@ -121,7 +128,7 @@ public class ClientSignUp extends javax.swing.JFrame {
                     .addComponent(meterField, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(contactField, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(usernameField, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(passwordButton, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(88, 88, 88))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -164,7 +171,7 @@ public class ClientSignUp extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(locField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(passwordButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addComponent(signUpButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -207,6 +214,54 @@ public class ClientSignUp extends javax.swing.JFrame {
             clientsn.setVisible(true);
             dispose();
     }//GEN-LAST:event_signInClientActionPerformed
+
+    private void signUpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpButtonActionPerformed
+        // TODO add your handling code here:
+        client.setcUsername(usernameField.getText());
+        client.setcontactNumber(contactField.getText());
+        client.setlocation(locField.getText());
+        client.setpassword(passwordField.getText());
+        client.setclientStatus("ACTIVE");
+        
+        String username = usernameField.getText();
+        String password = passwordField.getText();
+        String location = locField.getText();
+        String contactNumber = contactField.getText();
+        
+        if (username.isEmpty() || password.isEmpty() || location.isEmpty() || contactNumber.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Please fill in all fields!", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+     
+     try {
+        client.setcUsername(username);
+        client.setlocation(location);
+        client.setcontactNumber(contactNumber);
+        client.setpassword(password);
+        client.setclientStatus("ACTIVE");
+
+        int clientID = client.createAcc(location, contactNumber, "ACTIVE", username, password);
+
+        if (clientID != -1) {
+            JOptionPane.showMessageDialog(this, 
+                "Account successfully created! Your client ID is: " + clientID, 
+                "Success", 
+                JOptionPane.INFORMATION_MESSAGE);
+            
+            // Call the LoginUI JFrame
+            ClientSignIn clientsn = new ClientSignIn();
+            clientsn.setVisible(true);
+            dispose(); // Close the current CreateAcc JFrame
+        } else {
+            JOptionPane.showMessageDialog(this, "Account creation failed. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    } catch (Exception ex) {
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(this, "An error occurred: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+        
+        
+    }//GEN-LAST:event_signUpButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -265,7 +320,7 @@ public class ClientSignUp extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField locField;
     private javax.swing.JTextField meterField;
-    private javax.swing.JTextField passwordButton;
+    private javax.swing.JTextField passwordField;
     private javax.swing.JButton signInClient;
     private javax.swing.JButton signUpButton;
     private javax.swing.JTextField usernameField;
