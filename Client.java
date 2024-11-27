@@ -16,7 +16,7 @@ public class Client {
     MeterUsage meterusage = new MeterUsage();
     protected int clientID, meterID;
     private String contactNumber;
-    private String location, clientStatus, cUsername, randPass, complaint;
+    private String location, clientStatus, cUsername, randPass, complaint, password;
     private Connection connect;
     private Component rootPane;
 
@@ -24,6 +24,14 @@ public class Client {
     public Client(){
         DBConnect dbconnect = new DBConnect();
         this.connect = dbconnect.getConnection();
+    }
+    
+    public void setpassword(String password){
+        this.password = password;
+    }
+    
+    public String getpassword(){
+        return password;
     }
 
     public void setclientID(int clientID){
@@ -95,7 +103,7 @@ public class Client {
         return complaint;
     }
     
-
+ /*
     public String generaterandPass(){
         //blocks of code to give the client random password when they created their account
 
@@ -111,6 +119,7 @@ public class Client {
         this.randPass = pass.toString();
         return randPass;
     }
+*/
     
     public void updateInfo(String cUsername, String contactNumber, String location, String clientStatus, int clientID) {
     int parameterIndex = 1;
@@ -187,8 +196,8 @@ public class Client {
 }
 
 
-   public int createAcc(String Location, String ContactNumber, String ClientStatus, String ClientUsername, String RandPass) {
-    String createAccQuery = "INSERT INTO client (Location, ContactNumber, ClientStatus, ClientUsername, RandPass) VALUES (?, ?, ?, ?, ?)";
+   public int createAcc(String Location, String ContactNumber, String ClientStatus, String ClientUsername, String password) {
+    String createAccQuery = "INSERT INTO client (Location, ContactNumber, ClientStatus, ClientUsername, password) VALUES (?, ?, ?, ?, ?)";
     String createMeterUsageQuery = "INSERT INTO meterusage (clientID, PrevReading, CurrentReading, balance, ClientStatus, Date) VALUES (?, 0, 0, 0, ?, NOW())";
 
     int clientID = -1;  // Initialize to -1 if creation fails
@@ -200,7 +209,7 @@ public class Client {
             pstmt.setLong(2, Long.parseLong(ContactNumber));
             pstmt.setString(3, ClientStatus);
             pstmt.setString(4, ClientUsername);
-            pstmt.setString(5, RandPass);
+            pstmt.setString(5, password);
 
             int affectedRows = pstmt.executeUpdate();
 
@@ -252,10 +261,10 @@ public class Client {
    
     public boolean login(String cUsername, String randPass){
         //make a query for getting values from the database para macheck if tama ang username and password
-        String query = "SELECT * FROM client WHERE ClientUsername = ? AND RandPass = ?";
+        String query = "SELECT * FROM client WHERE ClientUsername = ? AND password = ?";
         try (PreparedStatement pstmt = connect.prepareStatement(query)) {
             pstmt.setString(1, cUsername);
-            pstmt.setString(2, randPass);
+            pstmt.setString(2, password);
 
             ResultSet rs = pstmt.executeQuery();
 
@@ -333,6 +342,10 @@ String row = rs.getInt("clientID") + ", "
     }
     return filteredPayments;
 }
+
+   // public String password(String password) {
+     //   throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    //}
  
 
         
