@@ -3,12 +3,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package wbs_2103.GUI2;
+import javax.swing.JOptionPane;
+import wbs_2103.Admin;
+
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Rica Mae
  */
 public class AdminSignIn extends javax.swing.JFrame {
+     Admin admin = new Admin();
+    private String password;
 
     /**
      * Creates new form AdminSignIn
@@ -29,12 +35,12 @@ public class AdminSignIn extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         adminunField = new javax.swing.JTextField();
-        passField = new javax.swing.JTextField();
         signInButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         exitButton = new javax.swing.JButton();
+        passfield = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -45,6 +51,11 @@ public class AdminSignIn extends javax.swing.JFrame {
         jLabel14.setText("SIGN IN");
 
         signInButton.setText("SIGN IN");
+        signInButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                signInButtonActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("USERNAME");
 
@@ -61,6 +72,12 @@ public class AdminSignIn extends javax.swing.JFrame {
             }
         });
 
+        passfield.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passfieldActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -69,11 +86,11 @@ public class AdminSignIn extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(21, 21, 21)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(adminunField, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(passField, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(adminunField, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(passfield)))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                         .addGap(17, 17, 17)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -100,15 +117,15 @@ public class AdminSignIn extends javax.swing.JFrame {
                 .addComponent(adminunField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(passField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(passfield, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
                         .addComponent(signInButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(50, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
                         .addComponent(exitButton)
                         .addGap(32, 32, 32))))
         );
@@ -133,6 +150,32 @@ public class AdminSignIn extends javax.swing.JFrame {
             user.setVisible(true);
             dispose();
     }//GEN-LAST:event_exitButtonActionPerformed
+
+    private void signInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signInButtonActionPerformed
+        // TODO add your handling code here:
+         admin.setUsername(adminunField.getText());
+         String password = new String(passfield.getPassword());
+         //admin.password = new String(passField.getPassword());
+        
+        
+        boolean loginsuccess = admin.Login(admin.getUsername(), password);
+        
+        if(loginsuccess){
+            //wbs_2103.GUI.AdminUI adminui = new wbs_2103.GUI.AdminUI();
+              //  adminui.setVisible(true);
+              AdminUI adminui = new AdminUI();
+              adminui.setVisible(true);
+              dispose();
+        }
+        else{
+            JOptionPane.showMessageDialog(null,"ACCOUNT LOGIN UNSUCCESSFUL");
+        }
+
+    }//GEN-LAST:event_signInButtonActionPerformed
+
+    private void passfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passfieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_passfieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -177,7 +220,7 @@ public class AdminSignIn extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField passField;
+    private javax.swing.JPasswordField passfield;
     private javax.swing.JButton signInButton;
     // End of variables declaration//GEN-END:variables
 }
