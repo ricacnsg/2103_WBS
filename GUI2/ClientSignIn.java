@@ -3,13 +3,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package wbs_2103.GUI2;
-
+import javax.swing.JOptionPane;
+import wbs_2103.Client;
 /**
  *
  * @author Rica Mae
  */
 public class ClientSignIn extends javax.swing.JFrame {
-
+    Client client = new Client();
     /**
      * Creates new form ClientSignIn
      */
@@ -34,10 +35,16 @@ public class ClientSignIn extends javax.swing.JFrame {
         clientunField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         passField = new javax.swing.JTextField();
+
         signInButton = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        exitButton = new javax.swing.JButton();
+        passField = new javax.swing.JPasswordField();
         jLabel3 = new javax.swing.JLabel();
+        clientIDField = new javax.swing.JTextField();
+
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -56,12 +63,20 @@ public class ClientSignIn extends javax.swing.JFrame {
         jLabel14.setText("SIGN IN");
         getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 10, -1, -1));
 
+
         jLabel15.setFont(new java.awt.Font("Serif", 1, 18)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(51, 0, 153));
         jLabel15.setText("CLIENT");
         getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 30, 179, -1));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        signInButton.setText("SIGN IN");
+        signInButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                signInButtonActionPerformed(evt);
+            }
+        });
+
 
         jLabel1.setText("USERNAME");
 
@@ -69,6 +84,8 @@ public class ClientSignIn extends javax.swing.JFrame {
 
         signInButton.setBackground(new java.awt.Color(51, 204, 255));
         signInButton.setText("SIGN IN");
+
+        jLabel3.setText("CLIENT ID");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -86,10 +103,41 @@ public class ClientSignIn extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(signInButton, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(21, 21, 21))
+
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                            .addGap(17, 17, 17)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(exitButton)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel14)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(21, 21, 21)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(clientunField, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
+                                .addComponent(passField)
+                                .addComponent(clientIDField))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(164, 164, 164)
+                        .addComponent(signInButton, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(105, 105, 105)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(103, 103, 103)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(105, 105, 105)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(103, Short.MAX_VALUE))
+
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+
                 .addGap(31, 31, 31)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
@@ -99,6 +147,25 @@ public class ClientSignIn extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(passField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+
+                .addGap(15, 15, 15)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(jLabel15))
+                .addGap(54, 54, 54)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(clientIDField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(clientunField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(passField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+
                 .addComponent(signInButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28))
         );
@@ -126,6 +193,29 @@ public class ClientSignIn extends javax.swing.JFrame {
             clientsp.setVisible(true);
             dispose();
     }//GEN-LAST:event_exitButtonActionPerformed
+
+    private void signInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signInButtonActionPerformed
+        // TODO add your handling code here:
+        client.setclientID(Integer.parseInt(clientIDField.getText()));
+        client.setcUsername(clientunField.getText());
+        client.setpassword(new String(passField.getPassword()));
+        
+        int clientID = client.getclientID();
+        String username = client.getcUsername();
+        String password = client.getpassword();
+        
+        Client client = new Client();
+        boolean success = client.login(clientID, username, password);
+
+        if (success) {
+            JOptionPane.showMessageDialog(this, "Sign-in successful!");
+            ClientUI clientui = new ClientUI();
+                clientui.setVisible(true);
+                this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Invalid credentials. Please try again.");
+        }
+    }//GEN-LAST:event_signInButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -163,6 +253,7 @@ public class ClientSignIn extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField clientIDField;
     private javax.swing.JTextField clientunField;
     private javax.swing.JButton exitButton;
     private javax.swing.JLabel jLabel1;
@@ -173,7 +264,7 @@ public class ClientSignIn extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField passField;
+    private javax.swing.JPasswordField passField;
     private javax.swing.JButton signInButton;
     // End of variables declaration//GEN-END:variables
 }

@@ -259,20 +259,32 @@ public class Client {
     return clientID;  // Return the clientID after successful account creation
 }
    
-    public boolean login(String cUsername, String randPass){
-        //make a query for getting values from the database para macheck if tama ang username and password
-        String query = "SELECT * FROM client WHERE ClientUsername = ? AND password = ?";
+    public boolean login(int clientID, String username, String password){
+         boolean isValid = false;
+        String query = "SELECT clientID FROM client WHERE clientID = ? AND ClientUsername = ? AND password = ?";
+        
         try (PreparedStatement pstmt = connect.prepareStatement(query)) {
-            pstmt.setString(1, cUsername);
-            pstmt.setString(2, password);
 
-            ResultSet rs = pstmt.executeQuery();
-
-             return rs.next();
+            pstmt.setInt(1, clientID);
+            pstmt.setString(2, username);
+            pstmt.setString(3, password);
+            
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    SharedData.clientID = rs.getInt("clientID");
+                    ClientState.verifiedID = SharedData.clientID;
+                    ClientState.isVerified = true;
+                    isValid = true;
+                } else {
+                    ClientState.isVerified = false;
+                    ClientState.verifiedID = -1;
+                }
+            }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, "Error: " + e.getMessage());
+            e.printStackTrace();
         }
-        return false;     
+
+        return isValid;    
     }
 
     public String getFormattedMeterUsageByClientID(int clientID) throws SQLException {
