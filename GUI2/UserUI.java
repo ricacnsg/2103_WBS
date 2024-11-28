@@ -26,98 +26,61 @@ public class UserUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         clientButton = new javax.swing.JButton();
         adminButton = new javax.swing.JButton();
         exitButton = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(0, 153, 153));
-
-        jLabel1.setFont(new java.awt.Font("Serif", 1, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("WELCOME TO AQUABILL");
-
-        jLabel2.setFont(new java.awt.Font("Serif", 1, 12)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("WATER BILLING SYSTEM");
-
-        clientButton.setFont(new java.awt.Font("Serif", 1, 24)); // NOI18N
+        clientButton.setBackground(new java.awt.Color(51, 204, 255));
+        clientButton.setFont(new java.awt.Font("Serif", 1, 36)); // NOI18N
+        clientButton.setForeground(new java.awt.Color(255, 255, 255));
         clientButton.setText("CLIENT");
         clientButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 clientButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(clientButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 250, 230, 80));
 
-        adminButton.setFont(new java.awt.Font("Serif", 1, 24)); // NOI18N
+        adminButton.setBackground(new java.awt.Color(51, 204, 255));
+        adminButton.setFont(new java.awt.Font("Serif", 1, 36)); // NOI18N
+        adminButton.setForeground(new java.awt.Color(255, 255, 255));
         adminButton.setText("ADMIN");
         adminButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 adminButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(adminButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 130, 230, 80));
 
+        exitButton.setBackground(new java.awt.Color(204, 255, 255));
+        exitButton.setFont(new java.awt.Font("Rockwell", 0, 12)); // NOI18N
         exitButton.setText("EXIT");
         exitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 exitButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(exitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 410, -1, -1));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 96, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(93, 93, 93))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(212, 212, 212)
-                        .addComponent(clientButton, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(212, 212, 212)
-                        .addComponent(adminButton, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(230, 230, 230)
-                        .addComponent(jLabel2))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(exitButton)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
-                .addGap(75, 75, 75)
-                .addComponent(clientButton, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(60, 60, 60)
-                .addComponent(adminButton, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
-                .addComponent(exitButton)
-                .addGap(37, 37, 37))
-        );
+        jLabel2.setFont(new java.awt.Font("Serif", 1, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(51, 0, 153));
+        jLabel2.setText("WATER BILLING SYSTEM");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 60, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        jLabel1.setFont(new java.awt.Font("Serif", 1, 48)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(51, 0, 153));
+        jLabel1.setText("WELCOME TO AQUABILL");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, -1, 46));
+
+        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\Nhel Hernadez\\Documents\\wbs_2103\\src\\wbs_2103\\GUI\\icons\\website design (1).png")); // NOI18N
+        jLabel3.setText("jLabel3");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 790, 450));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -182,6 +145,6 @@ public class UserUI extends javax.swing.JFrame {
     private javax.swing.JButton exitButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel3;
     // End of variables declaration//GEN-END:variables
 }
