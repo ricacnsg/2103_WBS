@@ -92,11 +92,9 @@ public class ClientUI extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(0, 204, 204));
 
         jLabel4.setFont(new java.awt.Font("Serif", 1, 36)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("METER USAGE");
 
         meterUsageLabel.setFont(new java.awt.Font("Serif", 0, 18)); // NOI18N
-        meterUsageLabel.setForeground(new java.awt.Color(0, 0, 0));
         meterUsageLabel.setText("DISPLAY METER USAGE");
 
         refreshButton.setText("REFRESH");
@@ -138,7 +136,6 @@ public class ClientUI extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(0, 204, 204));
 
         payLabel.setBackground(new java.awt.Color(153, 153, 153));
-        payLabel.setForeground(new java.awt.Color(0, 0, 0));
         payLabel.setText("METER TO PAY (DISPLAY)");
 
         refreshBill.setText("REFRESH");
@@ -156,10 +153,8 @@ public class ClientUI extends javax.swing.JFrame {
         });
 
         jLabel11.setFont(new java.awt.Font("Serif", 1, 36)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
         jLabel11.setText("PAY WATER BILL");
 
-        jLabel15.setForeground(new java.awt.Color(0, 0, 0));
         jLabel15.setText("PAYMENT");
 
         pinField.addActionListener(new java.awt.event.ActionListener() {
@@ -168,7 +163,6 @@ public class ClientUI extends javax.swing.JFrame {
             }
         });
 
-        jLabel16.setForeground(new java.awt.Color(0, 0, 0));
         jLabel16.setText("GCASH PIN");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -246,7 +240,6 @@ public class ClientUI extends javax.swing.JFrame {
         jScrollPane2.setViewportView(transactionTable);
 
         jLabel12.setFont(new java.awt.Font("Serif", 1, 36)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(0, 0, 0));
         jLabel12.setText("VIEW HISTORY");
 
         refreshTransac.setText("REFRESH");
@@ -293,9 +286,13 @@ public class ClientUI extends javax.swing.JFrame {
         jScrollPane1.setViewportView(complaintArea);
 
         submitButton.setText("SUBMIT");
+        submitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submitButtonActionPerformed(evt);
+            }
+        });
 
         jLabel13.setFont(new java.awt.Font("Serif", 1, 36)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(0, 0, 0));
         jLabel13.setText("SEND COMPLAINT TO ADMIN");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -378,10 +375,14 @@ public class ClientUI extends javax.swing.JFrame {
         jPanel4.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 200, 132, -1));
 
         updateButton.setText("UPDATE INFO");
+        updateButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateButtonActionPerformed(evt);
+            }
+        });
         jPanel4.add(updateButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 330, 110, 40));
 
         jLabel14.setFont(new java.awt.Font("Serif", 1, 36)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(0, 0, 0));
         jLabel14.setText("VIEW AND UPDATE INFO");
         jPanel4.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
@@ -622,6 +623,107 @@ public class ClientUI extends javax.swing.JFrame {
     private void pinFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pinFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_pinFieldActionPerformed
+
+    private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
+        // TODO add your handling code here:
+         String complaintMsg = complaintArea.getText().trim();
+
+    // Validate if complaint message is not empty
+    if (complaintMsg.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Please write a complaint before submitting.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Get the logged-in clientID
+    int clientID = SharedData.clientID;
+
+    if (clientID <= 0) {
+        JOptionPane.showMessageDialog(this, "Error: No client is logged in.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Save the complaint to the database
+    try {
+        Client client = new Client();
+        client.saveComplaint(clientID, complaintMsg); // Assuming this method already exists in the Client class
+        JOptionPane.showMessageDialog(this, "Complaint submitted successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+        // Clear the complaint area after submission
+        complaintArea.setText("");
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Error submitting complaint: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+        
+        
+    }//GEN-LAST:event_submitButtonActionPerformed
+
+    private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
+        // TODO add your handling code here:
+    String updatedUsername = changeUsername.getText().trim(); // Text field for username
+    String updatedContactNumber = changeContact.getText().trim(); // Text field for contact number
+    String updatedPassword = changePass.getText().trim(); // Text field for password
+    String updatedLocation = changeLoc.getText().trim(); // Text field for location
+
+    // Get the client ID (assumed to be stored in SharedData)
+    int clientID = SharedData.clientID;
+
+    // Input validation
+    if (clientID == -1) {
+        JOptionPane.showMessageDialog(this, "Client ID is not valid. Please log in or select a client.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Validate contact number (assuming it must be exactly 10 digits)
+    if (updatedContactNumber.length() != 10 || !updatedContactNumber.matches("\\d{10}")) {
+        JOptionPane.showMessageDialog(this, "Invalid contact number. Please enter exactly 10 digits.", "Validation Error", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    // Database update logic
+    try {
+        // Assuming Client class handles database updates
+        Client client = new Client(); 
+        client.updateInfo(updatedUsername, updatedContactNumber, updatedPassword, updatedLocation, clientID);
+
+        // Success message
+        JOptionPane.showMessageDialog(this, "Client information updated successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+    } catch (Exception e) {
+        // Handle and show error message
+        JOptionPane.showMessageDialog(this, "Error updating client information: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        e.printStackTrace();
+    }
+     /*   
+    String updatedUsername = changeUsername.getText().trim(); // Text field for username
+    String updatedContactNumber = changeContact.getText().trim(); // Text field for contact number
+    String updatedpassword = changePass.getText();
+    String updatedLocation = changeLoc.getText().trim(); // Text field for location
+    //String updatedStatus = statusComboBox.getSelectedItem().toString(); // ComboBox for status
+
+    // Get the client ID (assumed to be stored or selected in the UI)
+    int clientID = SharedData.clientID;
+
+    // Validate inputs before updating
+    if (clientID == -1) {
+        JOptionPane.showMessageDialog(this, "Client ID is not valid. Please log in or select a client.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    if (updatedContactNumber.length() != 9 || !updatedContactNumber.matches("\\d+")) {
+        JOptionPane.showMessageDialog(this, "Invalid contact number. Please enter a 10-digit number.", "Validation Error", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    // Update the client information in the database
+    try {
+        Client client = new Client(); // Assuming Client class handles database operations
+        client.updateInfo(updatedUsername, updatedContactNumber, updatedpassword, updatedLocation, clientID);
+        JOptionPane.showMessageDialog(this, "Client information updated successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Error updating client information: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        e.printStackTrace();
+    }
+    */
+    }//GEN-LAST:event_updateButtonActionPerformed
 
     /**
      * @param args the command line arguments
