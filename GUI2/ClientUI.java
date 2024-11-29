@@ -4,12 +4,29 @@
  */
 package wbs_2103.GUI2;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.Map;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import wbs_2103.ClientState;
+import wbs_2103.MeterUsage;
+import wbs_2103.Payment;
+import wbs_2103.SharedData;
+import wbs_2103.Client;
+import static wbs_2103.SharedData.clientID;
+
 /**
  *
  * @author Rica Mae
  */
 public class ClientUI extends javax.swing.JFrame {
-
+    String todayDate = LocalDate.now().toString();
+    MeterUsage meterusage = new MeterUsage();
+    Payment paymentProcessor = new Payment();
+    Client client = new Client();
+    
     /**
      * Creates new form ClientUI
      */
@@ -36,15 +53,16 @@ public class ClientUI extends javax.swing.JFrame {
         payLabel = new javax.swing.JLabel();
         refreshBill = new javax.swing.JButton();
         paymentField = new javax.swing.JTextField();
-        changeField = new javax.swing.JTextField();
         payButton = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
+        pinField = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         transactionTable = new javax.swing.JTable();
         jLabel12 = new javax.swing.JLabel();
+        refreshTransac = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         complaintArea = new javax.swing.JTextArea();
@@ -77,7 +95,7 @@ public class ClientUI extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("METER USAGE");
 
-        meterUsageLabel.setFont(new java.awt.Font("Serif", 0, 12)); // NOI18N
+        meterUsageLabel.setFont(new java.awt.Font("Serif", 0, 18)); // NOI18N
         meterUsageLabel.setForeground(new java.awt.Color(0, 0, 0));
         meterUsageLabel.setText("DISPLAY METER USAGE");
 
@@ -93,13 +111,13 @@ public class ClientUI extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(132, 132, 132)
+                .addGap(147, 147, 147)
                 .addComponent(meterUsageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 136, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 143, Short.MAX_VALUE)
                 .addComponent(refreshButton, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33))
         );
@@ -124,14 +142,18 @@ public class ClientUI extends javax.swing.JFrame {
         payLabel.setText("METER TO PAY (DISPLAY)");
 
         refreshBill.setText("REFRESH");
-
-        changeField.addActionListener(new java.awt.event.ActionListener() {
+        refreshBill.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                changeFieldActionPerformed(evt);
+                refreshBillActionPerformed(evt);
             }
         });
 
         payButton.setText("PAY NOW");
+        payButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                payButtonActionPerformed(evt);
+            }
+        });
 
         jLabel11.setFont(new java.awt.Font("Serif", 1, 36)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(0, 0, 0));
@@ -140,38 +162,44 @@ public class ClientUI extends javax.swing.JFrame {
         jLabel15.setForeground(new java.awt.Color(0, 0, 0));
         jLabel15.setText("PAYMENT");
 
+        pinField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pinFieldActionPerformed(evt);
+            }
+        });
+
         jLabel16.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel16.setText("CHANGE");
+        jLabel16.setText("GCASH PIN");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(0, 79, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(0, 152, Short.MAX_VALUE)
+                        .addComponent(payLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(92, 92, 92)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel15)
                             .addComponent(jLabel16))
-                        .addGap(26, 26, 26)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(paymentField, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
-                            .addComponent(changeField))
-                        .addGap(192, 192, 192))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(payLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(refreshBill)
-                        .addGap(58, 58, 58))))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(pinField)
+                            .addComponent(paymentField, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE))))
+                .addGap(37, 37, 37)
+                .addComponent(refreshBill)
+                .addGap(58, 58, 58))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(16, 16, 16)
                         .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(208, 208, 208)
-                        .addComponent(payButton, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(212, 212, 212)
+                        .addComponent(payButton, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -179,21 +207,25 @@ public class ClientUI extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(54, 54, 54)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(refreshBill)
-                    .addComponent(payLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(54, 54, 54)
+                        .addComponent(refreshBill)
+                        .addGap(125, 125, 125))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(payLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(paymentField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15))
-                .addGap(26, 26, 26)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(changeField, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel16))
                 .addGap(18, 18, 18)
-                .addComponent(payButton)
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(pinField, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel16))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addComponent(payButton, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19))
         );
 
         clientTab.addTab("PAY BILL", jPanel3);
@@ -202,13 +234,13 @@ public class ClientUI extends javax.swing.JFrame {
 
         transactionTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Payment ID", "Client ID", "Amount Paid", "Charges", "Total", "Meter Paid", "Date"
             }
         ));
         jScrollPane2.setViewportView(transactionTable);
@@ -217,28 +249,39 @@ public class ClientUI extends javax.swing.JFrame {
         jLabel12.setForeground(new java.awt.Color(0, 0, 0));
         jLabel12.setText("VIEW HISTORY");
 
+        refreshTransac.setText("REFRESH");
+        refreshTransac.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refreshTransacActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane2)
+                        .addContainerGap())
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(37, Short.MAX_VALUE))
+                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
+                        .addComponent(refreshTransac, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(58, 58, 58))))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+            .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(refreshTransac, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(54, Short.MAX_VALUE))
         );
 
         clientTab.addTab("VIEW TRANSACTION", jPanel6);
@@ -271,7 +314,7 @@ public class ClientUI extends javax.swing.JFrame {
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGap(36, 36, 36)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 468, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -351,6 +394,11 @@ public class ClientUI extends javax.swing.JFrame {
         jLabel1.setText("AQUABILL");
 
         logoutButton.setText("LOG OUT");
+        logoutButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutButtonActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/wbs_2103/GUI/icons/water-tap (2) (1).png"))); // NOI18N
@@ -423,10 +471,6 @@ public class ClientUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void changeFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_changeFieldActionPerformed
-
     private void changeContactActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeContactActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_changeContactActionPerformed
@@ -441,11 +485,274 @@ public class ClientUI extends javax.swing.JFrame {
 
     private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
         // TODO add your handling code here:
+        refreshMeterReading();
+        
+        
     }//GEN-LAST:event_refreshButtonActionPerformed
+
+    private void payButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_payButtonActionPerformed
+        // TODO add your handling code here:
+         try {
+        int clientID = SharedData.clientID;
+
+        // Calculate overdue charges
+        LocalDate lastPaymentDate = meterusage.fetchLastPaymentDate(clientID);
+        
+        meterusage.updateReadings(clientID);
+
+        // Fetch readings and calculate dues
+        double currentReading = meterusage.fetchCurrentReading(clientID);
+        double previousReading = meterusage.fetchPreviousReading(clientID);
+        double cubicMeterUsage = currentReading - previousReading;
+        paymentProcessor.setPin(pinField.getText());
+        String pin = paymentProcessor.getPin();
+       
+        
+
+        double outstandingBalance = meterusage.getBalance();
+        
+
+        // Validate payment
+
+        
+        long overDueDays;
+        double charges;
+
+
+        double usage = currentReading - previousReading;
+        
+        if (usage == 0 || previousReading == 0){
+            charges = 0;
+            overDueDays = 0;
+            
+        }
+        else{
+            meterusage.calculateOverdueDays(lastPaymentDate);
+            overDueDays = meterusage.getOverdueDays();
+            charges = meterusage.calculateCharges(overDueDays); 
+        }
+        
+                // Calculate usage and amounts
+
+        double amountDue = meterusage.calculateAmount(cubicMeterUsage);
+        double totalAmountToPay = amountDue + outstandingBalance + charges;
+        
+        double payment = Double.parseDouble(paymentField.getText());
+        if (payment < totalAmountToPay) {
+            JOptionPane.showMessageDialog(this, "Payment is insufficient!");
+            return;
+        }
+        
+        if(totalAmountToPay == 0){
+            JOptionPane.showMessageDialog(this, "You have no balance to pay","Reminder", HEIGHT);
+            return;
+        }
+        double change = payment - totalAmountToPay;
+        
+        
+        
+        if (!(totalAmountToPay <= 0)){
+            paymentProcessor.recordPayment(clientID, payment, charges, totalAmountToPay, cubicMeterUsage, change, pin);
+        
+        // Display receipt
+        JOptionPane.showMessageDialog(this, "Receipt:\n"
+                + "Cubic Meter Usage: " + cubicMeterUsage + "\n"
+                + "Amount Due: " + amountDue + "\n"
+                + "Outstanding Balance: " + outstandingBalance + "\n"
+                + "Charges: " + charges + "\n"
+                + "Total Paid: " + payment + "\n"
+                + "Change: " + change);
+
+        // Refresh bill details
+        loadBillDetails();
+        meterusage.updatePreviousReading(clientID);
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "No minimum payment due.");
+        }
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+    }
+
+    }//GEN-LAST:event_payButtonActionPerformed
+
+    private void refreshBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshBillActionPerformed
+        // TODO add your handling code here:
+        loadBillDetails();
+    }//GEN-LAST:event_refreshBillActionPerformed
+
+    private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
+        // TODO add your handling code here:
+        SharedData.clientID = 0;
+        SharedData.meterID = null;
+        ClientState.verifiedID = -1;
+        ClientState.isVerified = false;
+
+        ClientSignIn clientsn = new ClientSignIn();
+            clientsn.setVisible(true);
+            this.dispose();
+
+    }//GEN-LAST:event_logoutButtonActionPerformed
+
+    private void refreshTransacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshTransacActionPerformed
+        // TODO add your handling code here:
+    try {
+        int clientID = SharedData.clientID;
+        if (clientID == 0) {
+            JOptionPane.showMessageDialog(this, "Please log in to view your transaction history!");
+            return;
+        }
+        ArrayList<String> paymentInfo = client.filterPaymentByClientID(clientID);
+
+        // Clear the table first
+        DefaultTableModel tableModel = (DefaultTableModel) transactionTable.getModel();
+        tableModel.setRowCount(0);
+
+        // Add the filtered data to the table
+        for (String row : paymentInfo) {
+            String[] rowInfo = row.split(", ");
+            tableModel.addRow(rowInfo);
+        }
+    }
+    catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+    }
+    }//GEN-LAST:event_refreshTransacActionPerformed
+
+    private void pinFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pinFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pinFieldActionPerformed
 
     /**
      * @param args the command line arguments
      */
+    private void loadBillDetails() {
+    try {
+        int clientID = SharedData.clientID;
+        if (clientID == 0) {
+            JOptionPane.showMessageDialog(this, "Please log in to view your billing details!");
+            return;
+        }
+
+        meterusage.updateReadings(clientID);
+        
+        
+        // Fetch meter reading details
+        Map<String, Object> details = meterusage.getMeterReadingDetails(clientID);
+
+        if (details.containsKey("error")) {
+            payLabel.setText(details.get("error").toString());
+            return;
+        }
+
+        boolean isActive = details.get("isActive") != null ? (boolean) details.get("isActive") : false;
+        double currentReading = details.get("currentReading") != null ? (double) details.get("currentReading") : 0.0;
+        double previousReading = details.get("previousReading") != null ? (double) details.get("previousReading") : 0.0;
+        double outstandingBalance = details.get("outstandingBalance") != null ? (double) details.get("outstandingBalance") : 0.0;
+        String todayDate = details.get("todayDate") != null ? details.get("todayDate").toString() : "";
+
+        // Fetch last payment date and calculate overdue days
+        LocalDate lastPaymentDate = meterusage.fetchLastPaymentDate(clientID);
+        if (lastPaymentDate == null) {
+            lastPaymentDate = LocalDate.now().minusDays(1); // Default if no payment date found
+        }
+
+        long overDueDays;
+        double charges;
+
+
+        double usage = currentReading - previousReading;
+        
+        if (usage == 0 || previousReading == 0){
+            charges = 0;
+            overDueDays = 0;
+            
+        }
+        else{
+            meterusage.calculateOverdueDays(lastPaymentDate);
+            overDueDays = meterusage.getOverdueDays();
+            charges = meterusage.calculateCharges(overDueDays); 
+        }
+        
+                // Calculate usage and amounts
+
+        double amountDue = meterusage.calculateAmount(usage);
+        double totalAmountDue = amountDue + outstandingBalance + charges;
+        
+        
+        
+        
+
+        // Display the billing details
+        String displayText = String.format("<html>As of %s:<br>Status: %s<br>Current Reading: %.2f m³<br>Previous Reading: %.2f m³<br>"
+                + "Cubic Meter Usage: %.2f m³<br>Outstanding Balance: ₱%.2f<br>Amount to Pay: ₱%.2f<br>"
+                + "Overdue Days: %d day(s)<br>Charges: ₱%.2f<br>Total Due: ₱%.2f</html>",
+                todayDate, (isActive ? "Active" : "Inactive"),
+                currentReading, previousReading, usage, outstandingBalance, amountDue, 
+                overDueDays, charges, totalAmountDue);
+
+        payLabel.setText(displayText);
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Error loading bill details: " + e.getMessage());
+    }
+    }
+
+
+
+
+    
+    private void refreshMeterReading() {
+        try {
+            int clientID = SharedData.clientID;
+            if (clientID == 0) {
+                JOptionPane.showMessageDialog(this, "Please log in to view your meter readings!");
+                return;
+            }
+            
+            meterusage.updateReadings(clientID);
+
+            MeterUsage meterUsage = new MeterUsage();
+            Map<String, Object> details = meterUsage.getMeterReadingDetails(clientID);
+
+            if (details.containsKey("error")) {
+                meterUsageLabel.setText(details.get("error").toString());
+                return;
+            }
+
+            boolean isActive = (boolean) details.get("isActive");
+            double currentReading = (double) details.get("currentReading");
+            double previousReading = (double) details.get("previousReading");
+            double outstandingBalance = (double) details.get("outstandingBalance");
+            String todayDate = (String) details.get("todayDate");
+            String lastReadingDate = (String) details.get("lastReadingDate");
+
+            String statusMessage = isActive
+                ? "Status: Active"
+                : "Status: Inactive - you can still pay your balance";
+
+            String displayText = "<html>"
+                + "Today's Date: " + todayDate + "<br>"
+                + statusMessage + "<br>"
+                + "Current Reading: " + currentReading + " m³<br>"
+                + "Last Reading Date: " + lastReadingDate + "<br>"
+                + "Previous Reading: " + previousReading + " m³<br>"
+                //+ "Outstanding Balance: ₱" + outstandingBalance
+                + "</html>";
+
+            meterUsageLabel.setText(displayText);
+
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error refreshing meter reading: " + e.getMessage());
+        }
+    }
+    
+    
+
+
+
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -480,7 +787,6 @@ public class ClientUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField changeContact;
-    private javax.swing.JTextField changeField;
     private javax.swing.JTextField changeLoc;
     private javax.swing.JTextField changePass;
     private javax.swing.JTextField changeUsername;
@@ -516,8 +822,10 @@ public class ClientUI extends javax.swing.JFrame {
     private javax.swing.JButton payButton;
     private javax.swing.JLabel payLabel;
     private javax.swing.JTextField paymentField;
+    private javax.swing.JTextField pinField;
     private javax.swing.JButton refreshBill;
     private javax.swing.JButton refreshButton;
+    private javax.swing.JButton refreshTransac;
     private javax.swing.JButton submitButton;
     private javax.swing.JTable transactionTable;
     private javax.swing.JButton updateButton;

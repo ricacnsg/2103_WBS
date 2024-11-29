@@ -6,12 +6,9 @@ import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import wbs_2103.Control_Connector.DBConnect;
-import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 
 public class Payment {
 
@@ -42,7 +39,7 @@ public class Payment {
     }
 
     public String getPin() {
-        return "****"; // Concealed pin
+        return Pin;
     }
 
     public void setPin(String Pin) {
@@ -138,7 +135,7 @@ public class Payment {
         }
         return change;
     }
-
+/*
     // Get the remaining balance if payment is insufficient
     public double getRemainingBalance() {
         return getBalancethisMonth() - InputPayment;
@@ -157,7 +154,7 @@ public class Payment {
     // Method to calculate the bill and update balance
  public void updatePaymentFields(int clientID) {
 MeterUsage meterUsage = new MeterUsage();
-    meterUsage.updateReadings(clientID); // Fetch readings (current & previous)
+    //meterUsage.updateReadings(clientID); // Fetch readings (current & previous)
 
     setusage(meterUsage.getCurrentReading() - meterUsage.getPrevReading());
     double balanceThisMonth = usage * ratePerUnit;
@@ -271,6 +268,26 @@ MeterUsage meterUsage = new MeterUsage();
                 "Amount Paid: " + InputPayment + "\n" +
                 "Remaining Balance: " + CurrentBalance);
     }
+*/
+    
+    public void recordPayment(int clientID, double payment, double charges, double totalPaid, double paid_meter, double change, String pin) throws Exception {
+        String query = "INSERT INTO tpayment (clientID, input_payment, charges, total, paid_meter, payment_date, sukli, PIN, payment_method) VALUES (?, ?, ?, ?, ?, NOW(), ?, ?, ?)";
+        try (PreparedStatement pstmt = connect.prepareStatement(query)) {
+            pstmt.setInt(1, clientID);
+            pstmt.setDouble(2, payment);
+            pstmt.setDouble(3, charges);
+            pstmt.setDouble(4, totalPaid);
+            pstmt.setDouble(5, paid_meter);
+            pstmt.setDouble(6, change);
+            pstmt.setInt(7, Integer.parseInt(pin));
+            pstmt.setString(8, "Gcash");
+            pstmt.executeUpdate();
+        }
+        catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Error inserting payment: " + e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+  
 }
 
     
