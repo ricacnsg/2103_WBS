@@ -27,8 +27,6 @@ public class ClientUI extends javax.swing.JFrame {
     Payment paymentProcessor = new Payment();
     Client client = new Client();
     
-    String selectedVal;
-    
     /**
      * Creates new form ClientUI
      */
@@ -58,8 +56,8 @@ public class ClientUI extends javax.swing.JFrame {
         payButton = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
+        pinField = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
-        selectPM = new javax.swing.JComboBox<>();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         transactionTable = new javax.swing.JTable();
@@ -159,21 +157,35 @@ public class ClientUI extends javax.swing.JFrame {
 
         jLabel15.setText("PAYMENT");
 
-        jLabel16.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel16.setText("PAYMENT METHOD");
-
-        selectPM.setFont(new java.awt.Font("Serif", 1, 12)); // NOI18N
-        selectPM.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Gcash", "Paypal", "Paymaya" }));
-        selectPM.addActionListener(new java.awt.event.ActionListener() {
+        pinField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                selectPMActionPerformed(evt);
+                pinFieldActionPerformed(evt);
             }
         });
+
+        jLabel16.setText("GCASH PIN");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(0, 152, Short.MAX_VALUE)
+                        .addComponent(payLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(92, 92, 92)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel15)
+                            .addComponent(jLabel16))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(pinField)
+                            .addComponent(paymentField, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE))))
+                .addGap(37, 37, 37)
+                .addComponent(refreshBill)
+                .addGap(58, 58, 58))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
@@ -183,24 +195,6 @@ public class ClientUI extends javax.swing.JFrame {
                         .addGap(212, 212, 212)
                         .addComponent(payButton, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(52, 52, 52)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel16)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(selectPM, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel3Layout.createSequentialGroup()
-                            .addGap(0, 0, Short.MAX_VALUE)
-                            .addComponent(payLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel3Layout.createSequentialGroup()
-                            .addComponent(jLabel15)
-                            .addGap(65, 65, 65)
-                            .addComponent(paymentField, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(37, 37, 37)
-                .addComponent(refreshBill)
-                .addGap(58, 58, 58))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -221,9 +215,9 @@ public class ClientUI extends javax.swing.JFrame {
                     .addComponent(jLabel15))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel16)
-                    .addComponent(selectPM, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                    .addComponent(pinField, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel16))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addComponent(payButton, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(19, 19, 19))
         );
@@ -501,12 +495,6 @@ public class ClientUI extends javax.swing.JFrame {
         // TODO add your handling code here:
          try {
         int clientID = SharedData.clientID;
-        
-        String selectedVal = (String) selectPM.getSelectedItem();
-        if (selectedVal == null || selectedVal.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please select a payment method!");
-            return;
-        }
 
         // Calculate overdue charges
         LocalDate lastPaymentDate = meterusage.fetchLastPaymentDate(clientID);
@@ -517,7 +505,7 @@ public class ClientUI extends javax.swing.JFrame {
         double currentReading = meterusage.fetchCurrentReading(clientID);
         double previousReading = meterusage.fetchPreviousReading(clientID);
         double cubicMeterUsage = currentReading - previousReading;
-        //paymentProcessor.setPin(pinField.getText());
+        paymentProcessor.setPin(pinField.getText());
         String pin = paymentProcessor.getPin();
        
         
@@ -562,10 +550,10 @@ public class ClientUI extends javax.swing.JFrame {
         }
         double change = payment - totalAmountToPay;
         
-        paymentProcessor.setPaymentMethod(selectedVal);
-        String payment_method = paymentProcessor.getPaymentMethod();
+        
+        
         if (!(totalAmountToPay <= 0)){
-            paymentProcessor.recordPayment(clientID, payment, charges, totalAmountToPay, cubicMeterUsage, change, payment_method);
+            paymentProcessor.recordPayment(clientID, payment, charges, totalAmountToPay, cubicMeterUsage, change, pin);
         
         // Display receipt
         JOptionPane.showMessageDialog(this, "Receipt:\n"
@@ -573,7 +561,6 @@ public class ClientUI extends javax.swing.JFrame {
                 + "Amount Due: " + amountDue + "\n"
                 + "Outstanding Balance: " + outstandingBalance + "\n"
                 + "Charges: " + charges + "\n"
-                + "Payment Method: " + payment_method + "\n"
                 + "Total Paid: " + payment + "\n"
                 + "Change: " + change);
 
@@ -633,10 +620,9 @@ public class ClientUI extends javax.swing.JFrame {
     }
     }//GEN-LAST:event_refreshTransacActionPerformed
 
-    private void selectPMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectPMActionPerformed
+    private void pinFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pinFieldActionPerformed
         // TODO add your handling code here:
-        selectedVal = selectPM.getSelectedItem().toString();
-    }//GEN-LAST:event_selectPMActionPerformed
+    }//GEN-LAST:event_pinFieldActionPerformed
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
         // TODO add your handling code here:
@@ -938,10 +924,10 @@ public class ClientUI extends javax.swing.JFrame {
     private javax.swing.JButton payButton;
     private javax.swing.JLabel payLabel;
     private javax.swing.JTextField paymentField;
+    private javax.swing.JTextField pinField;
     private javax.swing.JButton refreshBill;
     private javax.swing.JButton refreshButton;
     private javax.swing.JButton refreshTransac;
-    private javax.swing.JComboBox<String> selectPM;
     private javax.swing.JButton submitButton;
     private javax.swing.JTable transactionTable;
     private javax.swing.JButton updateButton;

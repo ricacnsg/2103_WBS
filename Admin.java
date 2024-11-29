@@ -7,7 +7,6 @@ import javax.swing.JOptionPane;
 import wbs_2103.Control_Connector.DBConnect;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.sql.SQLException;
 
 public class Admin {
     private String Name, username, password;
@@ -98,37 +97,5 @@ public class Admin {
         }
         return clientInfo; 
     }
-    
-public String[] fetchUnacknowledgedComplaint() throws Exception {
-    String query = "SELECT clientID, complainMsg FROM complaint WHERE isAcknowledged = FALSE ORDER BY complaintID ASC LIMIT 1";
-    try (PreparedStatement pstmt = connect.prepareStatement(query);
-         ResultSet rs = pstmt.executeQuery()) {
-        if (rs.next()) {
-            String fetchedClientID = String.valueOf(rs.getInt("clientID"));
-            String complaint = rs.getString("complainMsg");
-            return new String[]{fetchedClientID, complaint};
-        } else {
-            throw new Exception("No unacknowledged complaints found.");
-        }
-    } catch (Exception e) {
-        throw new Exception("Error fetching unacknowledged complaint: " + e.getMessage());
-    }
-}
-
-public void acknowledgeComplaint(int clientID) throws Exception {
-    String query = "UPDATE complaint SET isAcknowledged = TRUE WHERE clientID = ?";
-    try (PreparedStatement pstmt = connect.prepareStatement(query)) {
-        pstmt.setInt(1, clientID);
-        int rowsUpdated = pstmt.executeUpdate();
-        if (rowsUpdated == 0) {
-            throw new Exception("No complaint found for client ID: " + clientID);
-        }
-    } catch (SQLException e) {
-        throw new Exception("Error acknowledging complaint: " + e.getMessage());
-    }
-}
-
-
-
 }
 
