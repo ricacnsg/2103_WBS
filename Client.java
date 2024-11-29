@@ -437,6 +437,11 @@ String row = rs.getInt("paymentID") + ", "
         public dbconnect() {
         }
     }
+    
+    public void Hello(){
+        System.out.println("Hello Print");
+                
+    }
      
  
 
