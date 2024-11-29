@@ -353,6 +353,7 @@ public class Client {
     }
 
     
+
     public void saveComplaint(int clientID, String complainMsg){
     String query = "INSERT INTO complaint (ClientID, ComplainMsg) VALUES (?, ?)";
     
@@ -380,6 +381,7 @@ public class Client {
         }
 */
     }
+
     
     public ArrayList<String> filterPaymentByClientID(int clientID) {
     ArrayList<String> filteredPayments = new ArrayList<>();
