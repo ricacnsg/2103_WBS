@@ -270,8 +270,8 @@ MeterUsage meterUsage = new MeterUsage();
     }
 */
     
-    public void recordPayment(int clientID, double payment, double charges, double totalPaid, double paid_meter, double change, String pin) throws Exception {
-        String query = "INSERT INTO tpayment (clientID, input_payment, charges, total, paid_meter, payment_date, sukli, PIN, payment_method) VALUES (?, ?, ?, ?, ?, NOW(), ?, ?, ?)";
+    public void recordPayment(int clientID, double payment, double charges, double totalPaid, double paid_meter, double change, String payment_method) throws Exception {
+        String query = "INSERT INTO tpayment (clientID, input_payment, charges, total, paid_meter, payment_date, sukli, payment_method) VALUES (?, ?, ?, ?, ?, NOW(), ?, ?)";
         try (PreparedStatement pstmt = connect.prepareStatement(query)) {
             pstmt.setInt(1, clientID);
             pstmt.setDouble(2, payment);
@@ -279,8 +279,7 @@ MeterUsage meterUsage = new MeterUsage();
             pstmt.setDouble(4, totalPaid);
             pstmt.setDouble(5, paid_meter);
             pstmt.setDouble(6, change);
-            pstmt.setInt(7, Integer.parseInt(pin));
-            pstmt.setString(8, "Gcash");
+            pstmt.setString(7, payment_method);
             pstmt.executeUpdate();
         }
         catch (SQLException e) {
