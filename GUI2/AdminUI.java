@@ -3,10 +3,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package wbs_2103.GUI2;
+import java.awt.Component;
 import wbs_2103.Client;
 import wbs_2103.Admin;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import java.sql.Connection;
+import wbs_2103.Control_Connector.DBConnect;
+import wbs_2103.SharedData;
 
 
 
@@ -17,6 +22,8 @@ import javax.swing.table.DefaultTableModel;
 public class AdminUI extends javax.swing.JFrame {
     private static Client client = new Client();
     Admin admin = new Admin();
+    private Connection connect;
+    private Component rootPane;
 
     /**
      * Creates new form AdminUI
@@ -24,6 +31,8 @@ public class AdminUI extends javax.swing.JFrame {
     public AdminUI() {
         initComponents();
         admin.retrieveClientInfo();
+        DBConnect dbconnect = new DBConnect();
+        this.connect = dbconnect.getConnection();
     }
 
     /**
@@ -112,9 +121,15 @@ public class AdminUI extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(0, 204, 204));
 
         complaintLabel.setBackground(new java.awt.Color(153, 153, 153));
+        complaintLabel.setForeground(new java.awt.Color(0, 0, 0));
         complaintLabel.setText("CLIENT COMPLAINT (DISPLAY) ");
 
         refreshButton.setText("REFRESH");
+        refreshButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refreshButtonActionPerformed(evt);
+            }
+        });
 
         ackButton.setText("ACKNOWLEGE");
         ackButton.addActionListener(new java.awt.event.ActionListener() {
@@ -233,6 +248,27 @@ public class AdminUI extends javax.swing.JFrame {
 
     private void ackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ackButtonActionPerformed
         // TODO add your handling code here:
+            try {
+        // Extract client ID from the complaintLabel
+        String labelText = complaintLabel.getText();
+        if (labelText.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No complaint to acknowledge!", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        // Extract the Client ID from the label text
+        String clientIDText = labelText.split("Client ID: ")[1].split(" \\|")[0];
+        int clientID = Integer.parseInt(clientIDText);
+
+        // Acknowledge the complaint in the database
+        admin.acknowledgeComplaint(clientID);
+
+        // Clear the label and notify the user
+        complaintLabel.setText("");
+        JOptionPane.showMessageDialog(this, "Complaint acknowledged successfully!");
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_ackButtonActionPerformed
 
     private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
@@ -254,9 +290,28 @@ public class AdminUI extends javax.swing.JFrame {
         }  
     }//GEN-LAST:event_loadHistoryButtonActionPerformed
 
+    private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
+        // TODO add your handling code here:
+    try {
+        // Fetch the latest unacknowledged complaint
+        String[] data = admin.fetchUnacknowledgedComplaint();
+
+        // Update the JLabel with the fetched data
+        complaintLabel.setText("Client ID: " + data[0] + " | Complaint: " + data[1]);
+    } catch (Exception e) {
+        // Display a message if no unacknowledged complaints are found
+        complaintLabel.setText("");
+        JOptionPane.showMessageDialog(this, e.getMessage(), "Information", JOptionPane.INFORMATION_MESSAGE);
+    }
+        
+    }//GEN-LAST:event_refreshButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
+    
+        // Method to fetch and display complaint details
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
