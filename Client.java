@@ -11,6 +11,7 @@ import wbs_2103.Control_Connector.DBConnect;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+
 public class Client {
     MeterUsage meterusage = new MeterUsage();
     protected int clientID, meterID;
@@ -129,8 +130,34 @@ public class Client {
         return randPass;
     }
 */
+    /*
+    public void updateInfo(String username, String contactNumber, String password, String location, int clientID) throws Exception {
+     //Connection connection = DatabaseConnection.getConnection(); // Assume this returns your DB connection
+
+    // SQL query to update client information
+    String query = "UPDATE clients SET Username = ?, ContactNumber = ?, Password = ?, Location = ? WHERE ClientID = ?";
+
+    try (PreparedStatement stmt = dbconnect.prepareStatement(query)) {
+        // Set query parameters
+        stmt.setString(1, username);
+        stmt.setString(2, contactNumber); // Ensure this matches the column's data type
+        stmt.setString(3, password);
+        stmt.setString(4, location);
+        stmt.setInt(5, clientID);
+
+        // Execute update
+        int rowsAffected = stmt.executeUpdate();
+
+        // Check if update was successful
+        if (rowsAffected == 0) {
+            throw new Exception("No rows updated. Ensure the ClientID exists.");
+        }
+    }
+    }
+    */
     
-    public void updateInfo(String cUsername, String contactNumber, String location, String clientStatus, int clientID) {
+    
+    public void updateInfo(String cUsername, String contactNumber, String password, String location, int clientID) {
     int parameterIndex = 1;
 
         // Build query for updating the client table
@@ -327,6 +354,17 @@ public class Client {
 
     
     public void saveComplaint(int clientID, String complainMsg){
+    String query = "INSERT INTO complaint (ClientID, ComplainMsg) VALUES (?, ?)";
+    
+    try (PreparedStatement pstmt = connect.prepareStatement(query)) {
+        pstmt.setInt(1, clientID);  // Set the clientID
+        pstmt.setString(2, complainMsg);  // Set the complaint message
+
+        pstmt.executeUpdate();  // Execute the query
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+         }
+        /*
             String query = "INSERT INTO Complaint (ClientID, ComplainMsg) VALUES (?, ?)";
             try (PreparedStatement pstmt = connect.prepareStatement(query)) {
                 pstmt.setInt(1, clientID);
@@ -340,6 +378,7 @@ public class Client {
                     System.out.println("Error: " + e.getMessage());
                     JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
         }
+*/
     }
     
     public ArrayList<String> filterPaymentByClientID(int clientID) {
@@ -392,6 +431,16 @@ String row = rs.getInt("paymentID") + ", "
         }
         return false;
     }
+
+    private static class dbconnect {
+
+        public dbconnect() {
+        }
+    }
+     
+ 
+
+  
  
 
 
