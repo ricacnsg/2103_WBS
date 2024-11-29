@@ -10,13 +10,13 @@ import javax.swing.JOptionPane;
 import wbs_2103.Control_Connector.DBConnect;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Client {
     MeterUsage meterusage = new MeterUsage();
     protected int clientID, meterID;
     private String contactNumber;
     private String location, clientStatus, cUsername, randPass, complaint, password;
+    private boolean isActive;
     private Connection connect;
     private Component rootPane;
 
@@ -25,6 +25,15 @@ public class Client {
         DBConnect dbconnect = new DBConnect();
         this.connect = dbconnect.getConnection();
     }
+    
+    public boolean getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(boolean isActive) {
+        this.isActive = isActive;
+    }
+
     
     public void setpassword(String password){
         this.password = password;
@@ -288,7 +297,7 @@ public class Client {
     }
 
     public String getFormattedMeterUsageByClientID(int clientID) throws SQLException {
-        meterusage.getRandomReading(clientID); 
+        //meterusage.getRandomReading(clientID); 
 
         StringBuilder meterUsageDetails = new StringBuilder();
         String query = "SELECT meterUsageID, PrevReading, CurrentReading, clientStatus, balance " +
@@ -335,17 +344,20 @@ public class Client {
     
     public ArrayList<String> filterPaymentByClientID(int clientID) {
     ArrayList<String> filteredPayments = new ArrayList<>();
-    String query = "SELECT clientID, balanacethismonth, total, payment_date FROM tpayment WHERE clientID = ?";
+    String query = "SELECT paymentID, clientID, input_payment, charges, total, paid_meter, payment_date FROM tpayment WHERE clientID = ?";
 
     try (PreparedStatement pstmt = connect.prepareStatement(query)) {
         pstmt.setInt(1, clientID);
         ResultSet rs = pstmt.executeQuery();
 
         while (rs.next()) {
-String row = rs.getInt("clientID") + ", " 
-           + rs.getBigDecimal("balanacethismonth") + ", " 
-           + rs.getBigDecimal("total") + ", " 
-           + rs.getDate("payment_date");
+String row = rs.getInt("paymentID") + ", " 
+            + rs.getInt("clientID") + ", " 
+            + rs.getBigDecimal("input_payment") + ", " 
+            + rs.getDouble("charges") + ", " 
+            + rs.getBigDecimal("total") + ", " 
+            + rs.getDouble("paid_meter") + ", " 
+            + rs.getDate("payment_date");
 
             filteredPayments.add(row);
         }
@@ -358,8 +370,32 @@ String row = rs.getInt("clientID") + ", "
    // public String password(String password) {
      //   throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     //}
+    
+    
+    
+    //PARA SA GUI2
+     public boolean fetchActiveStatus(int clientID) {
+        try {
+            String query = "SELECT ClientStatus FROM client WHERE clientID = ?";
+            PreparedStatement stmt = connect.prepareStatement(query);
+            stmt.setInt(1, clientID);
+
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                String status = rs.getString("ClientStatus"); 
+                isActive = "ACTIVE".equalsIgnoreCase(status);
+                return isActive;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
  
 
+
+    
         
         
 }

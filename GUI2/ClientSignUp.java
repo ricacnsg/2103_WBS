@@ -228,10 +228,15 @@ public class ClientSignUp extends javax.swing.JFrame {
         String location = locField.getText();
         String contactNumber = contactField.getText();
         
+        int passLen = password.length();
         if (username.isEmpty() || password.isEmpty() || location.isEmpty() || contactNumber.isEmpty()) {
         JOptionPane.showMessageDialog(this, "Please fill in all fields!", "Error", JOptionPane.ERROR_MESSAGE);
         return;
     }
+        else if(passLen < 8){
+            JOptionPane.showMessageDialog(this, "Input atleat 8 characters", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
      
      try {
         client.setcUsername(username);
