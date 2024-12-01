@@ -47,27 +47,35 @@ public class AdminUI extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         logoutButton = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         clientTab = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
         complaintLabel = new javax.swing.JLabel();
         refreshButton = new javax.swing.JButton();
         ackButton = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         monitorTable = new javax.swing.JTable();
         jLabel12 = new javax.swing.JLabel();
         loadHistoryButton = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel5.setBackground(new java.awt.Color(0, 153, 153));
+        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Serif", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setForeground(new java.awt.Color(0, 51, 102));
         jLabel1.setText("AQUABILL");
+        jPanel5.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, -1, 35));
 
         logoutButton.setText("LOG OUT");
         logoutButton.addActionListener(new java.awt.event.ActionListener() {
@@ -75,54 +83,29 @@ public class AdminUI extends javax.swing.JFrame {
                 logoutButtonActionPerformed(evt);
             }
         });
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/wbs_2103/GUI/icons/water-tap (2) (1).png"))); // NOI18N
+        jPanel5.add(logoutButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 476, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Serif", 1, 36)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("ADMIN");
+        jPanel5.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 150, 35));
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(0, 124, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel1)
-                        .addGap(19, 19, 19)))
-                .addContainerGap())
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addComponent(logoutButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(106, 106, 106)
-                .addComponent(logoutButton)
-                .addGap(18, 18, 18))
-        );
+        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\Nhel Hernadez\\Documents\\wbs_2103\\src\\wbs_2103\\GUI\\icons\\water-tap (2) (1).png")); // NOI18N
+        jPanel5.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 260, 120, 120));
+
+        jLabel6.setIcon(new javax.swing.ImageIcon("C:\\Users\\Nhel Hernadez\\Documents\\wbs_2103\\src\\wbs_2103\\GUI\\icons\\website design (1).png")); // NOI18N
+        jLabel6.setText("jLabel6");
+        jPanel5.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, -1));
+
+        jLabel7.setIcon(new javax.swing.ImageIcon("C:\\Users\\Nhel Hernadez\\Documents\\wbs_2103\\src\\wbs_2103\\GUI\\icons\\website design (1).png")); // NOI18N
+        jPanel5.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 450, 180, 160));
 
         jPanel3.setBackground(new java.awt.Color(0, 204, 204));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         complaintLabel.setBackground(new java.awt.Color(153, 153, 153));
-        complaintLabel.setForeground(new java.awt.Color(0, 0, 0));
         complaintLabel.setText("CLIENT COMPLAINT (DISPLAY) ");
+        jPanel3.add(complaintLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 130, 231, 130));
 
         refreshButton.setText("REFRESH");
         refreshButton.addActionListener(new java.awt.event.ActionListener() {
@@ -130,6 +113,7 @@ public class AdminUI extends javax.swing.JFrame {
                 refreshButtonActionPerformed(evt);
             }
         });
+        jPanel3.add(refreshButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(167, 345, -1, -1));
 
         ackButton.setText("ACKNOWLEGE");
         ackButton.addActionListener(new java.awt.event.ActionListener() {
@@ -137,45 +121,24 @@ public class AdminUI extends javax.swing.JFrame {
                 ackButtonActionPerformed(evt);
             }
         });
+        jPanel3.add(ackButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(273, 345, 117, -1));
 
         jLabel11.setFont(new java.awt.Font("Serif", 1, 36)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(51, 0, 153));
         jLabel11.setText("VIEW CLIENT COMPLAINT");
+        jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, -1, 35));
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel11)
-                .addContainerGap(73, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(complaintLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(refreshButton)
-                        .addGap(28, 28, 28)
-                        .addComponent(ackButton, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(171, 171, 171))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(69, 69, 69)
-                .addComponent(complaintLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(91, 91, 91)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ackButton)
-                    .addComponent(refreshButton))
-                .addContainerGap(114, Short.MAX_VALUE))
-        );
+        jLabel4.setIcon(new javax.swing.ImageIcon("C:\\Users\\Nhel Hernadez\\Documents\\wbs_2103\\src\\wbs_2103\\GUI\\icons\\website design (1).png")); // NOI18N
+        jLabel4.setText("jLabel4");
+        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -20, 570, 470));
+
+        jLabel8.setIcon(new javax.swing.ImageIcon("C:\\Users\\Nhel Hernadez\\Documents\\wbs_2103\\src\\wbs_2103\\GUI\\icons\\website design (1).png")); // NOI18N
+        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 440, 570, 130));
 
         clientTab.addTab("VIEW COMPLAINT", jPanel3);
 
         jPanel6.setBackground(new java.awt.Color(0, 204, 204));
+        jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         monitorTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -187,8 +150,12 @@ public class AdminUI extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(monitorTable);
 
+        jPanel6.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 103, 495, 351));
+
         jLabel12.setFont(new java.awt.Font("Serif", 1, 36)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(51, 0, 153));
         jLabel12.setText("VIEW CLIENT METER USAGE");
+        jPanel6.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 19, 549, 35));
 
         loadHistoryButton.setText("REFRESH");
         loadHistoryButton.addActionListener(new java.awt.event.ActionListener() {
@@ -196,35 +163,15 @@ public class AdminUI extends javax.swing.JFrame {
                 loadHistoryButtonActionPerformed(evt);
             }
         });
+        jPanel6.add(loadHistoryButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(424, 72, -1, -1));
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 549, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(loadHistoryButton)
-                .addGap(59, 59, 59))
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(loadHistoryButton)
-                .addGap(8, 8, 8)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
-        );
+        jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\Nhel Hernadez\\Documents\\wbs_2103\\src\\wbs_2103\\GUI\\icons\\website design (1).png")); // NOI18N
+        jLabel5.setText("jLabel5");
+        jPanel6.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 570, 390));
+
+        jLabel9.setIcon(new javax.swing.ImageIcon("C:\\Users\\Nhel Hernadez\\Documents\\wbs_2103\\src\\wbs_2103\\GUI\\icons\\website design (1).png")); // NOI18N
+        jLabel9.setText("jLabel9");
+        jPanel6.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 386, 570, 190));
 
         clientTab.addTab("MONITOR CLIENT", jPanel6);
 
@@ -246,31 +193,6 @@ public class AdminUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ackButtonActionPerformed
-        // TODO add your handling code here:
-            try {
-        // Extract client ID from the complaintLabel
-        String labelText = complaintLabel.getText();
-        if (labelText.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "No complaint to acknowledge!", "Warning", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-        
-        // Extract the Client ID from the label text
-        String clientIDText = labelText.split("Client ID: ")[1].split(" \\|")[0];
-        int clientID = Integer.parseInt(clientIDText);
-
-        // Acknowledge the complaint in the database
-        admin.acknowledgeComplaint(clientID);
-
-        // Clear the label and notify the user
-        complaintLabel.setText("");
-        JOptionPane.showMessageDialog(this, "Complaint acknowledged successfully!");
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-    }
-    }//GEN-LAST:event_ackButtonActionPerformed
-
     private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
         // TODO add your handling code here:
         // hala ako gumawa ng exit button ha - nhel
@@ -290,20 +212,45 @@ public class AdminUI extends javax.swing.JFrame {
         }  
     }//GEN-LAST:event_loadHistoryButtonActionPerformed
 
+    private void ackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ackButtonActionPerformed
+        // TODO add your handling code here:
+        try {
+            // Extract client ID from the complaintLabel
+            String labelText = complaintLabel.getText();
+            if (labelText.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No complaint to acknowledge!", "Warning", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            // Extract the Client ID from the label text
+            String clientIDText = labelText.split("Client ID: ")[1].split(" \\|")[0];
+            int clientID = Integer.parseInt(clientIDText);
+
+            // Acknowledge the complaint in the database
+            admin.acknowledgeComplaint(clientID);
+
+            // Clear the label and notify the user
+            complaintLabel.setText("");
+            JOptionPane.showMessageDialog(this, "Complaint acknowledged successfully!");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_ackButtonActionPerformed
+
     private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
         // TODO add your handling code here:
-    try {
-        // Fetch the latest unacknowledged complaint
-        String[] data = admin.fetchUnacknowledgedComplaint();
+        try {
+            // Fetch the latest unacknowledged complaint
+            String[] data = admin.fetchUnacknowledgedComplaint();
 
-        // Update the JLabel with the fetched data
-        complaintLabel.setText("Client ID: " + data[0] + " | Complaint: " + data[1]);
-    } catch (Exception e) {
-        // Display a message if no unacknowledged complaints are found
-        complaintLabel.setText("");
-        JOptionPane.showMessageDialog(this, e.getMessage(), "Information", JOptionPane.INFORMATION_MESSAGE);
-    }
-        
+            // Update the JLabel with the fetched data
+            complaintLabel.setText("Client ID: " + data[0] + " | Complaint: " + data[1]);
+        } catch (Exception e) {
+            // Display a message if no unacknowledged complaints are found
+            complaintLabel.setText("");
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Information", JOptionPane.INFORMATION_MESSAGE);
+        }
+
     }//GEN-LAST:event_refreshButtonActionPerformed
 
     /**
@@ -353,6 +300,12 @@ public class AdminUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
