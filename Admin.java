@@ -55,19 +55,31 @@ public class Admin {
         return AdminID;
     }
 
-    public boolean Login(String username, String password) {
-        String query = "SELECT * FROM admin WHERE username = ? AND password = ?";
+    public boolean Login(int adminID, String username, String password) {
+        boolean isValid = false;
+        String query = "SELECT * FROM admin WHERE username = ? AND password = ? AND admin_id = ?";
         try (PreparedStatement pstmt = connect.prepareStatement(query)) {
             pstmt.setString(1, username);
             pstmt.setString(2, password);
+            pstmt.setInt(3, adminID);
 
-            ResultSet rs = pstmt.executeQuery();
+            //ResultSet rs = pstmt.executeQuery();
 
-             return rs.next();
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    SharedData.adminID = rs.getInt("admin_id");
+                    ClientState.verifiedID = SharedData.adminID;
+                    ClientState.isVerified = true;
+                    isValid = true;
+                } else {
+                    ClientState.isVerified = false;
+                    ClientState.verifiedID = -1;
+                }
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Error: " + e.getMessage());
         }
-        return false;  
+        return isValid;  
     }
 
     public boolean isAdminValid() {
@@ -126,6 +138,21 @@ public class Admin {
         } catch (SQLException e) {
             throw new Exception("Error acknowledging complaint: " + e.getMessage());
         }
+    }
+    
+    public double getTotalPayments() throws SQLException {
+        String query = "SELECT SUM(total) AS totalPaid FROM tpayment";
+        double totalPayments = 0;
+
+        try (PreparedStatement statement = connect.prepareStatement(query)) {
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                totalPayments = resultSet.getDouble("totalPaid");
+            }
+        }
+
+        return totalPayments;
     }
 
 

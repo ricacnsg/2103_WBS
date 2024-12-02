@@ -12,6 +12,9 @@ import javax.swing.table.DefaultTableModel;
 import java.sql.Connection;
 import wbs_2103.Control_Connector.DBConnect;
 import wbs_2103.SharedData;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import wbs_2103.ClientState;
 
 
 
@@ -66,6 +69,9 @@ public class AdminUI extends javax.swing.JFrame {
         loadHistoryButton = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        collectLabel = new javax.swing.JLabel();
+        refreshcollectButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -89,15 +95,10 @@ public class AdminUI extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("ADMIN");
         jPanel5.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 150, 35));
-
-        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\Nhel Hernadez\\Documents\\wbs_2103\\src\\wbs_2103\\GUI\\icons\\water-tap (2) (1).png")); // NOI18N
         jPanel5.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 260, 120, 120));
 
-        jLabel6.setIcon(new javax.swing.ImageIcon("C:\\Users\\Nhel Hernadez\\Documents\\wbs_2103\\src\\wbs_2103\\GUI\\icons\\website design (1).png")); // NOI18N
         jLabel6.setText("jLabel6");
         jPanel5.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, -1));
-
-        jLabel7.setIcon(new javax.swing.ImageIcon("C:\\Users\\Nhel Hernadez\\Documents\\wbs_2103\\src\\wbs_2103\\GUI\\icons\\website design (1).png")); // NOI18N
         jPanel5.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 450, 180, 160));
 
         jPanel3.setBackground(new java.awt.Color(0, 204, 204));
@@ -128,11 +129,8 @@ public class AdminUI extends javax.swing.JFrame {
         jLabel11.setText("VIEW CLIENT COMPLAINT");
         jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, -1, 35));
 
-        jLabel4.setIcon(new javax.swing.ImageIcon("C:\\Users\\Nhel Hernadez\\Documents\\wbs_2103\\src\\wbs_2103\\GUI\\icons\\website design (1).png")); // NOI18N
         jLabel4.setText("jLabel4");
         jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -20, 570, 470));
-
-        jLabel8.setIcon(new javax.swing.ImageIcon("C:\\Users\\Nhel Hernadez\\Documents\\wbs_2103\\src\\wbs_2103\\GUI\\icons\\website design (1).png")); // NOI18N
         jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 440, 570, 130));
 
         clientTab.addTab("VIEW COMPLAINT", jPanel3);
@@ -165,15 +163,53 @@ public class AdminUI extends javax.swing.JFrame {
         });
         jPanel6.add(loadHistoryButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(424, 72, -1, -1));
 
-        jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\Nhel Hernadez\\Documents\\wbs_2103\\src\\wbs_2103\\GUI\\icons\\website design (1).png")); // NOI18N
         jLabel5.setText("jLabel5");
         jPanel6.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 570, 390));
 
-        jLabel9.setIcon(new javax.swing.ImageIcon("C:\\Users\\Nhel Hernadez\\Documents\\wbs_2103\\src\\wbs_2103\\GUI\\icons\\website design (1).png")); // NOI18N
         jLabel9.setText("jLabel9");
         jPanel6.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 386, 570, 190));
 
         clientTab.addTab("MONITOR CLIENT", jPanel6);
+
+        jPanel1.setBackground(new java.awt.Color(0, 204, 204));
+
+        collectLabel.setFont(new java.awt.Font("Serif", 1, 24)); // NOI18N
+        collectLabel.setForeground(new java.awt.Color(0, 0, 153));
+        collectLabel.setText("collection");
+
+        refreshcollectButton.setFont(new java.awt.Font("Serif", 1, 18)); // NOI18N
+        refreshcollectButton.setText("REFRESH");
+        refreshcollectButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refreshcollectButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(95, 95, 95)
+                        .addComponent(collectLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(208, 208, 208)
+                        .addComponent(refreshcollectButton, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(102, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(67, 67, 67)
+                .addComponent(collectLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(63, 63, 63)
+                .addComponent(refreshcollectButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(234, Short.MAX_VALUE))
+        );
+
+        clientTab.addTab("COLLECTION", jPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -196,6 +232,10 @@ public class AdminUI extends javax.swing.JFrame {
     private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
         // TODO add your handling code here:
         // hala ako gumawa ng exit button ha - nhel
+        SharedData.adminID = 0;
+        ClientState.verifiedID = -1;
+        ClientState.isVerified = false;
+        
         UserUI user = new UserUI();
             user.setVisible(true);
             dispose();
@@ -203,33 +243,42 @@ public class AdminUI extends javax.swing.JFrame {
 
     private void loadHistoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadHistoryButtonActionPerformed
         // TODO add your handling code here:
-         ArrayList<String> clientInfo = admin.retrieveClientInfo();
-        
+        int adminID = SharedData.adminID;
+        if (adminID == 0) {
+            JOptionPane.showMessageDialog(this, "Please log in to load history!");
+            return;
+        }
+        ArrayList<String> clientInfo = admin.retrieveClientInfo();
+
         DefaultTableModel tableModel = (DefaultTableModel) monitorTable.getModel();
         for (String row : clientInfo) {
             String[] rowInfo = row.split(", ");
             tableModel.addRow(rowInfo);
-        }  
+        }
     }//GEN-LAST:event_loadHistoryButtonActionPerformed
 
     private void ackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ackButtonActionPerformed
         // TODO add your handling code here:
         try {
-            // Extract client ID from the complaintLabel
+            int adminID = SharedData.adminID;
+            if (adminID == 0) {
+                JOptionPane.showMessageDialog(this, "Please log in to acknowledge complaint!");
+                return;
+            }
+            
             String labelText = complaintLabel.getText();
             if (labelText.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "No complaint to acknowledge!", "Warning", JOptionPane.WARNING_MESSAGE);
                 return;
             }
 
-            // Extract the Client ID from the label text
+
             String clientIDText = labelText.split("Client ID: ")[1].split(" \\|")[0];
             int clientID = Integer.parseInt(clientIDText);
 
-            // Acknowledge the complaint in the database
+
             admin.acknowledgeComplaint(clientID);
 
-            // Clear the label and notify the user
             complaintLabel.setText("");
             JOptionPane.showMessageDialog(this, "Complaint acknowledged successfully!");
         } catch (Exception e) {
@@ -240,6 +289,12 @@ public class AdminUI extends javax.swing.JFrame {
     private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
         // TODO add your handling code here:
         try {
+            int adminID = SharedData.adminID;
+            if (adminID == 0) {
+                JOptionPane.showMessageDialog(this, "Please log in to refresh complaint!");
+                return;
+            }
+            
             // Fetch the latest unacknowledged complaint
             String[] data = admin.fetchUnacknowledgedComplaint();
 
@@ -250,8 +305,22 @@ public class AdminUI extends javax.swing.JFrame {
             complaintLabel.setText("");
             JOptionPane.showMessageDialog(this, e.getMessage(), "Information", JOptionPane.INFORMATION_MESSAGE);
         }
-
     }//GEN-LAST:event_refreshButtonActionPerformed
+
+    private void refreshcollectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshcollectButtonActionPerformed
+        // TODO add your handling code here:
+        try {
+            int adminID = SharedData.adminID;
+            if (adminID == 0) {
+                JOptionPane.showMessageDialog(this, "Please log in to view collection!");
+                return;
+            }
+          double totalPayments = admin.getTotalPayments();
+           collectLabel.setText("<html>As of: " + LocalDate.now() + "<br>Total Payments: " + totalPayments + "</html>");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_refreshcollectButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -294,6 +363,7 @@ public class AdminUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ackButton;
     private javax.swing.JTabbedPane clientTab;
+    private javax.swing.JLabel collectLabel;
     private javax.swing.JLabel complaintLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
@@ -306,6 +376,7 @@ public class AdminUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
@@ -314,5 +385,6 @@ public class AdminUI extends javax.swing.JFrame {
     private javax.swing.JButton logoutButton;
     private javax.swing.JTable monitorTable;
     private javax.swing.JButton refreshButton;
+    private javax.swing.JButton refreshcollectButton;
     // End of variables declaration//GEN-END:variables
 }

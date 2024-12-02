@@ -11,4 +11,5 @@ package wbs_2103;
 public class SharedData {
         public static int clientID;
         public static Integer meterID;
+        public static int adminID;
 }
