@@ -66,12 +66,10 @@ public class AdminUI extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         monitorTable = new javax.swing.JTable();
         jLabel12 = new javax.swing.JLabel();
-        loadHistoryButton = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         collectLabel = new javax.swing.JLabel();
-        refreshcollectButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -101,12 +99,18 @@ public class AdminUI extends javax.swing.JFrame {
         jPanel5.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, -1));
         jPanel5.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 450, 180, 160));
 
+        clientTab.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                clientTabStateChanged(evt);
+            }
+        });
+
         jPanel3.setBackground(new java.awt.Color(0, 204, 204));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         complaintLabel.setBackground(new java.awt.Color(153, 153, 153));
         complaintLabel.setText("CLIENT COMPLAINT (DISPLAY) ");
-        jPanel3.add(complaintLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 130, 231, 130));
+        jPanel3.add(complaintLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 140, 340, 130));
 
         refreshButton.setText("REFRESH");
         refreshButton.addActionListener(new java.awt.event.ActionListener() {
@@ -143,25 +147,17 @@ public class AdminUI extends javax.swing.JFrame {
 
             },
             new String [] {
-                "CLIENT ID", "METER ID", "AMOUNT PAID", "DATE", "STATUS"
+                "CLIENT ID", "METER ID", "AMOUNT", "PAID METER", "DATE", "STATUS"
             }
         ));
         jScrollPane2.setViewportView(monitorTable);
 
-        jPanel6.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 103, 495, 351));
+        jPanel6.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 103, 510, 410));
 
         jLabel12.setFont(new java.awt.Font("Serif", 1, 36)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(51, 0, 153));
         jLabel12.setText("VIEW CLIENT METER USAGE");
         jPanel6.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 19, 549, 35));
-
-        loadHistoryButton.setText("REFRESH");
-        loadHistoryButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                loadHistoryButtonActionPerformed(evt);
-            }
-        });
-        jPanel6.add(loadHistoryButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(424, 72, -1, -1));
 
         jLabel5.setText("jLabel5");
         jPanel6.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 570, 390));
@@ -177,36 +173,21 @@ public class AdminUI extends javax.swing.JFrame {
         collectLabel.setForeground(new java.awt.Color(0, 0, 153));
         collectLabel.setText("collection");
 
-        refreshcollectButton.setFont(new java.awt.Font("Serif", 1, 18)); // NOI18N
-        refreshcollectButton.setText("REFRESH");
-        refreshcollectButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                refreshcollectButtonActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(95, 95, 95)
-                        .addComponent(collectLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(208, 208, 208)
-                        .addComponent(refreshcollectButton, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(102, Short.MAX_VALUE))
+                .addGap(91, 91, 91)
+                .addComponent(collectLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(106, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(67, 67, 67)
+                .addGap(172, 172, 172)
                 .addComponent(collectLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(63, 63, 63)
-                .addComponent(refreshcollectButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(234, Short.MAX_VALUE))
+                .addContainerGap(228, Short.MAX_VALUE))
         );
 
         clientTab.addTab("COLLECTION", jPanel1);
@@ -236,26 +217,10 @@ public class AdminUI extends javax.swing.JFrame {
         ClientState.verifiedID = -1;
         ClientState.isVerified = false;
         
-        UserUI user = new UserUI();
-            user.setVisible(true);
+        AdminSignIn adminsn = new AdminSignIn();
+            adminsn.setVisible(true);
             dispose();
     }//GEN-LAST:event_logoutButtonActionPerformed
-
-    private void loadHistoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadHistoryButtonActionPerformed
-        // TODO add your handling code here:
-        int adminID = SharedData.adminID;
-        if (adminID == 0) {
-            JOptionPane.showMessageDialog(this, "Please log in to load history!");
-            return;
-        }
-        ArrayList<String> clientInfo = admin.retrieveClientInfo();
-
-        DefaultTableModel tableModel = (DefaultTableModel) monitorTable.getModel();
-        for (String row : clientInfo) {
-            String[] rowInfo = row.split(", ");
-            tableModel.addRow(rowInfo);
-        }
-    }//GEN-LAST:event_loadHistoryButtonActionPerformed
 
     private void ackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ackButtonActionPerformed
         // TODO add your handling code here:
@@ -294,22 +259,54 @@ public class AdminUI extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Please log in to refresh complaint!");
                 return;
             }
-            
-            // Fetch the latest unacknowledged complaint
+
             String[] data = admin.fetchUnacknowledgedComplaint();
 
-            // Update the JLabel with the fetched data
             complaintLabel.setText("Client ID: " + data[0] + " | Complaint: " + data[1]);
         } catch (Exception e) {
-            // Display a message if no unacknowledged complaints are found
             complaintLabel.setText("");
             JOptionPane.showMessageDialog(this, e.getMessage(), "Information", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_refreshButtonActionPerformed
 
-    private void refreshcollectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshcollectButtonActionPerformed
+    private void clientTabStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_clientTabStateChanged
         // TODO add your handling code here:
         try {
+            int adminID = SharedData.adminID;
+            if (adminID == 0) {
+                JOptionPane.showMessageDialog(this, "Please log in first!");
+                return;
+            }
+            monitorClient();
+            collection();
+
+        }
+        catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+        }
+    }//GEN-LAST:event_clientTabStateChanged
+
+    /**
+     * @param args the command line arguments
+     */
+    
+    public void monitorClient(){
+        int adminID = SharedData.adminID;
+        if (adminID == 0) {
+            JOptionPane.showMessageDialog(this, "Please log in to load history!");
+            return;
+        }
+        ArrayList<String> clientInfo = admin.retrieveClientInfo();
+
+        DefaultTableModel tableModel = (DefaultTableModel) monitorTable.getModel();
+        for (String row : clientInfo) {
+            String[] rowInfo = row.split(", ");
+            tableModel.addRow(rowInfo);
+        }
+    }
+    
+    public void collection(){
+                try {
             int adminID = SharedData.adminID;
             if (adminID == 0) {
                 JOptionPane.showMessageDialog(this, "Please log in to view collection!");
@@ -320,13 +317,7 @@ public class AdminUI extends javax.swing.JFrame {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_refreshcollectButtonActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    
-        // Method to fetch and display complaint details
+    }
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -381,10 +372,8 @@ public class AdminUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JButton loadHistoryButton;
     private javax.swing.JButton logoutButton;
     private javax.swing.JTable monitorTable;
     private javax.swing.JButton refreshButton;
-    private javax.swing.JButton refreshcollectButton;
     // End of variables declaration//GEN-END:variables
 }

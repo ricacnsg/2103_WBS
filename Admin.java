@@ -63,8 +63,6 @@ public class Admin {
             pstmt.setString(2, password);
             pstmt.setInt(3, adminID);
 
-            //ResultSet rs = pstmt.executeQuery();
-
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
                     SharedData.adminID = rs.getInt("admin_id");
@@ -86,11 +84,13 @@ public class Admin {
         return AdminID > 0 && username != null && !username.isEmpty();
     }
        
-    public ArrayList<String> retrieveClientInfo(){
+    public ArrayList<String> retrieveClientInfo() {
         ArrayList<String> clientInfo = new ArrayList<>();
-        String query = "SELECT c.clientID, m.meterUsageID, m.CurrentReading, m.Date, c.ClientStatus" +
-                        " FROM client c, meterusage m " +
-                        "WHERE c.clientID = m.clientID";
+
+        String query = "SELECT c.clientID, m.meterUsageID, t.total, t.paid_meter, m.Date, c.ClientStatus " +
+                       "FROM client c " +
+                       "INNER JOIN meterusage m ON c.clientID = m.clientID " +
+                       "LEFT JOIN tpayment t ON c.clientID = t.clientID";
 
         try (PreparedStatement pstmt = connect.prepareStatement(query)) {
             ResultSet rs = pstmt.executeQuery();
@@ -102,15 +102,15 @@ public class Admin {
                 for (int i = 0; i < columnCount; i++) {
                     row[i] = rs.getString(i + 1);
                 }
-                
+
                 clientInfo.add(String.join(", ", row));
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Error: " + e.getMessage());
         }
-        return clientInfo; 
+        return clientInfo;
     }
-    
+   
     public String[] fetchUnacknowledgedComplaint() throws Exception {
         String query = "SELECT clientID, complainMsg FROM complaint WHERE isAcknowledged = FALSE ORDER BY complaintID ASC LIMIT 1";
         try (PreparedStatement pstmt = connect.prepareStatement(query);

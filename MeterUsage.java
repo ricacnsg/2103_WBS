@@ -192,43 +192,61 @@ public class MeterUsage{
     }
 
     public void updateReadings(int clientID) throws Exception {
-        String fetchQuery = "SELECT CurrentReading, Date FROM meterusage WHERE clientID = ? ORDER BY Date DESC LIMIT 1";
-        String updateQuery = "UPDATE meterusage SET CurrentReading = ?, Date = ? WHERE clientID = ?";
+    String fetchQuery = "SELECT CurrentReading, Date FROM meterusage WHERE clientID = ? ORDER BY Date DESC LIMIT 1";
+    String updateQuery = "UPDATE meterusage SET CurrentReading = ?, Date = ? WHERE clientID = ?";
+    String statusQuery = "SELECT ClientStatus FROM client WHERE clientID = ?"; 
 
-        try {
-            double currentReading = 0;
-            LocalDateTime lastReadingDateTime = null;
+    try {
+        double currentReading = 0;
+        LocalDateTime lastReadingDateTime = null;
+        String clientStatus = "ACTIVE";  
 
-            try (PreparedStatement fetchStmt = connect.prepareStatement(fetchQuery)) {
-                fetchStmt.setInt(1, clientID);
-                try (ResultSet rs = fetchStmt.executeQuery()) {
-                    if (rs.next()) {
-                        currentReading = rs.getDouble("CurrentReading");
-                        lastReadingDateTime = rs.getTimestamp("Date").toLocalDateTime();
-                    }
+        try (PreparedStatement statusStmt = connect.prepareStatement(statusQuery)) {
+            statusStmt.setInt(1, clientID);
+            try (ResultSet rs = statusStmt.executeQuery()) {
+                if (rs.next()) {
+                    clientStatus = rs.getString("ClientStatus");  // Assuming the status is stored as a string
                 }
             }
-
-            if (lastReadingDateTime != null) {
-                LocalDateTime now = LocalDateTime.now();
-                long secondsElapsed = java.time.Duration.between(lastReadingDateTime, now).getSeconds();
-
-                if (secondsElapsed > 0) {
-                    double additionalUsage = secondsElapsed * 0.000005; 
-                    double newReading = currentReading + additionalUsage;
-
-                    try (PreparedStatement updateStmt = connect.prepareStatement(updateQuery)) {
-                        updateStmt.setDouble(1, newReading);
-                        updateStmt.setTimestamp(2, java.sql.Timestamp.valueOf(now));
-                        updateStmt.setInt(3, clientID);
-                        updateStmt.executeUpdate();
-                    }
-                }
-            }
-        } catch (SQLException e) {
-            throw new Exception("Error updating readings: " + e.getMessage(), e);
         }
+
+
+        if ("INACTIVE".equalsIgnoreCase(clientStatus)) {
+            System.out.println("Client is inactive. No updates will be made.");
+            return;  
+        }
+
+        try (PreparedStatement fetchStmt = connect.prepareStatement(fetchQuery)) {
+            fetchStmt.setInt(1, clientID);
+            try (ResultSet rs = fetchStmt.executeQuery()) {
+                if (rs.next()) {
+                    currentReading = rs.getDouble("CurrentReading");
+                    lastReadingDateTime = rs.getTimestamp("Date").toLocalDateTime();
+                }
+            }
+        }
+
+        if (lastReadingDateTime != null) {
+            LocalDateTime now = LocalDateTime.now();
+            long secondsElapsed = java.time.Duration.between(lastReadingDateTime, now).getSeconds();
+
+            if (secondsElapsed > 0) {
+                double additionalUsage = secondsElapsed * 0.00001; 
+                double newReading = currentReading + additionalUsage;
+
+                try (PreparedStatement updateStmt = connect.prepareStatement(updateQuery)) {
+                    updateStmt.setDouble(1, newReading);
+                    updateStmt.setTimestamp(2, java.sql.Timestamp.valueOf(now));
+                    updateStmt.setInt(3, clientID);
+                    updateStmt.executeUpdate();
+                }
+            }
+        }
+    } catch (SQLException e) {
+        throw new Exception("Error updating readings: " + e.getMessage(), e);
     }
+}
+
 
     public void updatePreviousReading(int clientID) throws SQLException {
         String updatePreviousReadingQuery = "UPDATE meterusage SET PrevReading = CurrentReading WHERE clientID = ?";

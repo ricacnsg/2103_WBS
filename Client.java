@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import wbs_2103.Control_Connector.DBConnect;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import javax.swing.JLabel;
 
 
 public class Client {
@@ -178,7 +179,39 @@ public class Client {
         return isValid;    
     }
     
-    public void updateInfo(String cUsername, String contactNumber, String password, String location, int clientID) {
+    public void fetchClientInfo(int clientID, JLabel clientInfoLabel) {
+        String query = "SELECT clientID, Location, ContactNumber, ClientStatus, ClientUsername, password FROM client WHERE clientID = ?";
+        try (PreparedStatement pstmt = connect.prepareStatement(query)) {
+            pstmt.setInt(1, clientID);
+            
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                int id = rs.getInt("clientID");
+                String location = rs.getString("Location");
+                String contactNumber = rs.getString("ContactNumber");
+                String clientStatus = rs.getString("ClientStatus");
+                String clientUsername = rs.getString("ClientUsername");
+                String password = rs.getString("password");
+
+                // Format the client information as a string
+                String clientInfo = "<html><b>Client ID:</b> " + id +
+                                    "<br><b>Location:</b> " + location +
+                                    "<br><b>Contact Number:</b> " + contactNumber +
+                                    "<br><b>Client Status:</b> " + clientStatus +
+                                    "<br><b>Username:</b> " + clientUsername + 
+                                    "<br><b>Password:</b> " + password +"</html>";
+
+                clientInfoLabel.setText(clientInfo);
+            } else {
+                clientInfoLabel.setText("<html><b>Error:</b> No client found with ID: " + clientID + "</html>");
+            }
+        } catch (SQLException e) {
+            clientInfoLabel.setText("<html><b>Error:</b> " + e.getMessage() + "</html>");
+        }
+    }
+    
+    public void updateInfo(String cUsername, String contactNumber, String password, String location, String ClientStatus, int clientID) {
     int parameterIndex = 1;
 
         StringBuilder queryBuilder = new StringBuilder("UPDATE client SET ");
@@ -196,7 +229,7 @@ public class Client {
             queryBuilder.append("Location = ?, ");
             willUpdate = true;
         }
-        if (clientStatus != null && !clientStatus.isEmpty()) {
+        if (ClientStatus != null && !ClientStatus.isEmpty()) {
             queryBuilder.append("ClientStatus = ?, ");
             willUpdate = true;
         }
@@ -223,24 +256,22 @@ public class Client {
                 if (location != null && !location.isEmpty()) {
                     clientPreparedStatement.setString(parameterIndex++, location);
                 }
-                if (clientStatus != null && !clientStatus.isEmpty()) {
-                    clientPreparedStatement.setString(parameterIndex++, clientStatus);
+                if (ClientStatus != null && !ClientStatus.isEmpty()) {
+                    clientPreparedStatement.setString(parameterIndex++, ClientStatus);
                 }
                 clientPreparedStatement.setInt(parameterIndex, clientID);
 
                 clientPreparedStatement.executeUpdate();
             }
 
-            if (clientStatus != null && !clientStatus.isEmpty()) {
+            if (ClientStatus != null && !ClientStatus.isEmpty()) {
                 try (PreparedStatement meterUsagePreparedStatement = connect.prepareStatement(meterUsageQuery)) {
-                    meterUsagePreparedStatement.setString(1, clientStatus);
+                    meterUsagePreparedStatement.setString(1, ClientStatus);
                     meterUsagePreparedStatement.setInt(2, clientID);
 
                     meterUsagePreparedStatement.executeUpdate();
                 }
             }
-
-            JOptionPane.showMessageDialog(null, "Changes have been updated successfully.");
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());

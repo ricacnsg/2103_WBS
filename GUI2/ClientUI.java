@@ -22,6 +22,7 @@ import static wbs_2103.SharedData.clientID;
  * @author Rica Mae
  */
 public class ClientUI extends javax.swing.JFrame {
+    String updateStatus;
     String todayDate = LocalDate.now().toString();
     MeterUsage meterusage = new MeterUsage();
     Payment paymentProcessor = new Payment();
@@ -87,7 +88,9 @@ public class ClientUI extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         updateButton = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
+        statusSelect = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         logoutButton = new javax.swing.JButton();
@@ -97,6 +100,12 @@ public class ClientUI extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        clientTab.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                clientTabStateChanged(evt);
+            }
+        });
 
         jPanel2.setBackground(new java.awt.Color(0, 204, 204));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -118,7 +127,6 @@ public class ClientUI extends javax.swing.JFrame {
         });
         jPanel2.add(refreshButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(451, 39, 93, -1));
 
-        jLabel17.setIcon(new javax.swing.ImageIcon("C:\\Users\\Nhel Hernadez\\Documents\\wbs_2103\\src\\wbs_2103\\GUI\\icons\\website design (1).png")); // NOI18N
         jLabel17.setText("jLabel17");
         jPanel2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 580, 430));
 
@@ -146,7 +154,7 @@ public class ClientUI extends javax.swing.JFrame {
                 payButtonActionPerformed(evt);
             }
         });
-        jPanel3.add(payButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(212, 338, 124, 47));
+        jPanel3.add(payButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 350, 124, 47));
 
         jLabel11.setFont(new java.awt.Font("Serif", 1, 36)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(51, 0, 153));
@@ -166,7 +174,6 @@ public class ClientUI extends javax.swing.JFrame {
         });
         jPanel3.add(selectPM, new org.netbeans.lib.awtextra.AbsoluteConstraints(176, 307, 228, 31));
 
-        jLabel18.setIcon(new javax.swing.ImageIcon("C:\\Users\\Nhel Hernadez\\Documents\\wbs_2103\\src\\wbs_2103\\GUI\\icons\\website design (1).png")); // NOI18N
         jLabel18.setText("jLabel18");
         jPanel3.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 580, 440));
 
@@ -202,8 +209,6 @@ public class ClientUI extends javax.swing.JFrame {
             }
         });
         jPanel6.add(refreshTransac, new org.netbeans.lib.awtextra.AbsoluteConstraints(424, 19, 95, 32));
-
-        jLabel19.setIcon(new javax.swing.ImageIcon("C:\\Users\\Nhel Hernadez\\Documents\\wbs_2103\\src\\wbs_2103\\GUI\\icons\\website design (1).png")); // NOI18N
         jPanel6.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 580, 430));
 
         clientTab.addTab("VIEW TRANSACTION", jPanel6);
@@ -230,7 +235,6 @@ public class ClientUI extends javax.swing.JFrame {
         jLabel13.setText("SEND COMPLAINT TO ADMIN");
         jPanel7.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 21, -1, 35));
 
-        jLabel20.setIcon(new javax.swing.ImageIcon("C:\\Users\\Nhel Hernadez\\Documents\\wbs_2103\\src\\wbs_2103\\GUI\\icons\\website design (1).png")); // NOI18N
         jLabel20.setText("jLabel20");
         jPanel7.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -4, 580, 440));
 
@@ -242,46 +246,46 @@ public class ClientUI extends javax.swing.JFrame {
         clientInfoLabel.setBackground(new java.awt.Color(153, 153, 153));
         clientInfoLabel.setForeground(new java.awt.Color(51, 51, 51));
         clientInfoLabel.setText("CLIENT INFORMATION (DISPLAY)");
-        jPanel4.add(clientInfoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, 180, 242));
-        jPanel4.add(changeUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 100, 208, -1));
+        jPanel4.add(clientInfoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, 180, 242));
+        jPanel4.add(changeUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 90, 208, -1));
 
         changeContact.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 changeContactActionPerformed(evt);
             }
         });
-        jPanel4.add(changeContact, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 160, 208, -1));
+        jPanel4.add(changeContact, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 140, 208, -1));
 
         changeLoc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 changeLocActionPerformed(evt);
             }
         });
-        jPanel4.add(changeLoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 280, 208, -1));
+        jPanel4.add(changeLoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 240, 208, -1));
         jPanel4.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(313, 636, 208, -1));
 
         jLabel7.setForeground(new java.awt.Color(51, 51, 51));
         jLabel7.setText("Change Location");
-        jPanel4.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 260, 132, -1));
+        jPanel4.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 220, 132, -1));
 
         jLabel8.setForeground(new java.awt.Color(51, 51, 51));
         jLabel8.setText("Change Contact No.");
-        jPanel4.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 140, 132, -1));
+        jPanel4.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 120, 132, -1));
 
         jLabel9.setForeground(new java.awt.Color(51, 51, 51));
         jLabel9.setText("Change Username");
-        jPanel4.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 80, 132, -1));
+        jPanel4.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 70, 132, -1));
 
         changePass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 changePassActionPerformed(evt);
             }
         });
-        jPanel4.add(changePass, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 220, 208, -1));
+        jPanel4.add(changePass, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 190, 208, -1));
 
         jLabel10.setForeground(new java.awt.Color(51, 51, 51));
         jLabel10.setText("Change Password");
-        jPanel4.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 200, 132, -1));
+        jPanel4.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 170, 132, -1));
 
         updateButton.setText("UPDATE INFO");
         updateButton.addActionListener(new java.awt.event.ActionListener() {
@@ -289,16 +293,28 @@ public class ClientUI extends javax.swing.JFrame {
                 updateButtonActionPerformed(evt);
             }
         });
-        jPanel4.add(updateButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 330, 110, 40));
+        jPanel4.add(updateButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 350, 110, 40));
 
         jLabel14.setFont(new java.awt.Font("Serif", 1, 36)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(51, 0, 153));
         jLabel14.setText("VIEW AND UPDATE INFO");
         jPanel4.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        jLabel6.setIcon(new javax.swing.ImageIcon("C:\\Users\\Nhel Hernadez\\Documents\\wbs_2103\\src\\wbs_2103\\GUI\\icons\\website design (1).png")); // NOI18N
+        statusSelect.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        statusSelect.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ACTIVE", "INACTIVE" }));
+        statusSelect.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                statusSelectActionPerformed(evt);
+            }
+        });
+        jPanel4.add(statusSelect, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 290, 210, 30));
+
         jLabel6.setText("jLabel6");
         jPanel4.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 580, 430));
+
+        jLabel22.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel22.setText("Change Status");
+        jPanel4.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 270, 80, -1));
 
         clientTab.addTab("UPDATE INFO", jPanel4);
 
@@ -327,7 +343,6 @@ public class ClientUI extends javax.swing.JFrame {
         jLabel3.setText("CLIENT ");
         jPanel5.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 150, 35));
 
-        jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\Nhel Hernadez\\Documents\\wbs_2103\\src\\wbs_2103\\GUI\\icons\\website design (1).png")); // NOI18N
         jLabel5.setText("jLabel5");
         jPanel5.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, 450));
         jPanel5.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 450, 180, -1));
@@ -391,29 +406,20 @@ public class ClientUI extends javax.swing.JFrame {
             return;
         }
 
-        // Calculate overdue charges
         LocalDate lastPaymentDate = meterusage.fetchLastPaymentDate(clientID);
         
         meterusage.updateReadings(clientID);
 
-        // Fetch readings and calculate dues
         double currentReading = meterusage.fetchCurrentReading(clientID);
         double previousReading = meterusage.fetchPreviousReading(clientID);
         double cubicMeterUsage = currentReading - previousReading;
-        //paymentProcessor.setPin(pinField.getText());
-        String pin = paymentProcessor.getPin();
        
         
 
         double outstandingBalance = meterusage.getBalance();
-        
 
-        // Validate payment
-
-        
         long overDueDays;
         double charges;
-
 
         double usage = currentReading - previousReading;
         
@@ -428,8 +434,6 @@ public class ClientUI extends javax.swing.JFrame {
             charges = meterusage.calculateCharges(overDueDays); 
         }
         
-                // Calculate usage and amounts
-
         double amountDue = meterusage.calculateAmount(cubicMeterUsage);
         double totalAmountToPay = amountDue + outstandingBalance + charges;
         
@@ -450,7 +454,6 @@ public class ClientUI extends javax.swing.JFrame {
         if (!(totalAmountToPay <= 0)){
             paymentProcessor.recordPayment(clientID, payment, charges, totalAmountToPay, cubicMeterUsage, change, payment_method);
         
-        // Display receipt
         JOptionPane.showMessageDialog(this, "Receipt:\n"
                 + "Cubic Meter Usage: " + cubicMeterUsage + "\n"
                 + "Amount Due: " + amountDue + "\n"
@@ -460,7 +463,6 @@ public class ClientUI extends javax.swing.JFrame {
                 + "Total Paid: " + payment + "\n"
                 + "Change: " + change);
 
-        // Refresh bill details
         loadBillDetails();
         meterusage.updatePreviousReading(clientID);
         }
@@ -501,11 +503,9 @@ public class ClientUI extends javax.swing.JFrame {
         }
         ArrayList<String> paymentInfo = client.filterPaymentByClientID(clientID);
 
-        // Clear the table first
         DefaultTableModel tableModel = (DefaultTableModel) transactionTable.getModel();
         tableModel.setRowCount(0);
 
-        // Add the filtered data to the table
         for (String row : paymentInfo) {
             String[] rowInfo = row.split(", ");
             tableModel.addRow(rowInfo);
@@ -525,27 +525,23 @@ public class ClientUI extends javax.swing.JFrame {
         // TODO add your handling code here:
          String complaintMsg = complaintArea.getText().trim();
 
-    // Validate if complaint message is not empty
     if (complaintMsg.isEmpty()) {
         JOptionPane.showMessageDialog(this, "Please write a complaint before submitting.", "Error", JOptionPane.ERROR_MESSAGE);
         return;
     }
 
-    // Get the logged-in clientID
     int clientID = SharedData.clientID;
 
     if (clientID <= 0) {
         JOptionPane.showMessageDialog(this, "Error: No client is logged in.", "Error", JOptionPane.ERROR_MESSAGE);
         return;
     }
-
-    // Save the complaint to the database
+    
     try {
         Client client = new Client();
         client.saveComplaint(clientID, complaintMsg); // Assuming this method already exists in the Client class
         JOptionPane.showMessageDialog(this, "Complaint submitted successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
 
-        // Clear the complaint area after submission
         complaintArea.setText("");
     } catch (Exception e) {
         JOptionPane.showMessageDialog(this, "Error submitting complaint: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -556,71 +552,48 @@ public class ClientUI extends javax.swing.JFrame {
 
     private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
         // TODO add your handling code here:
-    String updatedUsername = changeUsername.getText().trim(); // Text field for username
-    String updatedContactNumber = changeContact.getText().trim(); // Text field for contact number
-    String updatedPassword = changePass.getText().trim(); // Text field for password
-    String updatedLocation = changeLoc.getText().trim(); // Text field for location
+        String updatedUsername = changeUsername.getText().trim(); 
+        String updatedContactNumber = changeContact.getText().trim(); 
+        String updatedPassword = changePass.getText().trim(); 
+        String updatedLocation = changeLoc.getText().trim(); 
 
-    // Get the client ID (assumed to be stored in SharedData)
-    int clientID = SharedData.clientID;
+        int clientID = SharedData.clientID;
+        if (clientID == -1) {
+            JOptionPane.showMessageDialog(this, "Client ID is not valid. Please log in or select a client.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-    // Input validation
-    if (clientID == -1) {
-        JOptionPane.showMessageDialog(this, "Client ID is not valid. Please log in or select a client.", "Error", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
+        try {
+            Client client = new Client(); 
+            client.updateInfo(updatedUsername, updatedContactNumber, updatedPassword, updatedLocation, updateStatus, clientID);
 
-    // Validate contact number (assuming it must be exactly 10 digits)
-    if (updatedContactNumber.length() != 10 || !updatedContactNumber.matches("\\d{10}")) {
-        JOptionPane.showMessageDialog(this, "Invalid contact number. Please enter exactly 10 digits.", "Validation Error", JOptionPane.WARNING_MESSAGE);
-        return;
-    }
-
-    // Database update logic
-    try {
-        // Assuming Client class handles database updates
-        Client client = new Client(); 
-        client.updateInfo(updatedUsername, updatedContactNumber, updatedPassword, updatedLocation, clientID);
-
-        // Success message
-        JOptionPane.showMessageDialog(this, "Client information updated successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-    } catch (Exception e) {
-        // Handle and show error message
-        JOptionPane.showMessageDialog(this, "Error updating client information: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        e.printStackTrace();
-    }
-     /*   
-    String updatedUsername = changeUsername.getText().trim(); // Text field for username
-    String updatedContactNumber = changeContact.getText().trim(); // Text field for contact number
-    String updatedpassword = changePass.getText();
-    String updatedLocation = changeLoc.getText().trim(); // Text field for location
-    //String updatedStatus = statusComboBox.getSelectedItem().toString(); // ComboBox for status
-
-    // Get the client ID (assumed to be stored or selected in the UI)
-    int clientID = SharedData.clientID;
-
-    // Validate inputs before updating
-    if (clientID == -1) {
-        JOptionPane.showMessageDialog(this, "Client ID is not valid. Please log in or select a client.", "Error", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
-
-    if (updatedContactNumber.length() != 9 || !updatedContactNumber.matches("\\d+")) {
-        JOptionPane.showMessageDialog(this, "Invalid contact number. Please enter a 10-digit number.", "Validation Error", JOptionPane.WARNING_MESSAGE);
-        return;
-    }
-
-    // Update the client information in the database
-    try {
-        Client client = new Client(); // Assuming Client class handles database operations
-        client.updateInfo(updatedUsername, updatedContactNumber, updatedpassword, updatedLocation, clientID);
-        JOptionPane.showMessageDialog(this, "Client information updated successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(this, "Error updating client information: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        e.printStackTrace();
-    }
-    */
+            JOptionPane.showMessageDialog(this, "Client information updated successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error updating client information: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_updateButtonActionPerformed
+
+    private void clientTabStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_clientTabStateChanged
+        // TODO add your handling code here:  
+        try {
+            int clientID = SharedData.clientID;
+            if (clientID == 0) {
+                JOptionPane.showMessageDialog(this, "Please log in first!");
+                return;
+            }
+            client.fetchClientInfo(clientID, clientInfoLabel);
+
+        }
+        catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+        }
+    }//GEN-LAST:event_clientTabStateChanged
+
+    private void statusSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusSelectActionPerformed
+        // TODO add your handling code here:
+        updateStatus = statusSelect.getSelectedItem().toString();
+    }//GEN-LAST:event_statusSelectActionPerformed
 
     /**
      * @param args the command line arguments
@@ -632,11 +605,9 @@ public class ClientUI extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Please log in to view your billing details!");
             return;
         }
-
+        
         meterusage.updateReadings(clientID);
-        
-        
-        // Fetch meter reading details
+
         Map<String, Object> details = meterusage.getMeterReadingDetails(clientID);
 
         if (details.containsKey("error")) {
@@ -650,15 +621,13 @@ public class ClientUI extends javax.swing.JFrame {
         double outstandingBalance = details.get("outstandingBalance") != null ? (double) details.get("outstandingBalance") : 0.0;
         String todayDate = details.get("todayDate") != null ? details.get("todayDate").toString() : "";
 
-        // Fetch last payment date and calculate overdue days
         LocalDate lastPaymentDate = meterusage.fetchLastPaymentDate(clientID);
         if (lastPaymentDate == null) {
-            lastPaymentDate = LocalDate.now().minusDays(1); // Default if no payment date found
+            lastPaymentDate = LocalDate.now().minusDays(1);
         }
 
         long overDueDays;
         double charges;
-
 
         double usage = currentReading - previousReading;
         
@@ -673,16 +642,9 @@ public class ClientUI extends javax.swing.JFrame {
             charges = meterusage.calculateCharges(overDueDays); 
         }
         
-                // Calculate usage and amounts
-
         double amountDue = meterusage.calculateAmount(usage);
         double totalAmountDue = amountDue + outstandingBalance + charges;
         
-        
-        
-        
-
-        // Display the billing details
         String displayText = String.format("<html>As of %s:<br>Status: %s<br>Current Reading: %.2f m³<br>Previous Reading: %.2f m³<br>"
                 + "Cubic Meter Usage: %.2f m³<br>Outstanding Balance: ₱%.2f<br>Amount to Pay: ₱%.2f<br>"
                 + "Overdue Days: %d day(s)<br>Charges: ₱%.2f<br>Total Due: ₱%.2f</html>",
@@ -696,10 +658,6 @@ public class ClientUI extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Error loading bill details: " + e.getMessage());
     }
     }
-
-
-
-
     
     private void refreshMeterReading() {
         try {
@@ -710,7 +668,7 @@ public class ClientUI extends javax.swing.JFrame {
             }
             
             meterusage.updateReadings(clientID);
-
+            
             MeterUsage meterUsage = new MeterUsage();
             Map<String, Object> details = meterUsage.getMeterReadingDetails(clientID);
 
@@ -746,11 +704,6 @@ public class ClientUI extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Error refreshing meter reading: " + e.getMessage());
         }
     }
-    
-    
-
-
-
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -806,6 +759,7 @@ public class ClientUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -832,6 +786,7 @@ public class ClientUI extends javax.swing.JFrame {
     private javax.swing.JButton refreshButton;
     private javax.swing.JButton refreshTransac;
     private javax.swing.JComboBox<String> selectPM;
+    private javax.swing.JComboBox<String> statusSelect;
     private javax.swing.JButton submitButton;
     private javax.swing.JTable transactionTable;
     private javax.swing.JButton updateButton;
